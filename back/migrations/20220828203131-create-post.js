@@ -32,10 +32,6 @@ module.exports = {
             type: DataTypes.ARRAY(DataTypes.INTEGER),
             defaultValue: []
          },
-         deleted: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: false
-         },
          likesCount: {
             type: DataTypes.INTEGER,
             defaultValue: 0

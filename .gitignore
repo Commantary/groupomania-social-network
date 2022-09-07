@@ -5,6 +5,12 @@
 /front/node_modules
 /front/.yarn
 /front/.vscode
+/front/readme.md
+/front/yarn.lock
+/front/package-lock.json
+/front/.yarnrc.yml
+
+/back/package-lock.json
 
 # Logs
 logs

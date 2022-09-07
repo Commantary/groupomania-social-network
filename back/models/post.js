@@ -45,10 +45,6 @@ module.exports = (sequelize, DataTypes) => {
             }
          }
       },
-      deleted: {
-         type: DataTypes.BOOLEAN,
-         defaultValue: false
-      },
       likesCount: {
          type: DataTypes.INTEGER,
          defaultValue: 0

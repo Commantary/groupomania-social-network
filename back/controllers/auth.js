@@ -5,17 +5,18 @@ const utils = require("./utils/utils");
 
 function generateToken(user) {
    const payload = {
-      id: user.id
+      id: user.id,
+      email: user.email,
    };
 
    const options = {
-      expiresIn: '168h'
+      expiresIn: process.env.JWT_DURING
    };
 
    return jwt.sign(payload, process.env.JWT_SECRET, options);
 }
 
-const signup = async (req, res, next) => {
+const signup = async (req, res) => {
    const {first_name, last_name, email, password} = req.body;
 
    let role = 'user';
@@ -37,7 +38,7 @@ const signup = async (req, res, next) => {
          role = req.body.role;
       }
 
-      bcrypt.hash(password, 10, async (err, hash) => {
+      bcrypt.hash(password, process.env.BCRYPT_SALT_ROUND, async (err, hash) => {
          if (err) {
             return utils.handleError(err, res);
          }
@@ -62,7 +63,7 @@ const signup = async (req, res, next) => {
    }
 }
 
-const login = async (req, res, next) => {
+const login = async (req, res) => {
    const {email, password} = req.body;
 
    try {
@@ -86,10 +87,10 @@ const login = async (req, res, next) => {
          }
 
          if (result) {
-            return res.json({
+            return res.status(200).json({
                message: 'User logged in',
                user: user,
-               token: generateToken(user),
+               access_token: generateToken(user),
                code: 200
             });
          }

@@ -1,10 +1,14 @@
-const {Post,Like} = require('../../../models');
+const {Post,User} = require('../../../models');
 const utils = require("../../utils/utils");
 
-const call = async (req, res, next) => {
+const call = async (req, res) => {
    try {
       const posts = await Post.findAll({
-         include: ['user', 'comments']
+         include: ['comments', {
+            model: User,
+            as: 'user',
+            attributes: ['icon_url', 'first_name', 'last_name']
+         }]
       });
 
       return res.status(200).json({
