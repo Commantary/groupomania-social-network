@@ -1,7 +1,7 @@
 const {Post, Comment} = require('../../../models');
 const utils = require("../../utils/utils");
 
-const call = async (req, res, next) => {
+const call = async (req, res) => {
    try {
       const postUuid = req.params.uuid;
       const user = req.user;

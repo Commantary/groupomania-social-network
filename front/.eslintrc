@@ -1,0 +1,15 @@
+{
+  "env": {
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:vue/vue3-recommended",
+    "prettier",
+    "@antfu"
+  ],
+  "rules": {
+    "vue/require-prop-type-constructor": 0,
+    "vue/component-tags-order": 0
+  }
+}
