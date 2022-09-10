@@ -1,6 +1,7 @@
 .idea/
 
 /back/node_modules
+/back/images
 
 /front/node_modules
 /front/.yarn
