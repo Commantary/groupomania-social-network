@@ -44,18 +44,19 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const token = localStorage.getItem('token')
-  const userStore = useAuthStore()
+  const authStore = useAuthStore()
 
-  if (token && !userStore.isLogged)
-    userStore.isLogged = true
+  if (authStore.tokenIsValid && !authStore.isLogged) {
+    authStore.$patch({
+      logged: true,
+    })
+  }
 
-  if (to.matched.some(record => record.meta.requiresAuth) && !userStore.isLogged)
+  if (to.matched.some(record => record.meta.requiresAuth) && !authStore.isLogged)
     next({ name: 'login' })
-  else if (to.matched.some(record => !record.meta.requiresAuth) && userStore.isLogged)
+  else if (to.matched.some(record => !record.meta.requiresAuth) && authStore.isLogged)
     next({ name: 'home' })
-  else
-    next()
+  else next()
 })
 
 export default router

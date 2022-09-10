@@ -38,7 +38,7 @@ const signup = async (req, res) => {
          role = req.body.role;
       }
 
-      bcrypt.hash(password, process.env.BCRYPT_SALT_ROUND, async (err, hash) => {
+      bcrypt.hash(password, Number.parseInt(process.env.BCRYPT_SALT_ROUND), async (err, hash) => {
          if (err) {
             return utils.handleError(err, res);
          }
@@ -55,6 +55,7 @@ const signup = async (req, res) => {
          return res.status(201).json({
             message: 'User created',
             user: user,
+            access_token: generateToken(user),
             code: 201
          });
       });
@@ -72,9 +73,9 @@ const login = async (req, res) => {
       });
 
       if (!user) {
-         return res.status(401).json({
+         return res.status(404).json({
             error: 'User not found',
-            code: 401
+            code: 404
          });
       }
 
@@ -92,6 +93,11 @@ const login = async (req, res) => {
                user: user,
                access_token: generateToken(user),
                code: 200
+            });
+         } else {
+            return res.status(401).json({
+               error: 'Password does not match',
+               code: 401
             });
          }
       });

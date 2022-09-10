@@ -1,32 +1,40 @@
 <template>
   <div class="home">
-    <h1>Welcome home</h1>
+    <h1>Les derniers posts</h1>
 
     <div class="post_list">
-      <div v-for="post in posts" :key="post.uuid" class="post_list__item">
-        <div class="post_list__item__content">
-          {{ post.body }}
-        </div>
-      </div>
+      <p v-if="data.posts.length === 0">
+        Il n'y a pas de posts
+      </p>
+      <BasicPost v-for="post in data.posts" :key="post.uuid" class="basic-post" :post="post" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { reactive } from 'vue'
 import { postService } from '../_services'
+import BasicPost from '../components/posts/BasicPost.vue'
 
-const posts = ref([''])
+const data = reactive({
+  posts: [],
+})
 
 postService.getAllPosts()
   .then((res) => {
-    posts.value = res.data.posts
+    data.posts = res.data.posts
   })
   .catch((err) => {
-    console.log(err)
+    console.error(err)
   })
 </script>
 
 <style lang="scss">
+.home {
+  width: 100%;
+}
 
+.post_list {
+  margin: 0 50px;
+}
 </style>

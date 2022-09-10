@@ -7,34 +7,26 @@
         v-model="data.email"
         :name="emailName"
         type="email"
-        :error="focus.includes('email') ? errorEmail : ''"
-        @focusout="focusOut('email')"
-        @focusin="focus = focus.filter((item) => item !== 'email')"
       />
 
       <BaseInput
         v-model="data.password"
         :name="passwordName"
         type="password"
-        :error="focus.includes('password') ? errorPassword : ''"
-        @focusout="focusOut('password')"
-        @focusin="focus = focus.filter((item) => item !== 'password')"
       />
 
-      <!--      <button :disabled="!disabled" @click="login($event)">
-        Se connecter
-      </button> -->
-
-      <BaseButton :disabled-value="!disabled" text-value="Se connecter" @click="login($event)" />
+      <BaseButton text-value="Se connecter" @click="login($event)" />
     </form>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, reactive, ref, watch } from 'vue'
+import { reactive } from 'vue'
 import BaseInput from '../../components/BaseInput.vue'
 import BaseButton from '../../components/BaseButton.vue'
 import { useAuthStore } from '../../store'
+import { accountService } from '../../_services'
+import router from '../../router/router'
 
 const data = reactive({
   email: '',
@@ -45,50 +37,36 @@ const data = reactive({
 const emailName = 'Adresse email'
 const passwordName = 'Mot de passe'
 
-// Set error messages
-const errorEmail = 'Veuillez entrer une adresse email valide.'
-const errorPassword = 'Votre mot de passe doit contenir au moins 8 caractères dont une majuscule, une minuscule et un chiffre.'
-
-// Set regex
-const regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/
-const regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
-
-const focus = ref([''])
-const disabled = ref(true)
-
-// Set computed
-const isFormValid = computed(() => {
-  // Check if email and password are valid
-  return regexEmail.test(data.email) && regexPassword.test(data.password)
-})
-
-// Set watch
-watch(isFormValid, (value) => {
-  disabled.value = !value
-})
-
 // Set methods
-const login = (event: any) => {
+const login = async (event: any) => {
   event.preventDefault()
 
   const authStore = useAuthStore()
   const { email, password } = data
 
-  /* if (disabled.value)
-    return */
+  const dataLogin = await accountService.login(email, password)
+    .then((res) => {
+      console.log(res.status)
 
-  return authStore.login(email, password)
-    .then(() => {
-      console.log('login success')
+      if (res.status !== 200)
+        throw new Error('Une erreur est survenue lors de la connexion.')
+
+      return res.data
     })
-}
+    .catch((err) => {
+      console.error(err)
+      throw err
+    })
 
-const focusOut = (type: string) => {
-  // Check type
-  if (type === 'email' && data.email && data.email.length > 0 && !regexEmail.test(data.email))
-    focus.value.push(type)
-  else if (type === 'password' && data.password && data.password.length > 0 && !regexPassword.test(data.password))
-    focus.value.push(type)
+  // Update pinia state
+  authStore.$patch({
+    user: dataLogin.user,
+    token: dataLogin.access_token,
+    logged: true,
+  })
+
+  // Redirect to home
+  await router.push('/')
 }
 </script>
 
@@ -97,12 +75,12 @@ const focusOut = (type: string) => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  margin-top: 50px;
+  justify-content: space-evenly;
+  margin: 50px 0;
+  height: calc(100vh - 100px);
 
   img {
     width: 485px;
-    margin-bottom: 150px;
   }
 
   form {
@@ -117,7 +95,6 @@ const focusOut = (type: string) => {
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-bottom: 40px;
     }
   }
 }

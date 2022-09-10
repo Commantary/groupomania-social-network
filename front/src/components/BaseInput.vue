@@ -5,7 +5,7 @@
     <label v-if="name !== ''">{{ name }}</label>
     <input :type="type" :value="modelValue" :placeholder="name" :class="type === 'password' ? 'password-input' : ''" @input="updateValue">
     <p v-if="error && error.length > 0">
-      {{ error }}
+      {{ error || '' }}
     </p>
   </div>
 </template>

@@ -48,6 +48,9 @@
 import { computed, reactive, ref, watch } from 'vue'
 import BaseInput from '../../components/BaseInput.vue'
 import BaseButton from '../../components/BaseButton.vue'
+import { useAuthStore } from '../../store'
+import router from '../../router/router'
+import { accountService } from '../../_services'
 
 const data = reactive({
   firstName: '',
@@ -88,14 +91,37 @@ watch(isFormValid, (value) => {
 })
 
 // Set methods
-const signup = (event: any) => {
+const signup = async (event: any) => {
   event.preventDefault()
 
   if (disabled.value)
     return
 
-  console.log('signup')
-  event.stopPropagation()
+  const { firstName, lastName, email, password } = data
+
+  const authStore = useAuthStore()
+
+  // return authStore.signup(firstName, lastName, email, password)
+  const dataSignup = await accountService.signup(firstName, lastName, email, password)
+    .then((res) => {
+      if (res.status !== 201)
+        throw new Error('Erreur lors de la création du compte')
+
+      return res.data
+    })
+    .catch((err) => {
+      console.error(err)
+
+      throw err
+    })
+
+  authStore.$patch({
+    user: dataSignup.user,
+    token: dataSignup.access_token,
+    logged: true,
+  })
+
+  await router.push(authStore.returnUrl || '/')
 }
 
 const focusOut = (type: string) => {
@@ -117,7 +143,7 @@ const focusOut = (type: string) => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 50px;
+  margin: 50px 0;
 
   img {
     width: 485px;

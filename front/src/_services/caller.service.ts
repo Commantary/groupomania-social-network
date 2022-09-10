@@ -1,5 +1,6 @@
 import axios from 'axios'
 import router from '../router/router'
+import { useErrorStore } from '../store/index'
 import { accountService } from './account.service'
 
 const Axios = axios.create({
@@ -18,10 +19,33 @@ Axios.interceptors.request.use((req) => {
   return req
 })
 
+/**
+ * Interceptor when error in the API
+ */
 Axios.interceptors.response.use((res) => {
   return res
 }, (error) => {
-  // If token is invalid logout and redirect to login
+  if (!error.response) {
+    // Network error
+    useErrorStore().setNotif(true, error)
+    return Promise.reject(error)
+  } else {
+    // If token is invalid logout and redirect to log in
+    if (error.response.status === 401) {
+      if (router.currentRoute.value.name !== 'login') {
+        accountService.logout()
+        router.push({ name: 'login' })
+      } else {
+        useErrorStore().setNotif(true, error.response.data.error)
+      }
+    } else {
+      // API error
+      useErrorStore().setNotif(true, error.response.data.error)
+      return Promise.reject(error)
+    }
+  }
+
+  // If token is invalid logout and redirect to log in
   if (error.response.status === 401) {
     accountService.logout()
     router.push('/login')

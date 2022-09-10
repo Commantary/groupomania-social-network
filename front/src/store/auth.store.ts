@@ -1,46 +1,33 @@
 import { defineStore } from 'pinia'
 
-import router from '../router/router'
-import { accountService } from '../_services'
-
 export const useAuthStore = defineStore({
   id: 'auth',
   state: () => ({
     // initialize state from local storage to enable user to stay logged in
-    user: '',
+    user: {},
     token: '',
-    isLogged: false,
+    logged: false,
     returnUrl: null,
   }),
-  persist: true,
-  actions: {
-    async login(email: string, password: string) {
-      const data = await accountService.login(email, password)
-        .then((res) => {
-          if (res.status !== 200)
-            throw new Error(res.statusText)
-
-          return res.data
-        })
-        .catch((error) => {
-          console.error(error)
-          throw error
-        })
-
-      // update pinia state
-      this.user = data.user
-      this.token = data.access_token
-      this.isLogged = true
-
-      // redirect to previous url or default to home page
-      await router.push(this.returnUrl || '/')
+  getters: {
+    getReturnUrl(state: any): string {
+      return state.returnUrl
     },
-    logout() {
-      this.user = ''
-      this.token = ''
-      this.isLogged = false
-
-      router.push('/login')
+    getUser(state: any): string {
+      return state.user
     },
+    getToken(state: any): string {
+      return state.token
+    },
+    tokenIsValid(state: any): boolean {
+      return state.token.length > 0
+    },
+    isLogged(state: any): boolean {
+      return state.logged
+    },
+  },
+  persist: {
+    storage: localStorage,
+    paths: ['token'],
   },
 })
