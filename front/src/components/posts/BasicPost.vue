@@ -15,7 +15,7 @@
 <script setup lang="ts">
 import TitlePost from './TitlePost.vue'
 import BasicFooterPost from './BasicFooterPost.vue'
-import BasicImagesPost from './BasicImagesPost.vue'
+import BasicImagesPost from './ImagesPost.vue'
 
 interface Post {
   uuid: string

@@ -27,7 +27,7 @@ const getDate = computed(() => {
   const diff = Math.floor((+new Date() - date) / 1000)
 
   if (diff < 60)
-    return 'just now'
+    return 'maintenant'
   if (diff < 3600)
     return `${Math.floor(diff / 60)} min`
   if (diff < 86400)
