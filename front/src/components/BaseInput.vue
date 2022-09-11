@@ -37,6 +37,7 @@ const updateValue = (event: any) => {
     border-radius: 5px;
     padding: 0 18px;
     transition: border 0.3s ease;
+    color: white;
 
     &:not(.password-input){
       font-size: 16px;

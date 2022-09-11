@@ -37,4 +37,13 @@ postService.getAllPosts()
 .post_list {
   margin: 0 50px;
 }
+
+.basic-post {
+  border-top: 1px solid #ccc;
+  backdrop-filter: brightness(95%);
+
+  &:last-child {
+    border-bottom: 1px solid #ccc;
+  }
+}
 </style>

@@ -6,7 +6,7 @@
       <p>{{ getDate }}</p>
     </div>
     <div class="settings">
-      <img src="xxx" alt="Settings icon">
+      <font-awesome-icon icon="fa-solid fa-ellipsis" />
     </div>
   </div>
 </template>
@@ -21,12 +21,24 @@ const props = defineProps<{
 }>()
 
 const getDate = computed(() => {
-  const date = new Date(props.dateValue!)
-  return date.toLocaleDateString('fr-FR', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  })
+  const date: any = new Date(props.dateValue!)
+
+  // Return the date timing compared from the actual date
+  const diff = Math.floor((+new Date() - date) / 1000)
+
+  if (diff < 60)
+    return 'just now'
+  if (diff < 3600)
+    return `${Math.floor(diff / 60)} min`
+  if (diff < 86400)
+    return `${Math.floor(diff / 3600)}h`
+  if (diff < 604800)
+    return `${Math.floor(diff / 86400)} jour${Math.floor(diff / 86400) > 1 ? 's' : ''}`
+  if (diff < 2629743)
+    return `${Math.floor(diff / 604800)} semaine${Math.floor(diff / 604800) > 1 ? 's' : ''}`
+  if (diff < 31556926)
+    return `${Math.floor(diff / 2629743)} mois`
+  return `${Math.floor(diff / 31556926)} année${Math.floor(diff / 31556926) > 1 ? 's' : ''}`
 })
 </script>
 
@@ -36,23 +48,47 @@ const getDate = computed(() => {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 0 10px;
+  width: calc(100% - 35px);
+  margin-top: 10px;
+  margin-left: 15px;
+  margin-right: 20px;
 
   .title_info {
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: 40vw;
+    width: auto;
     justify-content: space-evenly;
+    text-align: center;
+
+    p {
+      color: #ABABAB;
+      margin-left: 10px;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+    }
   }
 
   img {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     margin-right: 10px;
+  }
+
+  svg {
+    width: 22px;
+    height: 22px;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background-color 0.2s ease-in-out;
+
+    &:hover {
+      cursor: pointer;
+      background-color: $tertiary-color-dark;
+    }
   }
 }
 </style>
