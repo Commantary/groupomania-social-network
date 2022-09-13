@@ -32,7 +32,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, reactive, ref } from 'vue'
+import { computed, reactive } from 'vue'
 import { useErrorStore, usePostsStore } from '../../../store'
 import PreviewImagePost from './../post/PreviewImagePost.vue'
 import { useAuthStore } from '@/store'
@@ -53,8 +53,6 @@ function onAddFile(e: Event) {
   if (target && target.files) {
     data.images.push(target.files[0])
     data.urlArr.push(URL.createObjectURL(target.files[0]))
-
-    console.log(data.images)
   }
 }
 
