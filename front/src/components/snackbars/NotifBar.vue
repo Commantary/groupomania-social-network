@@ -1,5 +1,5 @@
 <template>
-  <div v-if="getNotif" id="notif_ctn">
+  <div v-if="getNotif" id="notif_ctn" :style="getNotifColor()">
     <div id="notif_close" @click="close">
       <span>X</span>
     </div>
@@ -10,16 +10,28 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useErrorStore } from '../store'
+import { computed, onBeforeUnmount } from 'vue'
+import { useErrorStore } from '../../store'
+
+const seconds = 5
+const minutes = 0
+const duration = seconds * 1000 + minutes * 1000
 
 const getNotif = computed(() => useErrorStore().getNotif)
+const isError = computed(() => useErrorStore().isError)
 
 const getNotifMessage = computed(() => useErrorStore().getNotifMessage)
 
 // Make method close
 const close = () => {
   useErrorStore().setNotif(false)
+}
+
+function getNotifColor() {
+  return {
+    'background-color': isError.value ? '#FD2D01' : '#FFD9C9',
+    'color': isError.value ? 'white' : '#404040',
+  }
 }
 </script>
 
@@ -28,7 +40,6 @@ const close = () => {
   max-width: 600px;
   min-width: 200px;
   height: 60px;
-  background-color: $primary-color;
   position: fixed;
   bottom: 15px;
   right: 24px;
@@ -36,6 +47,7 @@ const close = () => {
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   overflow: hidden;
+  z-index: 1000;
 }
 
 #notif_close {
@@ -45,7 +57,7 @@ const close = () => {
   height: 100%;
   width: 42px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: backdrop-filter 0.3s ease;
 
   span {
     position: absolute;
@@ -55,7 +67,7 @@ const close = () => {
   }
 
   &:hover {
-    background-color: $primary-color-light;
+    backdrop-filter: brightness(105%);
   }
 }
 

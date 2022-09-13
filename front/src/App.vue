@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import NotifBar from '../src/components/NotifBar.vue'
+import NotifBar from './components/snackbars/NotifBar.vue'
 </script>
 
 <template>

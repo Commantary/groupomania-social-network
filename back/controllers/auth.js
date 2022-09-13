@@ -17,9 +17,16 @@ function generateToken(user) {
 }
 
 const signup = async (req, res) => {
-   const {first_name, last_name, email, password} = req.body;
+   let {first_name, last_name, email, password} = req.body;
 
    let role = 'user';
+
+   first_name = first_name.trim().toLowerCase();
+   last_name = last_name.trim().toLowerCase();
+
+   // Set only the first char to uppercase
+   first_name = first_name.charAt(0).toUpperCase() + first_name.slice(1);
+   last_name = last_name.charAt(0).toUpperCase() + last_name.slice(1);
 
    try {
       // Check if user exist with same email

@@ -5,36 +5,36 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: () => import(/* webpackChunkName: "Home" */ '../views/HomeView.vue'),
+    component: () => import(/* webpackChunkName: "Home" */ '@/views/HomeView.vue'),
     meta: { requiresAuth: true },
   },
   {
     path: '/login',
     name: 'login',
-    component: () => import(/* webpackChunkName: "Login" */ '../views/auth/LoginView.vue'),
+    component: () => import(/* webpackChunkName: "Login" */ '@/views/auth/LoginView.vue'),
     meta: { requiresAuth: false },
   },
   {
     path: '/signup',
     name: 'signup',
-    component: () => import(/* webpackChunkName: "Signup" */ '../views/auth/SignupView.vue'),
+    component: () => import(/* webpackChunkName: "Signup" */ '@/views/auth/SignupView.vue'),
     meta: { requiresAuth: false },
   },
   {
     path: '/about',
     name: 'about',
-    component: () => import(/* webpackChunkName: "About" */ '../views/AboutView.vue'),
+    component: () => import(/* webpackChunkName: "About" */ '@/views/AboutView.vue'),
   },
   {
     path: '/user',
     name: 'user',
-    component: () => import(/* webpackChunkName: "User" */ '../views/UserView.vue'),
+    component: () => import(/* webpackChunkName: "User" */ '@/views/UserView.vue'),
     meta: { requiresAuth: true },
   },
   {
     path: '/:pathMatch(.*)*',
     name: 'not-found',
-    component: () => import(/* webpackChunkName: "NotFound" */ '../views/NotFoundView.vue'),
+    component: () => import(/* webpackChunkName: "NotFound" */ '@/views/NotFoundView.vue'),
   },
 ]
 

@@ -4,6 +4,7 @@ export const useErrorStore = defineStore({
   id: 'error',
   state: () => ({
     notifDisplay: false,
+    error: false,
     notifMessage: '',
   }),
   persist: false,
@@ -11,13 +12,17 @@ export const useErrorStore = defineStore({
     getNotif(state: any): boolean {
       return state.notifDisplay
     },
+    isError(state: any): boolean {
+      return state.error
+    },
     getNotifMessage(state: any): string {
       return state.notifMessage
     },
   },
   actions: {
-    setNotif(value: boolean, payload?: string) {
+    setNotif(value: boolean, error: boolean, payload?: string) {
       this.notifDisplay = value
+      this.error = error
       this.notifMessage = payload || ''
     },
   },

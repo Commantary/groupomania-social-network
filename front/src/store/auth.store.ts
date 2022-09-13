@@ -1,19 +1,20 @@
 import { defineStore } from 'pinia'
+import type { ViewUser } from '../models/ViewUser.model'
 
 export const useAuthStore = defineStore({
   id: 'auth',
   state: () => ({
     // initialize state from local storage to enable user to stay logged in
-    user: {},
-    token: '',
-    logged: false,
+    user: {} as ViewUser,
+    token: '' as string,
+    logged: false as boolean,
     returnUrl: null,
   }),
   getters: {
     getReturnUrl(state: any): string {
       return state.returnUrl
     },
-    getUser(state: any): string {
+    getUser(state: any): ViewUser {
       return state.user
     },
     getToken(state: any): string {
@@ -25,9 +26,12 @@ export const useAuthStore = defineStore({
     isLogged(state: any): boolean {
       return state.logged
     },
+    getUuid(state: any): string {
+      return state.user.uuid
+    },
   },
   persist: {
     storage: localStorage,
-    paths: ['token'],
+    paths: ['token', 'user'],
   },
 })

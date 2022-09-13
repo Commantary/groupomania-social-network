@@ -1,4 +1,4 @@
-const { Post } = require('../../../models');
+const { Post, Like, Comment, User} = require('../../../models');
 const utils = require("../../utils/utils");
 
 const call = async (req, res, next) => {
@@ -7,7 +7,24 @@ const call = async (req, res, next) => {
 
       const post = await Post.findOne({
          where: { uuid },
-         include: ['user', 'likes', 'comments'],
+         include: ['user', {
+            model: Like,
+            as: 'likes',
+            include: [{
+               model: User,
+               as: 'user',
+               attributes: ['uuid']
+            }]
+         },
+         {
+            model: Comment,
+            as: 'comments',
+            include: [{
+               model: User,
+               as: 'user',
+               attributes: ['uuid']
+            }]
+         }],
       });
 
       return res.status(200).json({

@@ -27,7 +27,7 @@ Axios.interceptors.response.use((res) => {
 }, (error) => {
   if (!error.response) {
     // Network error
-    useErrorStore().setNotif(true, error)
+    useErrorStore().setNotif(true, true, error)
     return Promise.reject(error)
   } else {
     // If token is invalid logout and redirect to log in
@@ -36,11 +36,11 @@ Axios.interceptors.response.use((res) => {
         accountService.logout()
         router.push({ name: 'login' })
       } else {
-        useErrorStore().setNotif(true, error.response.data.error)
+        useErrorStore().setNotif(true, true, error.response.data.error)
       }
     } else {
       // API error
-      useErrorStore().setNotif(true, error.response.data.error)
+      useErrorStore().setNotif(true, true, error.response.data.error)
       return Promise.reject(error)
     }
   }

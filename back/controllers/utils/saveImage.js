@@ -1,6 +1,7 @@
 const path = require("path");
 const sharp = require("sharp");
 const randomstring = require("randomstring");
+const extensionAllowed = ["jpg", "jpeg", "png", "gif"];
 
 require("dotenv").config();
 
@@ -56,6 +57,11 @@ function saveImage(req, image) {
    const imagePath = `${imageDirPath}/${imageName}.${image.name.split('.').pop()}`;
 
    let link = `${req.protocol}://${req.get('host')}/images/${imageName}.${image.name.split('.').pop()}`
+
+   // Check the extension of the image
+   if (!extensionAllowed.includes(image.name.split('.').pop())) {
+      return "Extension not allowed";
+   }
 
    // Get the width from the image with sharp
    sharp(image.path)

@@ -24,8 +24,9 @@ const call = async (req, res, next) => {
          // update the post likes count
          await Post.update({likesCount: post.likesCount - 1}, {where: {id: post.id}});
 
-         return res.status(204).json({
+         return res.status(200).json({
             message: 'Like removed',
+            likesCount: post.likesCount - 1,
             code: 204
          });
       }
@@ -38,6 +39,7 @@ const call = async (req, res, next) => {
 
       return res.status(201).json({
          message: 'Like added',
+         likesCount: post.likesCount + 1,
          code: 201
       });
    } catch (error) {

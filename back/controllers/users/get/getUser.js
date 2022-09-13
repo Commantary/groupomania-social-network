@@ -8,7 +8,7 @@ const call = async (req, res, next) => {
       // Get user from id
       const user = await User.findOne({
          where: { uuid },
-         include: ['posts', 'likes', 'comments', 'friends'],
+         include: ['friends'],
       })
 
       if (!user) {

@@ -27,6 +27,7 @@ import BaseButton from '../../components/BaseButton.vue'
 import { useAuthStore } from '../../store'
 import { accountService } from '../../_services'
 import router from '../../router/router'
+import { ViewUser } from '../../models/index.model'
 
 const data = reactive({
   email: '',
@@ -60,9 +61,14 @@ const login = async (event: any) => {
 
   // Update pinia state
   authStore.$patch({
-    user: dataLogin.user,
     token: dataLogin.access_token,
     logged: true,
+    user: {
+      icon_url: dataLogin.user.icon_url,
+      first_name: dataLogin.user.first_name,
+      last_name: dataLogin.user.last_name,
+      uuid: dataLogin.user.uuid,
+    },
   })
 
   // Redirect to home
