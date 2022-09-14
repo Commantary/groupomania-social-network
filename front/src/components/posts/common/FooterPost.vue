@@ -26,6 +26,8 @@ const props = defineProps<{
 
 const likesCount = ref(props.likesCount)
 
+const hasLiked = ref(props.hasLiked)
+
 async function likePost() {
   await postService.likePost(props.uuid!)
     .then((res) => {
@@ -36,6 +38,8 @@ async function likePost() {
     })
 
   await usePostsStore().updatePost(props.uuid)
+
+  hasLiked.value = !hasLiked.value
 }
 </script>
 

@@ -32,6 +32,13 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
+    path: '/post/:uuid',
+    name: 'post',
+    component: () => import(/* webpackChunkName: "Post" */ '@/views/Post.vue'),
+    props: true,
+    meta: { requiresAuth: true },
+  },
+  {
     path: '/:pathMatch(.*)*',
     name: 'not-found',
     component: () => import(/* webpackChunkName: "NotFound" */ '@/views/NotFoundView.vue'),

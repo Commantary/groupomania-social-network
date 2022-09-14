@@ -1,12 +1,12 @@
 <template>
-  <div class="post-container">
+  <div class="post-container" :style="hoverStyle" @click="goToPost()">
     <TitlePost :icon-url="post.user.icon_url" :user-name="getUsername" :date-value="post.createdAt" :uuid="post.uuid" :author-uuid="post.user.uuid" />
 
     <div class="post-content">
       <p>{{ post.body }}</p>
     </div>
 
-    <BasicImagesPost v-if="post.images.length" :images="post.images" />
+    <BasicImagesPost v-if="post.images.length" :images="post.images" :viewable="imageViewable ?? false" />
 
     <BasicFooterPost :has-liked="hasLiked" :uuid="post.uuid" :likes-count="post.likesCount" :comments-count="post.commentsCount" />
   </div>
@@ -16,12 +16,14 @@
 import { computed } from 'vue'
 import type { Post } from '../../../models/Post.model'
 import { useAuthStore } from '../../../store'
+import router from '../../../router/router'
 import TitlePost from './TitlePost.vue'
 import BasicFooterPost from './FooterPost.vue'
 import BasicImagesPost from './ImagesPost.vue'
 
 const props = defineProps<{
   post: Post
+  imageViewable?: boolean
 }>()
 
 const getUsername = computed(() => {
@@ -31,13 +33,25 @@ const getUsername = computed(() => {
 const hasLiked = computed(() => {
   return props.post.likes.some(like => like.user.uuid === useAuthStore().getUser.uuid)
 })
+
+const hoverStyle = computed(() => {
+  if (!props.imageViewable)
+    return 'cursor: pointer;'
+  return ''
+})
+
+function goToPost() {
+  if (!props.imageViewable) {
+    // Redirect with router
+    router.push({ name: 'post', params: { uuid: props.post.uuid } })
+  }
+}
 </script>
 
 <style lang="scss">
 .post-container {
   display: flex;
   flex-direction: column;
-  //align-items: center;
   justify-content: center;
   width: 100%;
 
@@ -50,10 +64,6 @@ const hasLiked = computed(() => {
       font-weight: lighter;
       font-size: 15px;
     }
-  }
-
-  &:hover {
-    cursor: pointer;
   }
 }
 </style>

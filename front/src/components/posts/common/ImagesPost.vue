@@ -1,16 +1,19 @@
 <template>
   <div class="images-post" :class="getClassType">
     <div v-for="image in images" :key="images[image]" class="image-item">
-      <img :src="image" alt="Post image">
+      <!--      <img :src="image" alt="Post image"> -->
+      <Image class="image" :src="image" alt="Post image" :viewable="viewable" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import Image from '../../../components/posts/common/Image.vue'
 
 const props = defineProps<{
   images?: string[]
+  viewable: boolean
 }>()
 
 const getClassType = computed(() => {
@@ -105,7 +108,7 @@ const getClassType = computed(() => {
     justify-content: center;
     overflow: hidden;
 
-    img {
+    /*img {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -114,6 +117,11 @@ const getClassType = computed(() => {
       &:hover {
         filter: brightness(80%);
       }
+    }*/
+
+    .image {
+      width: 100%;
+      height: 100%;
     }
   }
 }
