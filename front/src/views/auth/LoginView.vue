@@ -22,8 +22,8 @@
 
 <script setup lang="ts">
 import { reactive } from 'vue'
-import BaseInput from '../../components/BaseInput.vue'
-import BaseButton from '../../components/BaseButton.vue'
+import BaseInput from '../../components/common/BaseInput.vue'
+import BaseButton from '../../components/common/BaseButton.vue'
 import { useAuthStore } from '../../store'
 import { accountService } from '../../_services'
 import router from '../../router/router'

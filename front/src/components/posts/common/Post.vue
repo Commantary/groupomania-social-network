@@ -6,7 +6,7 @@
       <p>{{ post.body }}</p>
     </div>
 
-    <BasicImagesPost v-if="post.images.length !== 0" :images="post.images" />
+    <BasicImagesPost v-if="post.images.length" :images="post.images" />
 
     <BasicFooterPost :has-liked="hasLiked" :uuid="post.uuid" :likes-count="post.likesCount" :comments-count="post.commentsCount" />
   </div>
@@ -16,8 +16,8 @@
 import { computed } from 'vue'
 import type { Post } from '../../../models/Post.model'
 import { useAuthStore } from '../../../store'
-import TitlePost from './BasicTitlePost.vue'
-import BasicFooterPost from './BasicFooterPost.vue'
+import TitlePost from './TitlePost.vue'
+import BasicFooterPost from './FooterPost.vue'
 import BasicImagesPost from './ImagesPost.vue'
 
 const props = defineProps<{
@@ -27,11 +27,6 @@ const props = defineProps<{
 const getUsername = computed(() => {
   return `${props.post.user.first_name} ${props.post.user.last_name.charAt(0)}.`
 })
-
-console.log(`post ${props.post.uuid} -->`, props.post.likes.some(like => like.user.uuid === useAuthStore().getUser.uuid))
-
-for (let i = 0; i < props.post.likes.length; i++)
-  console.log(props.post.likes[i].user.uuid)
 
 const hasLiked = computed(() => {
   return props.post.likes.some(like => like.user.uuid === useAuthStore().getUser.uuid)

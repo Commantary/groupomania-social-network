@@ -2,48 +2,19 @@
   <div class="home">
     <h1>Les derniers posts</h1>
 
-    <CreatorPost />
+    <PostCreator />
 
-    <div v-if="!data.loading" class="post_list">
-      <p v-if="getPosts.length === 0">
-        Il n'y a pas de posts
-      </p>
-      <BasicPost v-for="post in getPosts" :key="post.uuid" class="basic-post" :post="post" />
-    </div>
+    <AllPostsList />
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, reactive } from 'vue'
-import { usePostsStore } from '../store'
-import BasicPost from '@/components/posts/post/BasicPost.vue'
-import CreatorPost from '@/components/posts/creator/CreatorPost.vue'
-
-const data = reactive({
-  posts: [],
-  loading: true,
-})
-
-usePostsStore().fetchPosts().then(() => {
-  data.loading = false
-})
-
-const getPosts = computed(() => {
-  return [...usePostsStore().getPosts].reverse()
-})
+import AllPostsList from '@/components/posts/lists/AllPostsList.vue'
+import PostCreator from '@/components/posts/addedit/PostCreator.vue'
 </script>
 
 <style lang="scss">
 .home {
   width: 100%;
-}
-
-.basic-post {
-  border-top: 1px solid #ccc;
-  backdrop-filter: brightness(95%);
-
-  &:last-child {
-    border-bottom: 1px solid #ccc;
-  }
 }
 </style>

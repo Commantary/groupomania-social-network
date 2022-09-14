@@ -25,7 +25,7 @@
       </div>
 
       <div v-if="data.urlArr.length !== 0" id="bottom-creator-post">
-        <PreviewImagePost v-for="(url, index) in data.urlArr" :key="url" :url="url" :name="data.images[index].name" />
+        <PreviewImageAdded v-for="(url, index) in data.urlArr" :key="url" :url="url" :name="data.images[index].name" />
       </div>
     </div>
   </div>
@@ -34,7 +34,7 @@
 <script setup lang="ts">
 import { computed, reactive } from 'vue'
 import { useErrorStore, usePostsStore } from '../../../store'
-import PreviewImagePost from './../post/PreviewImagePost.vue'
+import PreviewImageAdded from '../common/PreviewImageAdded.vue'
 import { useAuthStore } from '@/store'
 import type { ViewUser } from '@/models/ViewUser.model'
 import { postService } from '@/_services'

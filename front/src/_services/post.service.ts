@@ -1,11 +1,12 @@
 import Axios from './caller.service'
+import { routesService } from './index'
 
 const getAllPosts = () => {
-  return Axios.get('/api/v1/posts')
+  return Axios.get(routesService.routes_api.posts)
 }
 
 const getPost = (uuid: string) => {
-  return Axios.get(`/api/v1/posts/${uuid}`)
+  return Axios.get(routesService.routes_api.post.replace(':uuid', uuid))
 }
 
 const sendPost = (body: string, images: File[]) => {
@@ -17,15 +18,15 @@ const sendPost = (body: string, images: File[]) => {
     formData.append('images', image)
   })
 
-  return Axios.post('/api/v1/posts', formData)
+  return Axios.post(routesService.routes_api.posts, formData)
 }
 
 const deletePost = (uuid: string) => {
-  return Axios.delete(`/api/v1/posts/${uuid}`)
+  return Axios.delete(routesService.routes_api.post.replace(':uuid', uuid))
 }
 
 const likePost = (uuid: string) => {
-  return Axios.post(`/api/v1/posts/${uuid}/like`)
+  return Axios.post(routesService.routes_api.post_like.replace(':uuid', uuid))
 }
 
 export const postService = {

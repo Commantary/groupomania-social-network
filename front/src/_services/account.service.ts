@@ -1,12 +1,13 @@
 import { useAuthStore } from '../store'
 import Axios from './caller.service'
+import { routesService } from './index'
 
 const login = (email: string, password: string) => {
-  return Axios.post('/api/v1/auth/login', { email, password })
+  return Axios.post(routesService.routes_api.login, { email, password })
 }
 
 const signup = (first_name: string, last_name: string, email: string, password: string) => {
-  return Axios.post('/api/v1/auth/signup', { first_name, last_name, email, password, role: 'user' })
+  return Axios.post(routesService.routes_api.signup, { first_name, last_name, email, password, role: 'user' })
 }
 
 const logout = () => {

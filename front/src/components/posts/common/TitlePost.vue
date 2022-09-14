@@ -4,6 +4,8 @@
       <img :src="iconUrl" alt="User icon">
       <h2>{{ userName }}</h2>
       <p>{{ getDate }}</p>
+      <p>⬤</p>
+      <p>{{ getDateDiff }}</p>
     </div>
     <div class="settings" :class="isOpenMenu ? 'open-menu' : ''">
       <font-awesome-icon v-if="isAuthor" icon="fa-solid fa-ellipsis" @click="openPostMenu()" />
@@ -19,7 +21,8 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { useAuthStore, usePostsStore } from '../../../store'
+import { useAuthStore, usePostsStore } from '@/store'
+import { commonService } from '@/_services/common.service'
 
 const props = defineProps<{
   iconUrl?: string
@@ -31,25 +34,12 @@ const props = defineProps<{
 
 const openMenu = ref(false)
 
+const getDateDiff = computed(() => {
+  return commonService.getTimingFromDate(new Date(props.dateValue!))
+})
+
 const getDate = computed(() => {
-  const date: any = new Date(props.dateValue!)
-
-  // Return the date timing compared from the actual date
-  const diff = Math.floor((+new Date() - date) / 1000)
-
-  if (diff < 60)
-    return 'maintenant'
-  if (diff < 3600)
-    return `${Math.floor(diff / 60)} min`
-  if (diff < 86400)
-    return `${Math.floor(diff / 3600)}h`
-  if (diff < 604800)
-    return `${Math.floor(diff / 86400)} jour${Math.floor(diff / 86400) > 1 ? 's' : ''}`
-  if (diff < 2629743)
-    return `${Math.floor(diff / 604800)} semaine${Math.floor(diff / 604800) > 1 ? 's' : ''}`
-  if (diff < 31556926)
-    return `${Math.floor(diff / 2629743)} mois`
-  return `${Math.floor(diff / 31556926)} année${Math.floor(diff / 31556926) > 1 ? 's' : ''}`
+  return commonService.getDateTranslation(new Date(props.dateValue!))
 })
 
 const isAuthor = computed(() => {
@@ -83,7 +73,6 @@ function deletePost() {
   width: 100%;
   height: 100%;
   z-index: 1;
-  background-color: red;
 }
 
 .open-menu {
