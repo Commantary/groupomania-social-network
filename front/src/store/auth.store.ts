@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import type { ViewUser } from '../models/ViewUser.model'
-import { RoleType } from '../models/Role.model'
+import { userService } from '../_services'
 
 export const useAuthStore = defineStore({
   id: 'auth',
@@ -9,7 +9,7 @@ export const useAuthStore = defineStore({
     user: {} as ViewUser,
     token: '' as string,
     logged: false as boolean,
-    role: RoleType.UNKNOWN as RoleType,
+    role: 'unknown' as string,
     returnUrl: null,
   }),
   getters: {
@@ -31,20 +31,24 @@ export const useAuthStore = defineStore({
     getUuid(state: any): string {
       return state.user.uuid
     },
-    getRole(state: any): RoleType {
-      if (state.role === RoleType.UNKNOWN) {
+    async getRole(state: any) {
+      if (state.role === 'unknown')
+        await state.updateRole()
 
-      }
       return state.role
+    },
+    isAdmin(): boolean {
+      return this.getRole === 'admin'
     },
   },
   actions: {
-    updateRole() {
-      const authStore = useAuthStore()
-      const role = authStore.getUser.role
-      authStore.$patch({
-        role,
-      })
+    async updateRole() {
+      if (this.role === 'unknown') {
+        await userService.getUserByUuid(this.user.uuid)
+          .then((response: any) => {
+            this.role = response.data.user.role
+          })
+      }
     },
   },
   persist: {

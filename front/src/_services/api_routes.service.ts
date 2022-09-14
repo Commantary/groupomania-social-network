@@ -4,10 +4,14 @@ const routes_api = {
   // auth
   login: `${BASE_API}/auth/login`,
   signup: `${BASE_API}/auth/signup`,
+
   // posts
   posts: `${BASE_API}/posts`,
   post: `${BASE_API}/posts/:uuid`,
   post_like: `${BASE_API}/posts/:uuid/like`,
+
+  // users
+  user: `${BASE_API}/users/:uuid`,
 }
 
 export const routesService = {
