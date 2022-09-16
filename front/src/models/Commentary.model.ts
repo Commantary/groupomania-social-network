@@ -4,4 +4,5 @@ export interface Commentary {
   uuid: string
   body: string
   user: ViewUser
+  createdAt: string
 }

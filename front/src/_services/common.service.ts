@@ -1,3 +1,5 @@
+import type { ViewUser } from '../models/ViewUser.model'
+
 const getTimingFromDate = (date: any) => {
   // Return the date timing compared from the actual date
   const diff = Math.floor((+new Date() - date) / 1000)
@@ -27,7 +29,12 @@ const getDateTranslation = (date: any) => {
   return `${day}/${month}/${year}`
 }
 
+const getUsername = (user: ViewUser) => {
+  return `${user.first_name} ${user.last_name.charAt(0)}.`
+}
+
 export const commonService = {
   getTimingFromDate,
   getDateTranslation,
+  getUsername,
 }

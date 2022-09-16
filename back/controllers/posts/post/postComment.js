@@ -1,4 +1,4 @@
-const {Post, Comment} = require('../../../models');
+const {Post, Comment, User, Like} = require('../../../models');
 const utils = require("../../utils/utils");
 
 const call = async (req, res) => {
@@ -37,7 +37,22 @@ const call = async (req, res) => {
          });
       }
 
-      const comment = await Comment.create({userId: user.id, postId: post.id, body});
+      const commentCreate = await Comment.create({
+         userId: user.id,
+         postId: post.id,
+         body
+      });
+
+      const comment = await Comment.findOne({
+         where: { uuid: commentCreate.uuid },
+         include: [
+            {
+               model: User,
+               as: 'user',
+               attributes: ['first_name', 'last_name', 'uuid', 'icon_url']
+            },
+         ]
+      });
 
       // update the post likes count
       await Post.update({commentsCount: post.commentsCount + 1}, {where: {id: post.id}});

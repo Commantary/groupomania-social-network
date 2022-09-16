@@ -1,4 +1,4 @@
-const { Post, Like, Comment, User} = require('../../../models');
+const {Post, Like, Comment, User} = require('../../../models');
 const utils = require("../../utils/utils");
 
 const call = async (req, res, next) => {
@@ -6,26 +6,32 @@ const call = async (req, res, next) => {
       const uuid = req.params.uuid;
 
       const post = await Post.findOne({
-         where: { uuid },
-         include: ['user', {
-            model: Like,
-            as: 'likes',
-            include: [{
-               model: User,
-               as: 'user',
-               attributes: ['uuid']
-            }]
-         },
-         {
-            model: Comment,
-            as: 'comments',
-            include: [{
-               model: User,
-               as: 'user',
-               attributes: ['uuid']
-            }]
-         }],
+         where: {uuid},
+         include: ['user',
+            {
+               model: Like,
+               as: 'likes',
+               include: [{
+                  model: User,
+                  as: 'user',
+                  attributes: ['uuid']
+               }]
+            },
+            {
+               model: Comment,
+               as: 'comments',
+               include: [{
+                  model: User,
+                  as: 'user',
+                  attributes: ['uuid', 'first_name', 'last_name', 'icon_url']
+               }]
+            }
+         ],
       });
+
+      post.comments.sort(function (a, b) {
+         return b['createdAt'] - a['createdAt'];
+      })
 
       return res.status(200).json({
          post,
@@ -36,4 +42,4 @@ const call = async (req, res, next) => {
    }
 }
 
-module.exports = { call };
+module.exports = {call};

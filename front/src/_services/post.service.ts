@@ -29,10 +29,17 @@ const likePost = (uuid: string) => {
   return Axios.post(routesService.routes_api.post_like.replace(':uuid', uuid))
 }
 
+const sendComment = (uuid: string, body: string) => {
+  return Axios.post(routesService.routes_api.post_comment.replace(':uuid', uuid), {
+    body,
+  })
+}
+
 export const postService = {
   getAllPosts,
   getPost,
   sendPost,
   deletePost,
   likePost,
+  sendComment,
 }

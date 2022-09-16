@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import type { Post } from '../models/Post.model'
 import { postService } from '../_services'
+import type { Commentary } from '../models/Commentary.model'
 
 export const usePostsStore = defineStore({
   id: 'posts',
@@ -64,6 +65,24 @@ export const usePostsStore = defineStore({
       this.posts = this.posts.filter((post: Post) => post.uuid !== uuid)
 
       return postService.deletePost(uuid)
+    },
+    addComment(postUuid: string, comment: Commentary) {
+      const postIndex = this.posts.findIndex((p: Post) => p.uuid === postUuid)
+
+      this.posts[postIndex].comments.push(comment)
+
+      this.posts[postIndex].commentsCount += 1
+    },
+    sendComment(uuid: string, body: string) {
+      return postService.sendComment(uuid, body)
+        .then((res) => {
+          this.addComment(uuid, res.data.comment)
+
+          return res.data.comment
+        })
+        .catch((err) => {
+          console.error(err)
+        })
     },
   },
   persist: {

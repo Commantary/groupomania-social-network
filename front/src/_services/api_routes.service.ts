@@ -9,6 +9,7 @@ const routes_api = {
   posts: `${BASE_API}/posts`,
   post: `${BASE_API}/posts/:uuid`,
   post_like: `${BASE_API}/posts/:uuid/like`,
+  post_comment: `${BASE_API}/posts/:uuid/comment`,
 
   // users
   user: `${BASE_API}/users/:uuid`,

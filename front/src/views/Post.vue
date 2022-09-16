@@ -7,7 +7,7 @@
       <h1>Il y a eu une erreur lors du chargement</h1>
     </div>
     <h1>Post</h1>
-    <Post v-if="!data.loading && !data.error" :post="data.posts" :image-viewable="true" />
+    <Post v-if="!data.loading && !data.error" :comment-viewable="true" :post="data.posts" :image-viewable="true" />
   </div>
 </template>
 

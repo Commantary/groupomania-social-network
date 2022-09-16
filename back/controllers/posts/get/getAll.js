@@ -24,7 +24,7 @@ const call = async (req, res) => {
             include: [{
                model: User,
                as: 'user',
-               attributes: ['uuid']
+               attributes: ['uuid', 'first_name', 'last_name', 'icon_url']
             }]
          }]
       });
@@ -32,6 +32,12 @@ const call = async (req, res) => {
       // Filter posts by createdAt, most recent in first etc
       posts.sort(function(a, b) {
          return a['createdAt'] - b['createdAt'];
+      })
+
+      posts.forEach(post => {
+         post.comments.sort(function(a, b) {
+            return b['createdAt'] - a['createdAt'];
+         })
       })
 
       return res.status(200).json({

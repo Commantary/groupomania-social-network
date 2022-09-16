@@ -6,17 +6,25 @@
       <p>{{ post.body }}</p>
     </div>
 
-    <BasicImagesPost v-if="post.images.length" :images="post.images" :viewable="imageViewable ?? false" />
+    <BasicImagesPost v-if="post.images.length" :images="post.images" :viewable="imageViewable" />
 
     <BasicFooterPost :has-liked="hasLiked" :uuid="post.uuid" :likes-count="post.likesCount" :comments-count="post.commentsCount" />
+
+    <AddComment v-if="commentViewable" @add="sendComment" />
+
+    <Comments v-if="commentViewable" :comments="post.comments" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import type { Post } from '../../../models/Post.model'
-import { useAuthStore } from '../../../store'
+import { useAuthStore, useErrorStore, usePostsStore } from '../../../store'
 import router from '../../../router/router'
+import { commonService } from '../../../_services'
+import Comments from '../lists/Comments.vue'
+import AddComment from '../addedit/AddComment.vue'
+import type { Commentary } from '../../../models/Commentary.model'
 import TitlePost from './TitlePost.vue'
 import BasicFooterPost from './FooterPost.vue'
 import BasicImagesPost from './ImagesPost.vue'
@@ -24,10 +32,13 @@ import BasicImagesPost from './ImagesPost.vue'
 const props = defineProps<{
   post: Post
   imageViewable?: boolean
+  commentViewable?: boolean
 }>()
 
+const post = ref(props.post)
+
 const getUsername = computed(() => {
-  return `${props.post.user.first_name} ${props.post.user.last_name.charAt(0)}.`
+  return commonService.getUsername(props.post.user)
 })
 
 const hasLiked = computed(() => {
@@ -45,6 +56,14 @@ function goToPost() {
     // Redirect with router
     router.push({ name: 'post', params: { uuid: props.post.uuid } })
   }
+}
+
+function sendComment(value: string) {
+  usePostsStore().sendComment(props.post.uuid, value)
+    .then((comment: Commentary) => {
+      post.value.comments.unshift(comment)
+      post.value.commentsCount++
+    })
 }
 </script>
 
