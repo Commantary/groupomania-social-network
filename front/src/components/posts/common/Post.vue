@@ -1,5 +1,5 @@
 <template>
-  <div class="post-container" :style="hoverStyle" @click="goToPost()">
+  <div class="post-container" :style="hoverStyle">
     <TitlePost :icon-url="post.user.icon_url" :user-name="getUsername" :date-value="post.createdAt" :uuid="post.uuid" :author-uuid="post.user.uuid" />
 
     <div class="post-content">
@@ -19,7 +19,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import type { Post } from '../../../models/Post.model'
-import { useAuthStore, useErrorStore, usePostsStore } from '../../../store'
+import { useAuthStore, usePostsStore } from '../../../store'
 import router from '../../../router/router'
 import { commonService } from '../../../_services'
 import Comments from '../lists/Comments.vue'
@@ -47,16 +47,10 @@ const hasLiked = computed(() => {
 
 const hoverStyle = computed(() => {
   if (!props.imageViewable)
-    return 'cursor: pointer;'
-  return ''
-})
+    return '$hover-style: true;'
 
-function goToPost() {
-  if (!props.imageViewable) {
-    // Redirect with router
-    router.push({ name: 'post', params: { uuid: props.post.uuid } })
-  }
-}
+  return '$hover-style: false;'
+})
 
 function sendComment(value: string) {
   usePostsStore().sendComment(props.post.uuid, value)

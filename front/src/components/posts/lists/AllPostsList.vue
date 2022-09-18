@@ -7,7 +7,9 @@
       Il n'y a pas de posts
     </p>
 
-    <Post v-for="post in getPosts" :key="post.uuid" class="basic-post" :post="post" />
+    <router-link v-for="post in getPosts" :key="post.uuid" aria-label="Aller au poste" :to="`post/${post.uuid}`" class="basic-post">
+      <Post class="post-item" :post="post" />
+    </router-link>
   </div>
 </template>
 
@@ -32,8 +34,25 @@ const getPosts = computed(() => {
 
 <style lang="scss">
 .basic-post {
-  border-top: 1px solid #ccc;
-  backdrop-filter: brightness(95%);
+  // Hide the 'a' tag
+  color: white;
+  text-decoration: none;
+
+  .post-item {
+    border-top: 1px solid #ccc;
+    backdrop-filter: brightness(95%);
+    transition: all 0.2s ease-in-out;
+
+    &.post-container:hover {
+      backdrop-filter: brightness(90%);
+    }
+  }
+
+  &:first-child {
+    .post-item {
+      border-top: 2px solid #ccc;
+    }
+  }
 
   &:last-child {
     border-bottom: 1px solid #ccc;

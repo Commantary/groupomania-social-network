@@ -1,8 +1,8 @@
 <template>
   <div class="footer-post">
     <div class="likes-post">
-      <font-awesome-icon v-if="!hasLiked" icon="fa-regular fa-heart" @click="likePost()" />
-      <font-awesome-icon v-if="hasLiked" icon="fa-solid fa-heart" @click="likePost()" />
+      <font-awesome-icon v-if="!hasLiked" icon="fa-regular fa-heart" @click="likePost($event)" />
+      <font-awesome-icon v-if="hasLiked" icon="fa-solid fa-heart" @click="likePost($event)" />
       <p>{{ likesCount }}</p>
     </div>
     <div class="comments-post">
@@ -28,7 +28,9 @@ const likesCount = ref(props.likesCount)
 
 const hasLiked = ref(props.hasLiked)
 
-async function likePost() {
+async function likePost(event: Event) {
+  event.preventDefault()
+
   await postService.likePost(props.uuid!)
     .then((res) => {
       likesCount.value = res.data.likesCount

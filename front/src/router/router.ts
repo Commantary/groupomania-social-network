@@ -1,12 +1,19 @@
+import type { RouteRecordRaw, RouterScrollBehavior } from 'vue-router'
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '../store'
 
-const routes = [
+const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'home',
     component: () => import(/* webpackChunkName: "Home" */ '@/views/HomeView.vue'),
-    meta: { requiresAuth: true },
+    meta: {
+      requiresAuth: true,
+      scrollPos: {
+        top: 0,
+        left: 0,
+      },
+    },
   },
   {
     path: '/login',
@@ -45,13 +52,30 @@ const routes = [
   },
 ]
 
+const scrollBehavior: RouterScrollBehavior = (to, from, savedPosition) => {
+  if (to.name === from.name) {
+    to.meta?.scrollPos && (to.meta.scrollPos.top = 0)
+    return { left: 0, top: 0 }
+  }
+  const scrollPos = savedPosition || to.meta?.scrollPos || { left: 0, top: 0 }
+
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(scrollPos)
+    }, 10)
+  })
+}
+
 const router = createRouter({
   history: createWebHistory(),
   routes,
+  scrollBehavior,
 })
 
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore()
+
+  from.meta?.scrollPos && (from.meta.scrollPos.top = window.scrollY)
 
   if (authStore.tokenIsValid && !authStore.isLogged) {
     authStore.$patch({

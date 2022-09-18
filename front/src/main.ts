@@ -4,7 +4,7 @@ import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import './style.css'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faEllipsis, faFileCirclePlus, faPaperPlane, faHeart as faSolidHeart } from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft, faEllipsis, faFileCirclePlus, faPaperPlane, faHeart as faSolidHeart } from '@fortawesome/free-solid-svg-icons'
 import { faComment, faHeart as faRegularHeart } from '@fortawesome/free-regular-svg-icons'
 import App from './App.vue'
 import router from './router/router'
@@ -18,6 +18,7 @@ library.add(faPaperPlane)
 library.add(faRegularHeart)
 library.add(faSolidHeart)
 library.add(faComment)
+library.add(faArrowLeft)
 app.component('FontAwesomeIcon', FontAwesomeIcon)
 
 const pinia = createPinia()

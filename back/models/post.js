@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
          defaultValue: DataTypes.UUIDV4,
       },
       body: {
-         type: DataTypes.STRING,
+         type: DataTypes.TEXT,
          allowNull: false
       },
       images: {

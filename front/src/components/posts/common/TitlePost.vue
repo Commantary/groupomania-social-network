@@ -7,22 +7,20 @@
       <p>⬤</p>
       <p>{{ getDateDiff }}</p>
     </div>
+
     <div class="settings" :class="isOpenMenu ? 'open-menu' : ''">
-      <font-awesome-icon v-if="isAuthor" icon="fa-solid fa-ellipsis" @click="openPostMenu()" />
-      <div v-if="isOpenMenu" class="menu">
-        <div class="menu-item" @click="deletePost()">
-          <p>Supprimer</p>
-        </div>
-      </div>
+      <font-awesome-icon icon="fa-solid fa-ellipsis" @click="openPostMenu($event)" />
+      <Menu v-if="isOpenMenu" class="post-menu-right" :is-auth="isAuthor" :uuid="uuid" @destroy="destroyPostMenu" />
     </div>
   </div>
-  <div v-show="isOpenMenu" class="check-click-outside" @click="clickOutside()" />
+  <div v-show="isOpenMenu" class="check-click-outside" @click="clickOutside($event)" />
 </template>
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { useAuthStore, usePostsStore } from '@/store'
 import { commonService } from '@/_services/common.service'
+import Menu from '@/components/posts/common/Menu.vue'
 
 const props = defineProps<{
   iconUrl?: string
@@ -50,18 +48,20 @@ const isOpenMenu = computed(() => {
   return openMenu.value
 })
 
-function openPostMenu() {
+function openPostMenu(event: Event) {
+  event.preventDefault()
   openMenu.value = !openMenu.value
+  console.log('openPostMenu')
 }
 
-function clickOutside() {
+function clickOutside(event: Event) {
+  event.preventDefault()
+
   openMenu.value = false
 }
 
-function deletePost() {
+function destroyPostMenu() {
   openMenu.value = false
-
-  usePostsStore().removePost(props.uuid!)
 }
 </script>
 
@@ -75,42 +75,6 @@ function deletePost() {
   z-index: 1;
 }
 
-.open-menu {
-  // Create a menu
-  .menu {
-    position: absolute;
-    top: 10px;
-    right: 60px;
-    width: 200px;
-    background-color: #4E5166;
-    border-radius: 10px;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-  }
-
-  // Create a menu item
-  .menu-item {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    height: 50px;
-    border-radius: 10px;
-    padding-left: 20px;
-    padding-right: 20px;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-
-    &:hover {
-      backdrop-filter: brightness(95%);
-    }
-
-    .icon {
-      margin-right: 10px;
-    }
-  }
-}
-
 .title_post {
   display: flex;
   flex-direction: row;
@@ -122,7 +86,7 @@ function deletePost() {
   margin-right: 20px;
 
   .settings {
-    //position: relative;
+    position: relative;
   }
 
   .title_info {

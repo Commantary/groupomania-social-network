@@ -21,6 +21,16 @@ export const usePostsStore = defineStore({
       return postService.getAllPosts()
         .then((res) => {
           // Compare post and add the new post
+
+          this.getPosts.forEach((post: Post) => {
+            // Check if the post in the store is in the response
+            const postInResponse = res.data.posts.find((postResponse: Post) => postResponse.uuid === post.uuid)
+
+            // if the post is not in the response, remove it from the store
+            if (!postInResponse)
+              this.posts = this.posts.filter((postStore: Post) => postStore.uuid !== post.uuid)
+          })
+
           res.data.posts.forEach((post: Post) => {
             if (!this.getPosts.find((p: Post) => p.uuid === post.uuid)) {
               console.log('add post', post)
