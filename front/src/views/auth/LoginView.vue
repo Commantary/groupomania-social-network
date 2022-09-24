@@ -47,8 +47,6 @@ const login = async (event: any) => {
 
   const dataLogin = await accountService.login(email, password)
     .then((res) => {
-      console.log(res.status)
-
       if (res.status !== 200)
         throw new Error('Une erreur est survenue lors de la connexion.')
 

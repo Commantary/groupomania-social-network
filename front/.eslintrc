@@ -11,6 +11,12 @@
   "rules": {
     "vue/require-prop-type-constructor": 0,
     "vue/component-tags-order": 0,
-    "@typescript-eslint/brace-style": 0
+    "@typescript-eslint/brace-style": 0,
+    "max-len": [
+        "error",
+        {
+            "code": 120
+        }
+    ]
   }
 }

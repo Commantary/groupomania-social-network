@@ -7,7 +7,14 @@
         </div>
 
         <div id="post-input">
-          <textarea id="body" v-model="data.body" name="body" cols="30" rows="10" placeholder="Que voulez-vous partagez ?" />
+          <textarea
+            id="body"
+            v-model="data.body"
+            name="body"
+            cols="30"
+            rows="10"
+            placeholder="Que voulez-vous partagez ?"
+          />
         </div>
 
         <div id="post-buttons">
@@ -18,14 +25,19 @@
           />
           <font-awesome-icon
             class="font-awesome-icon" icon="fa-solid fa-paper-plane"
-            :style="{ color: data.body.length > 0 ? 'white' : 'gray', cursor: data.body.length > 1 ? 'pointer' : 'not-allowed' }"
+            :class="checkClassIcon"
             @click="sendPost()"
           />
         </div>
       </div>
 
       <div v-if="data.urlArr.length !== 0" id="bottom-creator-post">
-        <PreviewImageAdded v-for="(url, index) in data.urlArr" :key="url" :url="url" :name="data.images[index].name" />
+        <PreviewImageAdded
+          v-for="(url, index) in data.urlArr"
+          :key="url" :url="url"
+          :name="data.images[index].name"
+          @delete="deletePreview(index)"
+        />
       </div>
     </div>
   </div>
@@ -50,7 +62,20 @@ const getUser: ViewUser = computed(() => useAuthStore().getUser)
 function onAddFile(e: Event) {
   // Add file to an array
   const target = e.target as HTMLInputElement
+
   if (target && target.files) {
+    // Check if the file is an image
+    if (!target.files[0].type.includes('image')) {
+      useErrorStore().setNotif(true, true, 'Vous ne pouvez pas ajouter un fichier qui n\'est pas une image')
+      return
+    }
+
+    // Check if the array is not full
+    if (data.images.length >= 4) {
+      useErrorStore().setNotif(true, true, 'Vous ne pouvez pas ajouter plus de 4 images')
+      return
+    }
+
     data.images.push(target.files[0])
     data.urlArr.push(URL.createObjectURL(target.files[0]))
   }
@@ -84,10 +109,25 @@ function sendPost() {
 
       data.body = ''
       data.images = []
+      data.urlArr = []
     })
     .catch((err: any) => {
       console.error(err)
     })
+}
+
+function deletePreview(index: number) {
+  data.images.splice(index, 1)
+  data.urlArr.splice(index, 1)
+}
+
+function checkClassIcon() {
+  let classToAdd = {}
+
+  if (data.body.length <= 1)
+    classToAdd = { 'font-awesome-icon--enabled': true }
+
+  return classToAdd
 }
 </script>
 
@@ -172,6 +212,11 @@ function sendPost() {
         &:hover {
           color: $primary-color;
           background-color: $tertiary-color-dark;
+        }
+
+        &--enabled {
+          color: gray;
+          cursor: not-allowed;
         }
       }
     }

@@ -56,7 +56,6 @@ function sendComment() {
   padding: 14px 14px 28px;
   margin-left: 22px;
   margin-right: 22px;
-  margin-top: 24px;
   backdrop-filter: brightness(95%);
 
   .comment-creator-header {

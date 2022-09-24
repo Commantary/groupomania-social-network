@@ -10,7 +10,15 @@
 
     <div class="settings" :class="isOpenMenu ? 'open-menu' : ''">
       <font-awesome-icon icon="fa-solid fa-ellipsis" @click="openPostMenu($event)" />
-      <Menu v-if="isOpenMenu" class="post-menu-right" :is-auth="isAuthor" :uuid="uuid" @destroy="destroyPostMenu" />
+      <Menu
+        v-if="isOpenMenu"
+        :editable="editable"
+        class="post-menu-right"
+        :is-auth="isAuthor"
+        :uuid="uuid"
+        @edit="edit()"
+        @destroy="destroyPostMenu"
+      />
     </div>
   </div>
   <div v-show="isOpenMenu" class="check-click-outside" @click="clickOutside($event)" />
@@ -18,7 +26,7 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { useAuthStore, usePostsStore } from '@/store'
+import { useAuthStore } from '@/store'
 import { commonService } from '@/_services/common.service'
 import Menu from '@/components/posts/common/Menu.vue'
 
@@ -28,6 +36,11 @@ const props = defineProps<{
   dateValue?: string
   uuid?: string
   authorUuid?: string
+  editable?: boolean
+}>()
+
+const emit = defineEmits<{
+  (event: 'edit'): void
 }>()
 
 const openMenu = ref(false)
@@ -51,7 +64,6 @@ const isOpenMenu = computed(() => {
 function openPostMenu(event: Event) {
   event.preventDefault()
   openMenu.value = !openMenu.value
-  console.log('openPostMenu')
 }
 
 function clickOutside(event: Event) {
@@ -62,6 +74,10 @@ function clickOutside(event: Event) {
 
 function destroyPostMenu() {
   openMenu.value = false
+}
+
+function edit() {
+  emit('edit')
 }
 </script>
 

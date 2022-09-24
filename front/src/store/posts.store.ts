@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import type { Post } from '../models/Post.model'
 import { postService } from '../_services'
 import type { Commentary } from '../models/Commentary.model'
+import { useErrorStore } from './error.store'
 
 export const usePostsStore = defineStore({
   id: 'posts',
@@ -32,10 +33,9 @@ export const usePostsStore = defineStore({
           })
 
           res.data.posts.forEach((post: Post) => {
-            if (!this.getPosts.find((p: Post) => p.uuid === post.uuid)) {
-              console.log('add post', post)
+            if (!this.getPosts.find((p: Post) => p.uuid === post.uuid))
               this.addPost(post)
-            }
+
             // Check if the post have some likesCount
             const post_ = this.getPosts.find((p: Post) => p.uuid === post.uuid)
 
@@ -48,12 +48,14 @@ export const usePostsStore = defineStore({
               post_.likes = post.likes
 
             // Check if the post have some commentsCount
-            if (post_.commentsCount !== post.commentsCount)
+            if (post_.commentsCount !== post.commentsCount) {
               post_.commentsCount = post.commentsCount
 
-            // Check if the post have some comments
-            if (post_.comments.length !== post.comments.length)
               post_.comments = post.comments
+            }
+            /*
+            // Check if the post have some comments
+            if (post_.comments.length !== post.comments.length) */
           })
         })
         .catch((err) => {
@@ -79,7 +81,7 @@ export const usePostsStore = defineStore({
     addComment(postUuid: string, comment: Commentary) {
       const postIndex = this.posts.findIndex((p: Post) => p.uuid === postUuid)
 
-      this.posts[postIndex].comments.push(comment)
+      this.posts[postIndex].comments.unshift(comment)
 
       this.posts[postIndex].commentsCount += 1
     },
@@ -89,6 +91,15 @@ export const usePostsStore = defineStore({
           this.addComment(uuid, res.data.comment)
 
           return res.data.comment
+        })
+        .catch((err) => {
+          console.error(err)
+        })
+    },
+    editPost(uuid: string, body: string, images: File[], imagesRemoved: string[]) {
+      return postService.updatePost(uuid, body, images, imagesRemoved)
+        .then((res) => {
+          useErrorStore().setNotif(true, false, 'Post mise à jour avec succès')
         })
         .catch((err) => {
           console.error(err)

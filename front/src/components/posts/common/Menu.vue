@@ -12,23 +12,16 @@ import Menu from '@/components/common/BaseMenu.vue'
 const props = defineProps<{
   isAuth: boolean
   uuid: string
+  editable: boolean
 }>()
 
 const emit = defineEmits<{
   (event: 'destroy'): void
+  (event: 'edit'): void
 }>()
 
 const items = props.isAuth
   ? [
-      {
-        id: 1,
-        text: 'Editer',
-        onClick: ($event: Event) => {
-          $event.preventDefault()
-
-          console.log('Create post')
-        },
-      },
       {
         id: 2,
         text: 'Supprimer',
@@ -50,7 +43,7 @@ const items = props.isAuth
     ]
   : [
       {
-        id: 1,
+        id: 2,
         text: 'Partager',
         onClick: ($event: Event) => {
           $event.preventDefault()
@@ -59,6 +52,18 @@ const items = props.isAuth
         },
       },
     ]
+
+if (props.editable) {
+  items.unshift({
+    id: 1,
+    text: 'Éditer',
+    onClick: ($event: Event) => {
+      $event.preventDefault()
+
+      emit('edit')
+    },
+  })
+}
 
 function sharePost() {
   // Past the link in the clipboard of the user

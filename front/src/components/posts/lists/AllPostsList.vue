@@ -7,7 +7,13 @@
       Il n'y a pas de posts
     </p>
 
-    <router-link v-for="post in getPosts" :key="post.uuid" aria-label="Aller au poste" :to="`post/${post.uuid}`" class="basic-post">
+    <router-link
+      v-for="post in getPosts"
+      :key="post.uuid"
+      aria-label="Aller au poste"
+      :to="`post/${post.uuid}`"
+      class="basic-post"
+    >
       <Post class="post-item" :post="post" />
     </router-link>
   </div>
@@ -17,6 +23,7 @@
 import { computed, reactive } from 'vue'
 import { usePostsStore } from '../../../store'
 import Post from '@/components/posts/common/Post.vue'
+import LimitedComments from '@/components/posts/lists/LimitedComments.vue'
 
 const data = reactive({
   posts: [],
@@ -42,10 +49,6 @@ const getPosts = computed(() => {
     border-top: 1px solid #ccc;
     backdrop-filter: brightness(95%);
     transition: all 0.2s ease-in-out;
-
-    &.post-container:hover {
-      backdrop-filter: brightness(90%);
-    }
   }
 
   &:first-child {

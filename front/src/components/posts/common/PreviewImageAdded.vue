@@ -1,24 +1,53 @@
 <template>
   <div class="preview-image-container">
     <div class="image-preview" :style="{ 'background-image': `url(${url})` }" />
+
     <p class="image-name">
       {{ name }}
     </p>
+
+    <font-awesome-icon
+      v-if="crossSelect"
+      class="font-awesome-icon"
+      icon="fa-solid fa-circle-xmark"
+      @click="deletePreview()"
+      @mouseleave="mouseLeaveCross()"
+    />
+
+    <font-awesome-icon
+      v-if="!crossSelect"
+      class="font-awesome-icon"
+      icon="fa-regular fa-circle-xmark"
+      @mouseover="mouseOverCross()"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 
 const props = defineProps<{
   url?: string
   name?: string
 }>()
 
-const getFileName = computed(() => {
-  const url = props.url!
-  return url.split('/').pop()
-})
+const emit = defineEmits<{
+  (event: 'delete'): void
+}>()
+
+const crossSelect = ref(false)
+
+function mouseOverCross() {
+  crossSelect.value = true
+}
+
+function mouseLeaveCross() {
+  crossSelect.value = false
+}
+
+function deletePreview() {
+  emit('delete')
+}
 </script>
 
 <style lang="scss">
@@ -52,6 +81,15 @@ const getFileName = computed(() => {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  .font-awesome-icon {
+    width: 20px;
+    height: 20px;
+    line-height: 30px;
+    font-size: 12px;
+    cursor: pointer;
+    margin-left: 5px;
   }
 }
 </style>

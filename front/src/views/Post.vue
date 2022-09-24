@@ -1,52 +1,75 @@
 <template>
   <div>
-    <div v-if="data.loading">
-      <h1>Chargement en cours...</h1>
-    </div>
-    <div v-if="data.error">
-      <h1>Il y a eu une erreur lors du chargement</h1>
-    </div>
     <div class="post-page-title">
       <font-awesome-icon class="back-icon" icon="fa-solid fa-arrow-left" @click="goBack()" />
       <h1>Post</h1>
     </div>
-    <Post v-if="!data.loading && !data.error" :comment-viewable="true" :post="data.posts" :image-viewable="true" />
+
+    <div v-if="data.loading">
+      <h1>Chargement en cours...</h1>
+    </div>
+
+    <div v-if="data.error">
+      <h1>Il y a eu une erreur lors du chargement</h1>
+    </div>
+
+    <SinglePost v-if="!data.loading && !data.error && !data.editable" :post="data.post" @edit="edit" />
+    <PostEditor v-if="!data.loading && !data.error && data.editable" :post="data.post" :reset="reset" @updated="reset" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { reactive } from 'vue'
-import Post from '../components/posts/common/Post.vue'
+import SinglePost from '../components/posts/common/SinglePost.vue'
+import PostEditor from '../components/posts/addedit/PostEditor.vue'
 import router from '../router/router'
 import { postService } from '@/_services'
-import type { Post as PostType } from '@/models/'
+import type { Post } from '@/models/'
 
 const props = defineProps<{
   uuid: string
 }>()
 
 const data = reactive({
-  posts: null as PostType,
+  post: null as Post,
+  originalPost: null as Post,
   loading: true,
   error: false,
+  editable: false,
 })
 
-postService.getPost(props.uuid)
-  .then((res) => {
-    data.posts = res.data.post
-    data.loading = false
-  })
-  .catch((err) => {
-    console.error(err)
-    data.loading = false
-    data.error = true
-  })
+getPost()
+
+function getPost() {
+  postService.getPost(props.uuid)
+    .then((res: any) => {
+      data.post = res.data.post
+      data.originalPost = res.data.post
+      data.loading = false
+    })
+    .catch((err: Error) => {
+      console.error(err)
+      data.loading = false
+      data.error = true
+    })
+}
 
 function goBack() {
   if (history.length > 1)
     history.back()
   else
     router.push('/')
+}
+
+function reset() {
+  data.editable = false
+  data.loading = true
+
+  getPost()
+}
+
+function edit() {
+  data.editable = true
 }
 </script>
 

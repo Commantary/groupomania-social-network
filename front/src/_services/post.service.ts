@@ -35,6 +35,22 @@ const sendComment = (uuid: string, body: string) => {
   })
 }
 
+const updatePost = (uuid: string, body: string, images: File[], imagesRemoved: string[]) => {
+  const formData = new FormData()
+
+  formData.append('body', body)
+
+  images.forEach((image) => {
+    formData.append('images', image)
+  })
+
+  imagesRemoved.forEach((image) => {
+    formData.append('imagesRemoved', image)
+  })
+
+  return Axios.put(routesService.routes_api.post.replace(':uuid', uuid), formData)
+}
+
 export const postService = {
   getAllPosts,
   getPost,
@@ -42,4 +58,5 @@ export const postService = {
   deletePost,
   likePost,
   sendComment,
+  updatePost,
 }

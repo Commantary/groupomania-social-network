@@ -57,12 +57,12 @@ const scrollBehavior: RouterScrollBehavior = (to, from, savedPosition) => {
     to.meta?.scrollPos && (to.meta.scrollPos.top = 0)
     return { left: 0, top: 0 }
   }
+
   const scrollPos = savedPosition || to.meta?.scrollPos || { left: 0, top: 0 }
 
   return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(scrollPos)
-    }, 10)
+    // Make a transition for scroll top
+    setTimeout(() => resolve(scrollPos), 280)
   })
 }
 
@@ -75,7 +75,10 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore()
 
-  from.meta?.scrollPos && (from.meta.scrollPos.top = window.scrollY)
+  // from.meta?.scrollPos && (from.meta.scrollPos.top = window.scrollY)
+
+  if (from.name === 'home' && from.meta?.scrollPos)
+    from.meta.scrollPos.top = window.scrollY
 
   if (authStore.tokenIsValid && !authStore.isLogged) {
     authStore.$patch({
