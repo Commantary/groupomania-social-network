@@ -99,6 +99,8 @@ export const usePostsStore = defineStore({
     editPost(uuid: string, body: string, images: File[], imagesRemoved: string[]) {
       return postService.updatePost(uuid, body, images, imagesRemoved)
         .then((res) => {
+          this.updatePost(uuid)
+
           useErrorStore().setNotif(true, false, 'Post mise à jour avec succès')
         })
         .catch((err) => {

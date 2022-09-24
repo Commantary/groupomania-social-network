@@ -37,7 +37,7 @@ function getNotifColor() {
 
 <style lang="scss">
 #notif_ctn{
-  max-width: 600px;
+  max-width: 1000px;
   min-width: 200px;
   height: 60px;
   position: fixed;
@@ -74,5 +74,6 @@ function getNotifColor() {
 #notif_text {
   text-align: left;
   padding-left: 10px;
+  margin-right: 50px;
 }
 </style>

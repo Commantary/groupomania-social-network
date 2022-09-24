@@ -35,13 +35,12 @@ const getComments = computed(() => {
   .more-comments {
     padding: 16px 70px;
     margin: 0;
-    font-weight: lighter;
+    font-weight: 500;
     cursor: pointer;
     border-top: 1px solid rgba(255, 255, 255, 0.3);
     background-color: $tertiary-color;
 
     &:hover {
-      font-weight: 500;
       text-decoration: underline;
     }
   }
