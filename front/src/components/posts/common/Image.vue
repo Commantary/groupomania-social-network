@@ -1,16 +1,16 @@
 <template>
   <div @click="viewImage()">
     <div class="normal-image">
-      <img :src="src" :alt="alt">
+      <img :src="getSrc" :alt="alt">
     </div>
     <div v-show="data.view" class="full-image">
-      <img :src="src" :alt="alt">
+      <img :src="getSrc" :alt="alt">
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { computed, reactive } from 'vue'
 
 const props = defineProps<{
   src: string
@@ -21,6 +21,8 @@ const props = defineProps<{
 const data = reactive({
   view: false,
 })
+
+const getSrc = computed(() => import.meta.env.VITE_IMAGE_URL + props.src)
 
 function viewImage() {
   if (props.viewable)

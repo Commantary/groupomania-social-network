@@ -3,7 +3,7 @@
     <div id="creator-post">
       <div id="top-creator-post">
         <div id="user-icon">
-          <img :src="getUser.icon_url" alt="user-icon">
+          <img :src="getUserIcon" alt="user-icon">
         </div>
 
         <div id="post-input">
@@ -57,7 +57,7 @@ const data = reactive({
   body: '' as string,
 })
 
-const getUser: ViewUser = computed(() => useAuthStore().getUser)
+const getUserIcon: ViewUser = computed(() => import.meta.env.VITE_IMAGE_URL + useAuthStore().getUser.icon_url)
 
 function onAddFile(e: Event) {
   // Add file to an array

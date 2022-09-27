@@ -13,6 +13,7 @@ const routes_api = {
 
   // users
   user: `${BASE_API}/users/:uuid`,
+  activities: `${BASE_API}/users/:uuid/activities`,
 }
 
 export const routesService = {

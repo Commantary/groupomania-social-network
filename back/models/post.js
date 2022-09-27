@@ -39,10 +39,6 @@ module.exports = (sequelize, DataTypes) => {
          type: DataTypes.ARRAY(DataTypes.STRING),
          allowNull: true,
          validate: { // Set max size 4
-            max: {
-               args: 4,
-               msg: 'Max size is 4'
-            }
          }
       },
       likesCount: {

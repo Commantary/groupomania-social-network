@@ -56,7 +56,7 @@ const signup = async (req, res) => {
             email,
             password: hash,
             role,
-            icon_url: `${req.protocol}://${req.get('host')}/images/default.png`,
+            icon_url: `default.png`,
          });
 
          return res.status(201).json({

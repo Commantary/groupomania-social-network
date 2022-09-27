@@ -17,6 +17,14 @@ const call = async (req, res, next) => {
          });
       }
 
+      // Check to see if the target is not the same user
+      if (userTarget.id === req.user.id) {
+         return res.status(400).json({
+            message: "You cannot send an invitation to yourself",
+            code: 400
+         });
+      }
+
       switch (type) {
          case '0':
             // Check if user is already friend
@@ -32,6 +40,23 @@ const call = async (req, res, next) => {
             if (userFriend) {
                return res.status(400).json({
                   message: "You are already friend with this user",
+                  code: 400
+               });
+            }
+
+            // Check if user has already received an invitation
+            const invitationReceive = await Invitation.findOne({
+               where: {
+                  [Op.or]: [
+                     {targetId: req.user.id, senderId: userTarget.id},
+                     {targetId: userTarget.id, senderId: req.user.id}
+                     ]
+               }
+            })
+
+            if (invitationReceive) {
+               return res.status(400).json({
+                  message: "You have already received an invitation from this user",
                   code: 400
                });
             }

@@ -17,7 +17,7 @@ function saveImageArr(req, images, limit) {
       let imageDirPath = path.join(__dirname, `${process.env.IMAGES_DIR}/${process.env.IMAGES_FOLDER}`);
       let imagePath = `${imageDirPath}/${imageName}.${images[i].name.split('.').pop()}`;
 
-      let link = `${req.protocol}://${req.get('host')}/images/${imageName}.${images[i].name.split('.').pop()}`
+      let link = `${imageName}.${images[i].name.split('.').pop()}`
 
       imageArr.push(link);
 
@@ -56,7 +56,7 @@ function saveImage(req, image) {
    const imageDirPath = path.join(__dirname, `${process.env.IMAGES_DIR}/${process.env.IMAGES_FOLDER}`);
    const imagePath = `${imageDirPath}/${imageName}.${image.name.split('.').pop()}`;
 
-   let link = `${req.protocol}://${req.get('host')}/images/${imageName}.${image.name.split('.').pop()}`
+   let link = `${imageName}.${image.name.split('.').pop()}`
 
    // Check the extension of the image
    if (!extensionAllowed.includes(image.name.split('.').pop())) {

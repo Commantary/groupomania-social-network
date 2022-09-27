@@ -2,7 +2,7 @@
   <div class="editable-single-post-container">
     <TitlePost
       :editable="false"
-      :icon-url="post.user.icon_url"
+      :icon-url="getUserIcon"
       :user-name="getUsername"
       :date-value="post.createdAt"
       :uuid="post.uuid"
@@ -90,6 +90,10 @@ const post = ref(props.post)
 
 const getUsername = computed(() => {
   return commonService.getUsername(props.post.user)
+})
+
+const getUserIcon = computed(() => {
+  return import.meta.env.VITE_IMAGE_URL + props.post.user.icon_url
 })
 
 function sendComment(value: string) {

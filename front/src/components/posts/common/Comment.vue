@@ -3,7 +3,7 @@
     <div class="comment-header">
       <div class="comment-header-left">
         <div class="comment-header-left-avatar">
-          <img :src="comment.user.icon_url" alt="user icon">
+          <img :src="getSrc" alt="user icon">
         </div>
         <div class="comment-header-left-username">
           <p>{{ getUserName }}</p>
@@ -34,6 +34,10 @@ const getUserName = computed(() => {
 
 const getDate = computed(() => {
   return commonService.getDateTranslation(props.comment.createdAt)
+})
+
+const getSrc = computed(() => {
+  return import.meta.env.VITE_IMAGE_URL + props.comment.user.icon_url
 })
 </script>
 

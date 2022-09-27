@@ -14,7 +14,10 @@
     </div>
 
     <SinglePost v-if="!data.loading && !data.error && !data.editable" :post="data.post" @edit="edit" />
-    <PostEditor v-if="!data.loading && !data.error && data.editable" :post="data.post" :reset="reset" @updated="reset" />
+    <PostEditor
+      v-if="!data.loading && !data.error && data.editable" :post="data.post" :reset="reset"
+      @updated="reset"
+    />
   </div>
 </template>
 

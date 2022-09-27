@@ -10,27 +10,59 @@ const call = async (req, res, next) => {
       // Get all posts / likes / comments from user and filter it by date
       const user = await User.findOne({
          where: {uuid},
-         include: [{
-            model: Like,
-            as: 'likes',
-            include: [{
-               model: Post,
-               as: 'post',
-               include: ["comments", "user"]
-            }]
-         }, {
-            model: Comment,
-            as: 'comments',
-            include: [{
-               model: Post,
-               as: 'post',
-               include: ["comments", "user"]
-            }]
-         },
+         include: [
+            {
+               model: Like,
+               as: 'likes',
+               include: [{
+                  model: Post,
+                  as: 'post',
+                  include: ["comments", "user", {
+                     model: Like,
+                     as: 'likes',
+                     include: [{
+                        model: User,
+                        as: 'user',
+                        attributes: ['uuid']
+                     }]
+                  }]
+               }]
+            }, {
+               model: Comment,
+               as: 'comments',
+               include: [
+                  {
+                     model: Post,
+                     as: 'post',
+                     include: ["comments", "user",
+                        {
+                           model: Like,
+                           as: 'likes',
+                           include: [{
+                              model: User,
+                              as: 'user',
+                              attributes: ['uuid']
+                           }]
+                        }]
+                  },
+                  {
+                     model: User,
+                     as: 'user'
+                  }]
+            },
             {
                model: Post,
                as: 'posts',
-               include: ["comments", "user"]
+               include: ["comments", "user",
+                  {
+                     model: Like,
+                     as: 'likes',
+                     include: [{
+                        model: User,
+                        as: 'user',
+                        attributes: ['uuid']
+                     }]
+                  }]
             }
          ],
          order: [['createdAt']]

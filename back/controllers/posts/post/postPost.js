@@ -10,11 +10,17 @@ const call = async (req, res, next) => {
 
       if (images) {
          if (images.length === undefined) {
+            console.log("images.length === undefined");
             imagesUrl.push(utils.saveImage(req, images));
          } else {
+            console.log("images.length !== undefined");
             imagesUrl = utils.saveImageArr(req, images, 4);
          }
       }
+
+      console.log(" ")
+      console.log("imagesUrl -> ", imagesUrl)
+      console.log(" ")
 
       if (imagesUrl.includes("Extension not allowed")) {
          return res.status(400).json({message: "Extension not allowed"});

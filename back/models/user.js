@@ -74,9 +74,16 @@ module.exports = (sequelize, DataTypes) => {
             notEmpty: {msg: 'Password must not be empty'},
          }
       },
+      bio: {
+         type: DataTypes.TEXT,
+         allowNull: true,
+         validate: {
+            len: [0, 255],
+         }
+      },
       icon_url: {
          type: DataTypes.STRING,
-         defaultValue: 'http://images/default.png',
+         defaultValue: 'default.png',
       },
       socialview: {
          type: DataTypes.BOOLEAN,

@@ -9,6 +9,7 @@ const call = async (req, res, next) => {
       const user = await User.findOne({
          where: { uuid },
          include: ['friends'],
+         exclude: ['email', 'uuid', 'createdAt', 'updatedAt']
       })
 
       if (!user) {

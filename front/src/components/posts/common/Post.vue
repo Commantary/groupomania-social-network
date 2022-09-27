@@ -1,11 +1,16 @@
 <template>
   <div class="post-container">
+    <p v-if="activity ?? false" class="information-title">
+      {{ getUsername }} {{ getInformationType }}
+    </p>
+
     <TitlePost
-      :icon-url="getPost.user.icon_url"
+      :icon-url="getUserIcon"
       :user-name="getUsername"
       :date-value="getPost.createdAt"
       :uuid="getPost.uuid"
       :author-uuid="getPost.user.uuid"
+      @destroy="destroyPost"
     />
 
     <div class="post-content">
@@ -21,7 +26,9 @@
       :comments-count="getPost.commentsCount"
     />
 
-    <LimitedComments class="limited-comments" :comments="getPost.comments" />
+    <LimitedComments v-if="!hideComments" class="limited-comments" :comments="getPost.comments" />
+
+    <SimpleComment v-if="activity && activity.type === 'comment'" :comment="activity.comment" />
   </div>
 </template>
 
@@ -31,12 +38,20 @@ import type { Post } from '../../../models/Post.model'
 import { useAuthStore } from '../../../store'
 import { commonService } from '../../../_services'
 import LimitedComments from '../lists/LimitedComments.vue'
+import type { Activity } from '../../../models/Activity.model'
 import TitlePost from './TitlePost.vue'
 import BasicFooterPost from './FooterPost.vue'
 import BasicImagesPost from './ImagesPost.vue'
+import SimpleComment from '@/components/posts/common/SimpleComment.vue'
 
 const props = defineProps<{
   post: Post
+  hideComments?: boolean
+  activity?: Activity
+}>()
+
+const emit = defineEmits<{
+  (event: 'destroy'): void
 }>()
 
 const post = ref(props.post)
@@ -52,6 +67,25 @@ const getUsername = computed(() => {
 const hasLiked = computed(() => {
   return props.post.likes.some(like => like.user.uuid === useAuthStore().getUser.uuid)
 })
+
+const getUserIcon = computed(() => {
+  return import.meta.env.VITE_IMAGE_URL + getPost.value.user.icon_url
+})
+
+const getInformationType = computed(() => {
+  switch (props.activity?.type) {
+    case 'post':
+      return 'a publié'
+    case 'comment':
+      return 'a commenté'
+    case 'like':
+      return 'a aimé'
+  }
+})
+
+function destroyPost() {
+  emit('destroy')
+}
 </script>
 
 <style lang="scss">
@@ -60,6 +94,14 @@ const hasLiked = computed(() => {
   flex-direction: column;
   justify-content: center;
   width: 100%;
+
+  .information-title {
+    color: #AEAEAE;
+    filter: opacity(82%);
+    font-size: 1rem;
+    margin-bottom: 0;
+    margin-left: 64px;
+  }
 
   &.post-container:not(.limited-comments):hover {
     backdrop-filter: brightness(90%);

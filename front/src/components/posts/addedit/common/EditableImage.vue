@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="editable-image">
-      <img :src="src" :alt="alt">
+      <img :src="getSrc" :alt="alt">
 
       <font-awesome-icon
         v-if="crossSelect"
@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 const props = defineProps<{
   src: string
@@ -32,6 +32,8 @@ const props = defineProps<{
 const emit = defineEmits<{
   (event: 'delete', src: string): void
 }>()
+
+const getSrc = computed(() => import.meta.env.VITE_IMAGE_URL + props.src)
 
 const crossSelect = ref(false)
 

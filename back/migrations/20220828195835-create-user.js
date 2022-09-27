@@ -28,6 +28,10 @@ module.exports = {
             type: DataTypes.STRING,
             allowNull: false,
          },
+         bio: {
+            type: DataTypes.TEXT,
+            allowNull: true,
+         },
          icon_url: {
             type: DataTypes.STRING,
             allowNull: false,

@@ -41,6 +41,7 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   (event: 'edit'): void
+  (event: 'destroy'): void
 }>()
 
 const openMenu = ref(false)
@@ -73,6 +74,8 @@ function clickOutside(event: Event) {
 }
 
 function destroyPostMenu() {
+  emit('destroy')
+
   openMenu.value = false
 }
 

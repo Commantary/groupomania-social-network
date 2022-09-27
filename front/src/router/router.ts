@@ -46,6 +46,13 @@ const routes: RouteRecordRaw[] = [
     meta: { requiresAuth: true },
   },
   {
+    path: '/user/:uuid',
+    name: 'profile',
+    component: () => import(/* webpackChunkName: "Profile" */ '@/views/Profile.vue'),
+    props: true,
+    meta: { requiresAuth: true },
+  },
+  {
     path: '/:pathMatch(.*)*',
     name: 'not-found',
     component: () => import(/* webpackChunkName: "NotFound" */ '@/views/NotFoundView.vue'),
@@ -54,6 +61,7 @@ const routes: RouteRecordRaw[] = [
 
 const scrollBehavior: RouterScrollBehavior = (to, from, savedPosition) => {
   if (to.name === from.name) {
+    // @ts-expect-error - scrollPos is not defined in RouteMeta
     to.meta?.scrollPos && (to.meta.scrollPos.top = 0)
     return { left: 0, top: 0 }
   }
@@ -77,8 +85,10 @@ router.beforeEach((to, from, next) => {
 
   // from.meta?.scrollPos && (from.meta.scrollPos.top = window.scrollY)
 
-  if (from.name === 'home' && from.meta?.scrollPos)
+  if (from.name === 'home' && from.meta?.scrollPos) {
+    // @ts-expect-error - scrollPos is not defined in RouteMeta
     from.meta.scrollPos.top = window.scrollY
+  }
 
   if (authStore.tokenIsValid && !authStore.isLogged) {
     authStore.$patch({

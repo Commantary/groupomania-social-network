@@ -2,7 +2,7 @@
   <div class="single-post-container">
     <TitlePost
       :editable="true"
-      :icon-url="post.user.icon_url"
+      :icon-url="getUserIcon"
       :user-name="getUsername"
       :date-value="post.createdAt"
       :uuid="post.uuid"
@@ -61,6 +61,10 @@ const getUsername = computed(() => {
 
 const hasLiked = computed(() => {
   return props.post.likes.some(like => like.user.uuid === useAuthStore().getUser.uuid)
+})
+
+const getUserIcon = computed(() => {
+  return import.meta.env.VITE_IMAGE_URL + props.post.user.icon_url
 })
 
 function sendComment(value: string) {

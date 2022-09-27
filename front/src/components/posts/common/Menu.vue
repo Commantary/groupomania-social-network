@@ -73,13 +73,15 @@ function sharePost() {
   emit('destroy')
 }
 
-function deletePost() {
-  usePostsStore().removePost(props.uuid!)
+async function deletePost() {
+  console.log(`deletePost -> ${props.uuid}`)
+
+  await usePostsStore().removePost(props.uuid!)
 
   // Check with router is the current page is the post page
   if (window.location.pathname === `/post/${props.uuid}`) {
     // Redirect to the home page
-    router.push('/')
+    await router.push('/')
   }
 
   // Destroy the component

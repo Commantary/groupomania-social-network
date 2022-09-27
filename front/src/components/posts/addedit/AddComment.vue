@@ -3,7 +3,7 @@
     <div class="comment-creator-header">
       <div class="comment-creator-header-left">
         <div class="comment-creator-header-left-avatar">
-          <img :src="getUser.icon_url" alt="user icon">
+          <img :src="getUserIcon" alt="user icon">
         </div>
         <div class="comment-header-left-username">
           <p>{{ getUserName }}</p>
@@ -33,12 +33,12 @@ const data = reactive({
   body: '' as string,
 })
 
-const getUser = computed(() => {
-  return useAuthStore().getUser
+const getUserIcon = computed(() => {
+  return import.meta.env.VITE_IMAGE_URL + useAuthStore().getUser.icon_url
 })
 
 const getUserName = computed(() => {
-  return commonService.getUsername(getUser.value)
+  return commonService.getUsername(useAuthStore().getUser)
 })
 
 function sendComment() {
