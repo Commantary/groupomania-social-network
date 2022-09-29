@@ -23,8 +23,7 @@ const getSrc = computed(() => {
 <style lang="scss">
 .simple-comment {
   width: auto;
-  backdrop-filter: brightness(95%);
-  margin-left: 70px;
+  padding-left: 70px;
   padding-bottom: 14px;
 
   .body {
@@ -36,7 +35,7 @@ const getSrc = computed(() => {
     p {
       font-size: 0.9rem;
       padding: 12px 14px;
-      background-color: #424456;
+      background-color: $bg-flat;
       border-radius: 4px 18px 18px 18px;
     }
 

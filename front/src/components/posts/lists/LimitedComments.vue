@@ -1,9 +1,10 @@
 <template>
   <div class="list-comments">
-    <Comment v-for="comment in getComments" :key="comment.uuid" class="comment-item" :comment="comment" />
-    <p v-if="props.comments.length > 2" class="more-comments">
+    <!--    <Comment v-for="comment in getComments" :key="comment.uuid" class="comment-item" :comment="comment" /> -->
+    <SimpleComment v-for="comment in getComments" :key="comment.uuid" class="comment-item comment-item--hover" :comment="comment" />
+    <button v-if="props.comments.length > 2" class="btn-more-comments">
       Voir plus
-    </p>
+    </button>
   </div>
 </template>
 
@@ -11,6 +12,7 @@
 import { computed } from 'vue'
 import type { Commentary } from '../../../models/Commentary.model'
 import Comment from '@/components/posts/common/Comment.vue'
+import SimpleComment from '@/components/posts/common/SimpleComment.vue'
 
 const props = defineProps<{
   comments: Commentary[]
@@ -24,24 +26,40 @@ const getComments = computed(() => {
 
 <style lang="scss">
 .list-comments {
+  background-color: $tertiary-color;
 
   .comment-item {
     width: calc(100% - 140px);
-    padding-left: 70px;
     padding-right: 70px;
-    background-color: $tertiary-color;
+
+    &:first-child {
+      padding-top: 14px;
+    }
+
+    &--hover {
+      &:hover {
+        background-color: $bg-1;
+      }
+    }
   }
 
-  .more-comments {
-    padding: 16px 70px;
-    margin: 0;
+  .btn-more-comments {
+    margin: 0 70px 16px;
+    padding: 12px 18px;
     font-weight: 500;
     cursor: pointer;
-    border-top: 1px solid rgba(255, 255, 255, 0.3);
     background-color: $tertiary-color;
+    border: none;
+    outline: none;
+    color: $white-1;
+    font-size: 14px;
+    font-family: $font-1;
+    border-radius: 12px;
+    transition: all 0.2s ease-in-out;
 
     &:hover {
       text-decoration: underline;
+      background-color: $bg-95;
     }
   }
 }

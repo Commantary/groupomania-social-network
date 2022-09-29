@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="!data.loading" class="post_list">
-      <p v-if="data.activities.length === 0">
+      <p v-if="!data.activities.length">
         Il n'y a aucune activité pour le moment
       </p>
 
@@ -77,11 +77,7 @@ function fetchActivities() {
             }
             break
         }
-
-        console.log(`${activity} => ${index}`)
       })
-
-      console.log(data.activities)
 
       data.loading = false
     })
@@ -100,8 +96,8 @@ function fetchActivities() {
   text-decoration: none;
 
   .post-item {
-    border-top: 1px solid #ccc;
-    backdrop-filter: brightness(95%);
+    border-top: 1px solid $border-color-1;
+    background-color: $bg-1;
     transition: all 0.2s ease-in-out;
   }
 
@@ -112,7 +108,7 @@ function fetchActivities() {
   }
 
   &:last-child {
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid $border-color-1;
   }
 }
 </style>

@@ -133,14 +133,14 @@ function checkClassIcon() {
 
 <style lang="scss">
 #creator-post-container {
-  border-top: 1px solid #e6ecf0;
+  border-top: 1px solid $border-color-1;
   padding: 40px;
 
   #creator-post {
     display: flex;
     flex-direction: column;
     width: calc(100% - 75px * 2);
-    backdrop-filter: brightness(120%);
+    background-color: $bg-120;
     padding: 20px 75px;
     border-radius: 125px;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
@@ -167,7 +167,7 @@ function checkClassIcon() {
     }
 
     #post-input {
-      width: 80%;
+      flex: 1;
       height: 70%;
       margin-left: 20px;
       padding: 20px;

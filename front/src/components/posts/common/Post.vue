@@ -26,7 +26,7 @@
       :comments-count="getPost.commentsCount"
     />
 
-    <LimitedComments v-if="!hideComments" class="limited-comments" :comments="getPost.comments" />
+    <LimitedComments v-if="!hideComments && getPost.comments.length" class="limited-comments" :comments="getPost.comments" />
 
     <SimpleComment v-if="activity && activity.type === 'comment'" :comment="activity.comment" />
   </div>
@@ -95,16 +95,19 @@ function destroyPost() {
   justify-content: center;
   width: 100%;
 
+  .limited-comments {
+    border-top: 2px solid $tertiary-color-dark;
+  }
+
   .information-title {
-    color: #AEAEAE;
-    filter: opacity(82%);
+    color: $gray-1;
     font-size: 1rem;
     margin-bottom: 0;
     margin-left: 64px;
   }
 
   &.post-container:not(.limited-comments):hover {
-    backdrop-filter: brightness(90%);
+    background-color: $bg-95;
   }
 
   .post-content {

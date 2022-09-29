@@ -18,6 +18,6 @@ const props = defineProps<{
   width: calc(100% - 44px);
   margin-left: 22px;
   margin-right: 22px;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid $border-color-1;
 }
 </style>

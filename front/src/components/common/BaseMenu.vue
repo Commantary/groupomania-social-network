@@ -43,7 +43,7 @@ const props = defineProps<{
       border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 
       &:hover {
-        backdrop-filter: brightness(95%);
+        background-color: $bg-95;
       }
 
       &:last-child {

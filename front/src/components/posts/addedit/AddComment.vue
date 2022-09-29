@@ -51,12 +51,12 @@ function sendComment() {
 
 <style lang="scss">
 .comment-creator {
-  border-top: 1px solid #ccc;
+  border-top: 1px solid $border-color-1;
   width: calc(100% - 28px - 44px);
   padding: 14px 14px 28px;
   margin-left: 22px;
   margin-right: 22px;
-  backdrop-filter: brightness(95%);
+  background-color: $bg-95;
 
   .comment-creator-header {
     display: flex;
@@ -113,16 +113,20 @@ function sendComment() {
       color: white;
       width: 100%;
       height: 50px;
-      border: none;
       outline: none;
       resize: none;
       font-size: 16px;
       font-family: 'Roboto', sans-serif;
       padding: 12px 14px;
       border-radius: 4px 18px 18px 18px;
+      border: 2px solid $tertiary-color;
 
       &::placeholder {
         color: rgba(255, 255, 255, 0.5);
+      }
+
+      &:focus {
+        border: 2px solid $tertiary-color-light;
       }
     }
   }

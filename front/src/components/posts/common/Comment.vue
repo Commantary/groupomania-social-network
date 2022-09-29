@@ -45,7 +45,7 @@ const getSrc = computed(() => {
 .comment {
   width: calc(100% - 28px);
   padding: 14px;
-  backdrop-filter: brightness(95%);
+  background-color: $bg-95;
   border-top: 1px solid rgba(255, 255, 255, 0.3);
 
   .comment-header {
@@ -81,7 +81,7 @@ const getSrc = computed(() => {
     .comment-header-right {
       p {
         font-size: 0.8rem;
-        color: #999;
+        color: $gray-1;
       }
     }
   }
@@ -90,6 +90,7 @@ const getSrc = computed(() => {
     display: flex;
     align-items: start;
     height: 50%;
+    margin-left: 12px;
 
     p {
       font-size: 0.9rem;

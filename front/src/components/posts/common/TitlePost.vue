@@ -117,7 +117,7 @@ function edit() {
     text-align: center;
 
     p {
-      color: #ABABAB;
+      color: $gray-1;
       margin-left: 10px;
     }
 

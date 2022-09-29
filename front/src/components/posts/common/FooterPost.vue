@@ -2,7 +2,7 @@
   <div class="footer-post">
     <div class="likes-post">
       <font-awesome-icon v-if="!hasLiked" icon="fa-regular fa-heart" @click="likePost($event)" />
-      <font-awesome-icon v-if="hasLiked" icon="fa-solid fa-heart" @click="likePost($event)" />
+      <font-awesome-icon v-if="hasLiked" class="heart" icon="fa-solid fa-heart" @click="likePost($event)" />
       <p>{{ likesCount }}</p>
     </div>
     <div class="comments-post">
@@ -79,6 +79,10 @@ async function likePost(event: Event) {
 
   .likes-post {
     margin-right: 22px;
+
+    .heart {
+      color: $primary-color;
+    }
   }
 }
 </style>

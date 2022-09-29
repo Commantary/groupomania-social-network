@@ -1,9 +1,5 @@
 <template>
   <div id="profil-container">
-    <div class="profile-page-title">
-      <font-awesome-icon class="back-icon" icon="fa-solid fa-arrow-left" @click="goBack()" />
-    </div>
-
     <div v-if="data.loading">
       <h1>Chargement en cours...</h1>
     </div>
@@ -54,30 +50,8 @@ function getUser() {
       data.error = true
     })
 }
-
-function goBack() {
-  if (history.length > 1)
-    history.back()
-  else
-    router.push('/')
-}
 </script>
 
 <style lang="scss">
-.back-icon {
-  margin-right: 24px;
-  margin-left: 8px;
-  font-size: 28px;
-  cursor: pointer;
-  padding: 8px;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  transition: all 0.2s ease-in-out;
 
-  &:hover {
-    color: $primary-color;
-    background-color: $tertiary-color-dark;
-  }
-}
 </style>

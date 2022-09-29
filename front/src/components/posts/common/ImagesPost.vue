@@ -100,7 +100,7 @@ const getClassType = computed(() => {
   margin-right: 70px;
   border-radius: 12px;
   overflow: hidden;
-  border: 1px solid #ccc;
+  border: 1px solid $border-color-1;
 
   .image-item {
     display: flex;

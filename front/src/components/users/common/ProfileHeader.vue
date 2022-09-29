@@ -1,12 +1,17 @@
 <template>
   <div class="header-container">
-    <div class="left-header">
-      <img :src="getSrc" alt="User icon">
-      <p><span>{{ getFriendsCount }}</span> amies</p>
+    <div class="top-header">
+      <font-awesome-icon class="back-icon" icon="fa-solid fa-arrow-left" @click="goBack()" />
     </div>
-    <div class="right-header">
-      <h2>{{ getUserName }}</h2>
-      <p>{{ getBio }}</p>
+    <div class="main-header">
+      <div class="left-header">
+        <img :src="getSrc" alt="User icon">
+        <p><span>{{ getFriendsCount }}</span> amies</p>
+      </div>
+      <div class="right-header">
+        <h2>{{ getUserName }}</h2>
+        <p>{{ getBio }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -14,6 +19,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { User } from '../../../models/User.model'
+import router from '../../../router/router'
 
 const props = defineProps<{
   user: User
@@ -26,58 +32,90 @@ const getSrc = computed(() => import.meta.env.VITE_IMAGE_URL + props.user.icon_u
 const getBio = computed(() => props.user.bio ?? 'Aucune bio')
 
 const getFriendsCount = computed(() => props.user.friends.length)
+
+function goBack() {
+  if (history.length > 1)
+    history.back()
+  else
+    router.push('/')
+}
 </script>
 
 <style lang="scss">
 .header-container {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: flex-start;
-  border-bottom: 3px solid #e6e6e6;
+  flex-direction: column;
+  width: 100%;
+  background-color: $bg-95;
 
-  .left-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-right: 42px;
+  .top-header {
+    margin-top: 8px;
+  }
 
-    img {
-      width: 152px;
-      height: 152px;
-      border-radius: 50%;
-    }
+  .back-icon {
+    margin-right: 24px;
+    margin-left: 8px;
+    font-size: 28px;
+    cursor: pointer;
+    padding: 8px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    transition: all 0.2s ease-in-out;
 
-    p {
-      color: #AEAEAE;
-      filter: opacity(82%);
-
-      span {
-        color: white;
-        filter: opacity(100%);
-      }
+    &:hover {
+      color: $primary-color;
+      background-color: $tertiary-color-dark;
     }
   }
 
-  .right-header {
+  .main-header {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: center;
     align-items: flex-start;
-    justify-content: space-between;
+    border-bottom: 3px solid $border-color-2;
 
-    h2 {
-      font-size: 32px;
-      margin-top: 8px;
-      margin-bottom: 0;
+    .left-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-right: 42px;
+
+      img {
+        width: 152px;
+        height: 152px;
+        border-radius: 50%;
+      }
+
+      p {
+        color: $gray-1;
+
+        span {
+          color: $white-1;
+        }
+      }
     }
 
-    p {
-      font-size: 16px;
-      color: #AEAEAE;
-      filter: opacity(82%);
-      text-align: left;
-      max-width: 222px;
+    .right-header {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-between;
+
+      h2 {
+        font-size: 32px;
+        margin-top: 8px;
+        margin-bottom: 0;
+      }
+
+      p {
+        font-size: 16px;
+        color: $gray-2;
+        text-align: left;
+        max-width: 222px;
+      }
     }
   }
 }
