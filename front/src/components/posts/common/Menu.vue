@@ -20,42 +20,30 @@ const emit = defineEmits<{
   (event: 'edit'): void
 }>()
 
-const items = props.isAuth
-  ? [
-      {
-        id: 2,
-        text: 'Supprimer',
-        onClick: ($event: Event) => {
-          $event.preventDefault()
+const items = []
 
-          deletePost()
-        },
-      },
-      {
-        id: 1,
-        text: 'Partager',
-        onClick: ($event: Event) => {
-          $event.preventDefault()
+items.push({
+  text: 'Partager',
+  onClick: ($event: Event) => {
+    $event.preventDefault()
 
-          sharePost()
-        },
-      },
-    ]
-  : [
-      {
-        id: 2,
-        text: 'Partager',
-        onClick: ($event: Event) => {
-          $event.preventDefault()
+    sharePost()
+  },
+})
 
-          sharePost()
-        },
-      },
-    ]
+if (props.isAuth) {
+  items.push({
+    text: 'Supprimer',
+    onClick: ($event: Event) => {
+      $event.preventDefault()
+
+      deletePost()
+    },
+  })
+}
 
 if (props.editable) {
   items.unshift({
-    id: 1,
     text: 'Éditer',
     onClick: ($event: Event) => {
       $event.preventDefault()

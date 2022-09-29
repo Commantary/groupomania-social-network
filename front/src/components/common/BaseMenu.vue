@@ -28,8 +28,10 @@ const props = defineProps<{
   z-index: 1000;
   background-color: #4E5166;
   border-radius: 5px;
-  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4);
   transition: all 0.2s ease-in-out;
+  overflow: hidden;
+  border: 1px solid $tertiary-color-dark;
 
   ul {
     list-style: none;
