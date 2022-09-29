@@ -1,7 +1,7 @@
 <template>
   <div class="title_post">
     <div class="title_info">
-      <img :src="iconUrl" alt="User icon">
+      <ProfilePicture :size="40" :clickable="true" :uuid="authorUuid" :src="iconUrl" />
       <h2>{{ userName }}</h2>
       <p>{{ getDate }}</p>
       <p>⬤</p>
@@ -29,6 +29,7 @@ import { computed, ref } from 'vue'
 import { useAuthStore } from '@/store'
 import { commonService } from '@/_services/common.service'
 import Menu from '@/components/posts/common/Menu.vue'
+import ProfilePicture from '@/components/users/common/ProfilePicture.vue'
 
 const props = defineProps<{
   iconUrl?: string

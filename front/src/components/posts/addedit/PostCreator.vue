@@ -3,7 +3,7 @@
     <div id="creator-post">
       <div id="top-creator-post">
         <div id="user-icon">
-          <img :src="getUserIcon" alt="user-icon">
+          <ProfilePicture :size="72" :clickable="true" :uuid="getUseUuid" :src="getIconUrl" />
         </div>
 
         <div id="post-input">
@@ -50,6 +50,7 @@ import PreviewImageAdded from '../common/PreviewImageAdded.vue'
 import { useAuthStore } from '@/store'
 import type { ViewUser } from '@/models/ViewUser.model'
 import { postService } from '@/_services'
+import ProfilePicture from '@/components/users/common/ProfilePicture.vue'
 
 const data = reactive({
   images: [] as File[],
@@ -57,7 +58,9 @@ const data = reactive({
   body: '' as string,
 })
 
-const getUserIcon: ViewUser = computed(() => import.meta.env.VITE_IMAGE_URL + useAuthStore().getUser.icon_url)
+const getIconUrl: ViewUser = computed(() => useAuthStore().getUser.icon_url)
+
+const getUseUuid = computed(() => useAuthStore().getUser.uuid)
 
 function onAddFile(e: Event) {
   // Add file to an array
@@ -153,7 +156,7 @@ function checkClassIcon() {
       justify-content: space-between;
     }
 
-    #user-icon {
+    /*#user-icon {
       width: 72px;
       height: 72px;
       border-radius: 50%;
@@ -164,7 +167,7 @@ function checkClassIcon() {
         height: 100%;
         object-fit: cover;
       }
-    }
+    }*/
 
     #post-input {
       flex: 1;

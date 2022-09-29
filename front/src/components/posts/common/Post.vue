@@ -69,7 +69,7 @@ const hasLiked = computed(() => {
 })
 
 const getUserIcon = computed(() => {
-  return import.meta.env.VITE_IMAGE_URL + getPost.value.user.icon_url
+  return getPost.value.user.icon_url
 })
 
 const getInformationType = computed(() => {

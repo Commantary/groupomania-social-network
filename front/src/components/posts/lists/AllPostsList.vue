@@ -64,7 +64,7 @@ const getPosts = computed(() => {
     .post-item {
       border-top: 1px solid $border-color-1;
       background-color: $bg-1;
-      transition: all 0.2s ease-in-out;
+      transition: background-color 0.2s ease-in-out;
     }
 
     &:first-child {

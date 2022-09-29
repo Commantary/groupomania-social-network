@@ -5,7 +5,7 @@
     </div>
     <div class="main-header">
       <div class="left-header">
-        <img :src="getSrc" alt="User icon">
+        <ProfilePicture :size="152" :src="getSrc" />
         <p><span>{{ getFriendsCount }}</span> amies</p>
       </div>
       <div class="right-header">
@@ -20,6 +20,7 @@
 import { computed } from 'vue'
 import type { User } from '../../../models/User.model'
 import router from '../../../router/router'
+import ProfilePicture from '@/components/users/common/ProfilePicture.vue'
 
 const props = defineProps<{
   user: User
@@ -27,7 +28,7 @@ const props = defineProps<{
 
 const getUserName = computed(() => `${props.user.first_name} ${props.user.last_name}`)
 
-const getSrc = computed(() => import.meta.env.VITE_IMAGE_URL + props.user.icon_url)
+const getSrc = computed(() => props.user.icon_url)
 
 const getBio = computed(() => props.user.bio ?? 'Aucune bio')
 

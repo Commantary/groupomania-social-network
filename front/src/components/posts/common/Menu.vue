@@ -74,8 +74,6 @@ function sharePost() {
 }
 
 async function deletePost() {
-  console.log(`deletePost -> ${props.uuid}`)
-
   await usePostsStore().removePost(props.uuid!)
 
   // Check with router is the current page is the post page
