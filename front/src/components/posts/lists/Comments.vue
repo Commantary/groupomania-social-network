@@ -15,8 +15,7 @@ const props = defineProps<{
 
 <style lang="scss">
 #list-comments {
-  width: calc(100% - 44px);
-  margin-left: 22px;
+  width: calc(100%);
   margin-right: 22px;
   border-top: 1px solid $border-color-1;
 }

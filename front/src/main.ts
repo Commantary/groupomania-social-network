@@ -1,13 +1,32 @@
+import 'normalize.css'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import './style.css'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faArrowLeft, faEllipsis, faFileCirclePlus, faPaperPlane, faCircleXmark as faSolidCross, faHeart as faSolidHeart } from '@fortawesome/free-solid-svg-icons'
-import { faComment, faCircleXmark as faRegularCross, faHeart as faRegularHeart } from '@fortawesome/free-regular-svg-icons'
-import App from './App.vue'
+import {
+  faArrowLeft,
+  faArrowRightFromBracket,
+  faEllipsis,
+  faFileCirclePlus,
+  faFireFlameCurved,
+  faGear,
+  faHouse,
+  faPaperPlane,
+  faScroll,
+  faCircleXmark as faSolidCross,
+  faHeart as faSolidHeart,
+  faUser,
+  faUserGroup,
+} from '@fortawesome/free-solid-svg-icons'
+import {
+  faComment,
+  faCircleXmark as faRegularCross,
+  faHeart as faRegularHeart,
+} from '@fortawesome/free-regular-svg-icons'
 import router from './router/router'
+import App from './App.vue'
 
 const app = createApp(App)
 
@@ -21,6 +40,13 @@ library.add(faComment)
 library.add(faArrowLeft)
 library.add(faSolidCross)
 library.add(faRegularCross)
+library.add(faHouse)
+library.add(faUser)
+library.add(faScroll)
+library.add(faFireFlameCurved)
+library.add(faUserGroup)
+library.add(faGear)
+library.add(faArrowRightFromBracket)
 app.component('FontAwesomeIcon', FontAwesomeIcon)
 
 const pinia = createPinia()

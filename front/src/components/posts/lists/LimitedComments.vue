@@ -51,7 +51,7 @@ const getComments = computed(() => {
     background-color: $tertiary-color;
     border: none;
     outline: none;
-    color: $white-1;
+    color: $neutral-3;
     font-size: 14px;
     font-family: $font-1;
     border-radius: 12px;

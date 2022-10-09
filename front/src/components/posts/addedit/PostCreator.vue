@@ -156,19 +156,6 @@ function checkClassIcon() {
       justify-content: space-between;
     }
 
-    /*#user-icon {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      overflow: hidden;
-
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-    }*/
-
     #post-input {
       flex: 1;
       height: 70%;

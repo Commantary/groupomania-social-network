@@ -25,6 +25,8 @@ const getSrc = computed(() => {
   width: auto;
   padding-left: 70px;
   padding-bottom: 14px;
+  border-top: 1px solid $border-color-3;
+  padding-top: 0.5rem;
 
   .body {
     display: flex;

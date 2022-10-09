@@ -1,6 +1,6 @@
 <template>
   <div id="login-page">
-    <img src="../../assets/icon-left-font-monochrome-white.svg" alt="Logo groupomania">
+    <img src="@/assets/icon-left-font-monochrome-white.svg" alt="Logo groupomania">
 
     <form action="">
       <BaseInput
@@ -27,7 +27,6 @@ import BaseButton from '../../components/common/BaseButton.vue'
 import { useAuthStore } from '../../store'
 import { accountService } from '../../_services'
 import router from '../../router/router'
-import { ViewUser } from '../../models/index.model'
 
 const data = reactive({
   email: '',

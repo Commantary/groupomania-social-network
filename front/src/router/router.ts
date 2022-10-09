@@ -96,11 +96,16 @@ router.beforeEach((to, from, next) => {
     })
   }
 
-  if (to.matched.some(record => record.meta.requiresAuth) && !authStore.isLogged)
+  if (to.matched.some(record => record.meta.requiresAuth) && !authStore.isLogged) {
+    console.log('login')
     next({ name: 'login' })
-  else if (to.matched.some(record => !record.meta.requiresAuth) && authStore.isLogged)
+  } else if (to.matched.some(record => !record.meta.requiresAuth) && authStore.isLogged) {
+    console.log('home')
     next({ name: 'home' })
-  else next()
+  } else {
+    console.log('next')
+    next()
+  }
 })
 
 export default router

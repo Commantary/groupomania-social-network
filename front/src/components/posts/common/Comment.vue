@@ -81,7 +81,7 @@ const getSrc = computed(() => {
     .comment-header-right {
       p {
         font-size: 0.8rem;
-        color: $gray-1;
+        color: $neutral-1;
       }
     }
   }

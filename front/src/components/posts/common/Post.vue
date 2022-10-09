@@ -100,7 +100,7 @@ function destroyPost() {
   }
 
   .information-title {
-    color: $gray-1;
+    color: $neutral-1;
     font-size: 1rem;
     margin-bottom: 0;
     margin-left: 64px;

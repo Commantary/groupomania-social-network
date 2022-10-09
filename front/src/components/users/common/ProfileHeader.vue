@@ -1,8 +1,5 @@
 <template>
   <div class="header-container">
-    <div class="top-header">
-      <font-awesome-icon class="back-icon" icon="fa-solid fa-arrow-left" @click="goBack()" />
-    </div>
     <div class="main-header">
       <div class="left-header">
         <ProfilePicture :size="152" :src="getSrc" />
@@ -48,10 +45,7 @@ function goBack() {
   flex-direction: column;
   width: 100%;
   background-color: $bg-95;
-
-  .top-header {
-    margin-top: 8px;
-  }
+  padding-top: 20px;
 
   .back-icon {
     margin-right: 24px;
@@ -91,10 +85,10 @@ function goBack() {
       }
 
       p {
-        color: $gray-1;
+        color: $neutral-1;
 
         span {
-          color: $white-1;
+          color: $neutral-3;
         }
       }
     }
@@ -113,7 +107,7 @@ function goBack() {
 
       p {
         font-size: 16px;
-        color: $gray-2;
+        color: $neutral-2;
         text-align: left;
         max-width: 222px;
       }

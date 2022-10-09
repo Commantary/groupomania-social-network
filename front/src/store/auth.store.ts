@@ -23,7 +23,7 @@ export const useAuthStore = defineStore({
       return state.token
     },
     tokenIsValid(state: any): boolean {
-      return state.token.length > 0
+      return state.token.length > 1
     },
     isLogged(state: any): boolean {
       return state.logged

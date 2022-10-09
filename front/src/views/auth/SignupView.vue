@@ -46,6 +46,8 @@
 
 <script setup lang="ts">
 import { computed, reactive, ref, watch } from 'vue'
+import useValidate from '@vuelidate/core'
+import { alpha, email, minLength, required } from '@vuelidate/validators'
 import BaseInput from '../../components/common/BaseInput.vue'
 import BaseButton from '../../components/common/BaseButton.vue'
 import { useAuthStore } from '../../store'
@@ -59,6 +61,15 @@ const data = reactive({
   password: '',
 })
 
+const rules = computed(() => ({
+  firstName: { required, minLength: minLength(2), alpha },
+  lastName: { required, minLength: minLength(2), alpha },
+  email: { required, email },
+  password: { required, minLength: minLength(8) },
+}))
+
+const v$ = useValidate(rules, data)
+
 // Set name input
 const firstNameName = 'Prénom'
 const lastNameName = 'Nom'
@@ -69,12 +80,7 @@ const passwordName = 'Mot de passe'
 const errorFirstName = 'Veuillez entrer un prénom valide.'
 const errorLastName = 'Veuillez entrer un nom valide.'
 const errorEmail = 'Veuillez entrer une adresse email valide.'
-const errorPassword = 'Votre mot de passe doit contenir au moins 8 caractères dont une majuscule, une minuscule et un chiffre.'
-
-// Set regex
-const regexName = /^[a-zA-ZÀ-ÿ-]+(\s[a-zA-ZÀ-ÿ-]+)*$/
-const regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/
-const regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
+const errorPassword = 'Votre mot de passe doit contenir au moins 8 caractères.'
 
 const focus = ref([''])
 const disabled = ref(true)
@@ -82,7 +88,7 @@ const disabled = ref(true)
 // Set computed
 const isFormValid = computed(() => {
   // Check if all elements are valid
-  return regexEmail.test(data.email) && regexPassword.test(data.password) && regexName.test(data.firstName) && regexName.test(data.lastName)
+  return v$.value.$valid
 })
 
 // Set watch
@@ -125,14 +131,13 @@ const signup = async (event: any) => {
 }
 
 const focusOut = (type: string) => {
-  // Check type
-  if (type === 'email' && data.email && data.email.length > 0 && !regexEmail.test(data.email))
+  if (type === 'email' && v$.value.email.$invalid)
     focus.value.push(type)
-  else if (type === 'password' && data.password && data.password.length > 0 && !regexPassword.test(data.password))
+  else if (type === 'password' && v$.value.password.$invalid)
     focus.value.push(type)
-  else if (type === 'firstName' && data.firstName && data.firstName.length > 0 && !regexName.test(data.firstName))
+  else if (type === 'firstName' && v$.value.firstName.$invalid)
     focus.value.push(type)
-  else if (type === 'lastName' && data.lastName && data.lastName.length > 0 && !regexName.test(data.lastName))
+  else if (type === 'lastName' && v$.value.lastName.$invalid)
     focus.value.push(type)
 }
 </script>

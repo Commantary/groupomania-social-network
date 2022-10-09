@@ -1,5 +1,3 @@
-<!-- BaseInput.vue component -->
-
 <template>
   <div class="base-input">
     <label v-if="name !== ''">{{ name }}</label>

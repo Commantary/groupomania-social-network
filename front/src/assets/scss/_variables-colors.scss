@@ -21,10 +21,13 @@ $bg-void: #3e4152;
 
 $border-color-1: #ccc;
 $border-color-2: #e6e6e6;
+$border-color-3: rgba(255, 255, 255, 0.1);
 
-$gray-1: #999;
-$gray-2: #AEAEAED1;
+$neutral-1: #999;
+$neutral-2: #AEAEAED1;
+$neutral-3: #fff;
 
-$white-1: #fff;
-
-$font-1: "Roboto", Inter, Avenir, Helvetica, Arial, sans-serif;
+$sidebar-bg-color: #4a4d61;
+$sidebar-item-hover: #585b6d;
+$sidebar-item-active: #5e617a;
+$sidebar-border-color: $border-color-1;

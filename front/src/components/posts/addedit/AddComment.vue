@@ -52,9 +52,8 @@ function sendComment() {
 <style lang="scss">
 .comment-creator {
   border-top: 1px solid $border-color-1;
-  width: calc(100% - 28px - 44px);
+  width: calc(100% - 28px);
   padding: 14px 14px 28px;
-  margin-left: 22px;
   margin-right: 22px;
   background-color: $bg-95;
 

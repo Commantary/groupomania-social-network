@@ -1,11 +1,15 @@
 <template>
   <div id="profil-container">
     <div v-if="data.loading">
-      <h1>Chargement en cours...</h1>
+      <h1 class="page-title">
+        Chargement en cours...
+      </h1>
     </div>
 
     <div v-if="data.error">
-      <h1>Il y a eu une erreur lors du chargement</h1>
+      <h1 class="page-title">
+        Il y a eu une erreur lors du chargement
+      </h1>
     </div>
 
     <div v-if="!data.loading && !data.error" id="header">
@@ -21,7 +25,6 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 import { userService } from '../_services'
-import router from '../router/router'
 import type { User } from '../models/User.model'
 import ProfileHeader from '@/components/users/common/ProfileHeader.vue'
 import ActivitiesList from '@/components/users/lists/ActivitiesList.vue'
@@ -53,5 +56,7 @@ function getUser() {
 </script>
 
 <style lang="scss">
-
+.page-title {
+  margin-left: $page-title-margin-left;
+}
 </style>

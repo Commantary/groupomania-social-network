@@ -1,6 +1,8 @@
 <template>
   <div class="home">
-    <h1>Les derniers posts</h1>
+    <h1 class="page-title">
+      Les derniers posts
+    </h1>
 
     <PostCreator />
 
@@ -16,5 +18,9 @@ import PostCreator from '@/components/posts/addedit/PostCreator.vue'
 <style lang="scss">
 .home {
   width: 100%;
+}
+
+.page-title {
+  margin-left: $page-title-margin-left;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="post-page-title">
-      <font-awesome-icon class="back-icon" icon="fa-solid fa-arrow-left" @click="goBack()" />
+      <font-awesome-icon class="back-icon page-title" icon="fa-solid fa-arrow-left" @click="goBack()" />
       <h1>Post</h1>
     </div>
 
@@ -77,6 +77,10 @@ function edit() {
 </script>
 
 <style lang="scss">
+.page-title {
+  margin-left: $page-title-margin-left;
+}
+
 .post-page-title {
   border-bottom: 1px solid #e6ecf0;
   display: flex;
