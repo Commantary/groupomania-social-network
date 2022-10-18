@@ -21,7 +21,7 @@ import { useAuthStore } from './store'
 const logged = computed(() => useAuthStore().isLogged)
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 html {
   scroll-behavior: smooth;
   position: relative;
@@ -43,6 +43,10 @@ html {
 .router-view {
   width: 100%;
   margin-left: 0;
+}
+
+.page-title {
+  margin-left: $page-title-margin-left;
 }
 
 .fade-enter-active,

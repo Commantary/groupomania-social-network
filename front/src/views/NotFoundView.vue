@@ -5,6 +5,6 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script scoped setup lang="ts">
 
 </script>

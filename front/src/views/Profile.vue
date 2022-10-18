@@ -55,8 +55,5 @@ function getUser() {
 }
 </script>
 
-<style lang="scss">
-.page-title {
-  margin-left: $page-title-margin-left;
-}
+<style scoped lang="scss">
 </style>

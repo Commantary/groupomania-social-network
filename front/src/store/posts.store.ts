@@ -3,6 +3,7 @@ import type { Post } from '../models/Post.model'
 import { postService } from '../_services'
 import type { Commentary } from '../models/Commentary.model'
 import { useErrorStore } from './error.store'
+import { useAuthStore } from './auth.store'
 
 export const usePostsStore = defineStore({
   id: 'posts',
@@ -61,6 +62,32 @@ export const usePostsStore = defineStore({
         .catch((err) => {
           console.error(err)
         })
+    },
+    async fetchUserPosts() {
+      const userPosts = [] as Post[]
+
+      await postService.getUserPosts(useAuthStore().getUser.uuid)
+        .then((res) => {
+          userPosts.push(...res.data.posts)
+        })
+        .catch((err) => {
+          console.error(err)
+        })
+
+      return userPosts
+    },
+    async fetchUserPostsLiked() {
+      const userPosts = [] as Post[]
+
+      await postService.getUserLikedPosts(useAuthStore().getUser.uuid)
+        .then((res) => {
+          userPosts.push(...res.data.posts)
+        })
+        .catch((err) => {
+          console.error(err)
+        })
+
+      return userPosts
     },
     async updatePost(uuid: string) {
       const postIndex = this.posts.findIndex((p: Post) => p.uuid === uuid)

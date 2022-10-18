@@ -28,9 +28,16 @@ const routes: RouteRecordRaw[] = [
     meta: { requiresAuth: false },
   },
   {
-    path: '/about',
-    name: 'about',
-    component: () => import(/* webpackChunkName: "About" */ '@/views/AboutView.vue'),
+    path: '/my-posts',
+    name: 'my-posts',
+    component: () => import(/* webpackChunkName: "MyPosts" */ '@/views/MyPosts.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/favorites',
+    name: 'favorites',
+    component: () => import(/* webpackChunkName: "PostsLiked" */ '@/views/PostsLiked.vue'),
+    meta: { requiresAuth: true },
   },
   {
     path: '/user',

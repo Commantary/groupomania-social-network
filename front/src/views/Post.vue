@@ -76,11 +76,7 @@ function edit() {
 }
 </script>
 
-<style lang="scss">
-.page-title {
-  margin-left: $page-title-margin-left;
-}
-
+<style scoped lang="scss">
 .post-page-title {
   border-bottom: 1px solid #e6ecf0;
   display: flex;

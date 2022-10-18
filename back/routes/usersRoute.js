@@ -9,7 +9,8 @@ const {
    putIcon,
    putPassword,
    putSocialview,
-   getActivities
+   getActivities,
+   getLikedPosts
 } = require('../controllers/users');
 
 router.route('/:uuid').get(getUser);
@@ -20,5 +21,6 @@ router.route('/:uuid/icon').put(putIcon);
 router.route('/:uuid/password').put(putPassword);
 router.route('/:uuid/socialview').put(putSocialview);
 router.route('/:uuid/activities').get(getActivities);
+router.route('/:uuid/like-posts').get(getLikedPosts);
 
 module.exports = router;

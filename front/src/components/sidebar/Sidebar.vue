@@ -59,13 +59,13 @@ const items = [
   {
     icon: 'fa-solid fa-scroll',
     text: 'Mes posts',
-    to: '/friends',
+    to: '/my-posts',
     exact: false,
   },
   {
     icon: 'fa-solid fa-fire-flame-curved',
     text: 'Mes favoris',
-    to: '/messages',
+    to: '/favorites',
     exact: false,
   },
   {

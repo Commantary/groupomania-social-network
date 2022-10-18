@@ -51,6 +51,14 @@ const updatePost = (uuid: string, body: string, images: File[], imagesRemoved: s
   return Axios.put(routesService.routes_api.post.replace(':uuid', uuid), formData)
 }
 
+const getUserPosts = (uuid: string) => {
+  return Axios.get(routesService.routes_api.user_posts.replace(':uuid', uuid))
+}
+
+const getUserLikedPosts = (uuid: string) => {
+  return Axios.get(routesService.routes_api.user_liked_posts.replace(':uuid', uuid))
+}
+
 export const postService = {
   getAllPosts,
   getPost,
@@ -59,4 +67,6 @@ export const postService = {
   likePost,
   sendComment,
   updatePost,
+  getUserPosts,
+  getUserLikedPosts,
 }
