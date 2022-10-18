@@ -3,7 +3,7 @@
     <div class="main-header">
       <div class="left-header">
         <ProfilePicture :size="152" :src="getSrc" />
-        <p><span>{{ getFriendsCount }}</span> amis</p>
+        <p><span>{{ getFriendsCount }}</span>{{ getFriendText }}</p>
       </div>
       <div class="right-header">
         <h2>{{ getUserName }}</h2>
@@ -29,7 +29,21 @@ const getSrc = computed(() => props.user.icon_url)
 
 const getBio = computed(() => props.user.bio ?? 'Aucune bio')
 
-const getFriendsCount = computed(() => props.user.friends.length)
+const getFriendsCount = computed(() => {
+  if (props.user.friends.length === 0)
+    return 'Aucun'
+  else if (props.user.friends.length === 1)
+    return '1'
+  else
+    return props.user.friends.length
+})
+
+const getFriendText = computed(() => {
+  if (props.user.friends.length <= 1)
+    return ' ami'
+  else
+    return ' amis'
+})
 
 function goBack() {
   if (history.length > 1)
