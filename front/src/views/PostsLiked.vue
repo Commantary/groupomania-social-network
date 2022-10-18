@@ -1,5 +1,5 @@
 <template>
-  <div class="my-posts">
+  <div class="page-container">
     <h1 class="page-title">
       Mes favoris
     </h1>
@@ -13,7 +13,5 @@ import UserPosts from '@/components/posts/lists/UserPosts.vue'
 </script>
 
 <style scoped lang="scss">
-.my-posts {
-  width: 100%;
-}
+
 </style>

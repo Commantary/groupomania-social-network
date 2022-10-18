@@ -1,5 +1,5 @@
 <template>
-  <div id="profil-container">
+  <div id="profil-container" class="page-container">
     <div v-if="data.loading">
       <h1 class="page-title">
         Chargement en cours...

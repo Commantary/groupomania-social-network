@@ -40,6 +40,12 @@ const routes: RouteRecordRaw[] = [
     meta: { requiresAuth: true },
   },
   {
+    path: '/invitations',
+    name: 'invitations',
+    component: () => import(/* webpackChunkName: "Invitations" */ '@/views/Invitations.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
     path: '/user',
     name: 'user',
     component: () => import(/* webpackChunkName: "User" */ '@/views/UserView.vue'),

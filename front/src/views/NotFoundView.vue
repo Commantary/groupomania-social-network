@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div class="page-container">
     <h1>404</h1>
     <p>Page not found</p>
   </div>
 </template>
 
-<script scoped setup lang="ts">
+<script setup lang="ts">
 
 </script>

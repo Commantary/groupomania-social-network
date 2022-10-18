@@ -71,7 +71,7 @@ const items = [
   {
     icon: 'fa-solid fa-user-group',
     text: 'Invitations',
-    to: '/settings',
+    to: '/invitations',
     exact: false,
   },
 ]

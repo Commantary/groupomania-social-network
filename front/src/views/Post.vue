@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page-container">
     <div class="post-page-title">
       <font-awesome-icon class="back-icon page-title" icon="fa-solid fa-arrow-left" @click="goBack()" />
       <h1>Post</h1>

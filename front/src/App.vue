@@ -49,6 +49,10 @@ html {
   margin-left: $page-title-margin-left;
 }
 
+.page-container {
+  width: 100%;
+}
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 250ms ease-out;

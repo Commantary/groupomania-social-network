@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="page-container">
     <h1 class="page-title">
       Les derniers posts
     </h1>
@@ -16,7 +16,5 @@ import PostCreator from '@/components/posts/addedit/PostCreator.vue'
 </script>
 
 <style scoped lang="scss">
-.home {
-  width: 100%;
-}
+
 </style>
