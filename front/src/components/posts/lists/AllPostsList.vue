@@ -1,9 +1,9 @@
 <template>
-  <div v-if="data.loading">
+  <div v-if="data.loading" class="information-text--margin">
     <h1>Chargement en cours...</h1>
   </div>
   <div v-if="!data.loading" class="post-list">
-    <p v-if="getPosts.length === 0">
+    <p v-if="getPosts.length === 0" class="information-text--margin">
       Il n'y a pas de posts
     </p>
 
@@ -43,6 +43,10 @@ const getPosts = computed(() => {
 </script>
 
 <style lang="scss">
+.information-text--margin {
+  margin-left: $page-title-margin-left;
+}
+
 .post-list {
   .fake-post {
     width: 100%;

@@ -2,9 +2,9 @@
   <div id="root">
     <NotifBar id="notifbar" />
 
-    <Sidebar />
+    <Sidebar v-if="logged" />
 
-    <router-view v-slot="{ Component }" class="router-view">
+    <router-view v-slot="{ Component }" :class="{ 'router-view--sidebar': logged }" class="router-view">
       <transition name="fade" mode="out-in">
         <component :is="Component" />
       </transition>
@@ -13,8 +13,12 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import NotifBar from './components/snackbars/NotifBar.vue'
 import Sidebar from './components/sidebar/Sidebar.vue'
+import { useAuthStore } from './store'
+
+const logged = computed(() => useAuthStore().isLogged)
 </script>
 
 <style scoped lang="scss">
@@ -31,9 +35,14 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.router-view--sidebar {
+  width: calc(100% - $sidebar-width - $sidebar-padding * 2)!important;
+  margin-left: calc($sidebar-width + $sidebar-padding * 2)!important;
+}
+
 .router-view {
-  width: calc(100% - $sidebar-width - $sidebar-padding * 2);
-  margin-left: calc($sidebar-width + $sidebar-padding * 2);
+  width: 100%;
+  margin-left: 0;
 }
 
 .fade-enter-active,

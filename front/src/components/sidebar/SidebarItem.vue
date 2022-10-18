@@ -1,10 +1,10 @@
 <template>
   <div class="sidebar-item" @click="click">
     <div class="sidebar-item__content">
-      <div class="sidebar-item__content__icon">
+      <div class="sidebar-item__icon">
         <Icon class="icon" :icon="icon" />
       </div>
-      <div class="sidebar-item__content__text">
+      <div class="sidebar-item__text">
         <p>{{ text }}</p>
       </div>
     </div>
@@ -46,11 +46,11 @@ function click() {
     align-items: center;
   }
 
-  &__content__icon {
+  &__icon {
     margin-right: 0.5rem;
   }
 
-  &__content__text {
+  &__text {
     font-size: 1.2rem;
     font-weight: 300;
 

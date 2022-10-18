@@ -3,7 +3,7 @@
     <div class="main-header">
       <div class="left-header">
         <ProfilePicture :size="152" :src="getSrc" />
-        <p><span>{{ getFriendsCount }}</span> amies</p>
+        <p><span>{{ getFriendsCount }}</span> amis</p>
       </div>
       <div class="right-header">
         <h2>{{ getUserName }}</h2>

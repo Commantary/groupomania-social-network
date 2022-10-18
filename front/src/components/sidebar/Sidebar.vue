@@ -1,11 +1,11 @@
 <template>
   <div class="sidebar">
-    <div class="sidebar__content">
-      <div class="sidebar__content__logo">
+    <div class="sidebar-content">
+      <div class="sidebar-content__logo">
         <img src="@/assets/icon-left-font-monochrome-white.svg" alt="logo">
       </div>
-      <div class="sidebar__content__items">
-        <div class="sidebar__content__items__top">
+      <div class="sidebar-content__items-list">
+        <div class="sidebar-content__items-top">
           <SidebarItem
             v-for="item in items"
             :key="item.to"
@@ -13,17 +13,18 @@
             :text="item.text"
             :to="item.to"
             :exact="item.exact"
-            class="sidebar__content__items__top__item"
+            class="sidebar-content__item"
           />
 
-          <span class="sidebar__content__items__top__border" />
+          <!--          <span class="sidebar-content__items__top__border" /> -->
+          <hr class="sidebar-content__separator">
 
           <SidebarItem
             :icon="settingsItem.icon"
             :text="settingsItem.text"
             :to="settingsItem.to"
             :exact="settingsItem.exact"
-            class="sidebar__content__items__top__item"
+            class="sidebar-content__item"
           />
         </div>
 
@@ -32,7 +33,6 @@
           :text="logoutItem.text"
           :to="logoutItem.to"
           :exact="logoutItem.exact"
-          class="sidebar__content__items__logout"
         />
       </div>
     </div>
@@ -113,10 +113,11 @@ const logoutItem = {
 
   border-right: 1px solid $sidebar-border-color;
 
-  &__content {
+  &-content {
     display: flex;
     flex-direction: column;
     flex: 1;
+    align-items: start;
 
     &__logo {
       margin-bottom: 20px;
@@ -131,7 +132,25 @@ const logoutItem = {
       }
     }
 
-    &__items {
+    &__separator {
+      height: 1px;
+      background-color: $sidebar-border-color;
+      margin: 10px 0;
+      width: calc(100%);
+      border: none;
+    }
+
+    &__items-top {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+
+      &__item {
+        margin-bottom: 10px;
+      }
+    }
+
+    &__items-list {
       display: flex;
       flex-direction: column;
       flex: 1;
@@ -142,27 +161,6 @@ const logoutItem = {
         width: 1.5rem;
         height: 1.5rem;
         margin-right: 0.5rem;
-      }
-
-      &__logout {
-        font-weight: 500;
-      }
-
-      &__top {
-        display: flex;
-        flex-direction: column;
-        align-items: start;
-
-        &__border {
-          height: 1px;
-          background-color: $sidebar-border-color;
-          margin: 10px 0;
-          width: calc(100% - 1rem);
-        }
-
-        &__item {
-          margin-bottom: 10px;
-        }
       }
     }
   }

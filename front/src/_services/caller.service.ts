@@ -48,7 +48,7 @@ Axios.interceptors.response.use((res) => {
   // If token is invalid logout and redirect to log in
   if (error.response.status === 401) {
     accountService.logout()
-    router.push('/login')
+    router.push('/login').then(r => console.log(r)).catch(e => console.log(e))
   }
 })
 
