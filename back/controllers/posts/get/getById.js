@@ -29,14 +29,21 @@ const call = async (req, res, next) => {
          ],
       });
 
-      post.comments.sort(function (a, b) {
-         return b['createdAt'] - a['createdAt'];
-      })
+      if(post) {
+         post.comments.sort(function (a, b) {
+            return b['createdAt'] - a['createdAt'];
+         })
 
-      return res.status(200).json({
-         post,
-         code: 200
-      });
+         return res.status(200).json({
+            post,
+            code: 200
+         });
+      } else {
+         return res.status(404).json({
+            error: 'Post not found',
+            code: 404
+         });
+      }
    } catch (error) {
       utils.handleError(error, res);
    }

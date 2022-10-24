@@ -16,7 +16,6 @@
             class="sidebar-content__item"
           />
 
-          <!--          <span class="sidebar-content__items__top__border" /> -->
           <hr class="sidebar-content__separator">
 
           <SidebarItem

@@ -30,10 +30,11 @@ const call = async (req, res, next) => {
             // Check if user is already friend
             const userFriend = await UserFriend.findOne({
                where: {
-                  [Op.or]: [
-                     {userId: req.user.id, friendId: userTarget.id},
-                     {userId: userTarget.id, friendId: req.user.id}
-                  ]
+                  [Op.or]:
+                     [
+                        {userId: req.user.id, friendId: userTarget.id},
+                        {userId: userTarget.id, friendId: req.user.id}
+                     ]
                }
             });
 
@@ -47,9 +48,10 @@ const call = async (req, res, next) => {
             // Check if user has already received an invitation
             const invitationReceive = await Invitation.findOne({
                where: {
-                  [Op.or]: [
-                     {targetId: req.user.id, senderId: userTarget.id},
-                     {targetId: userTarget.id, senderId: req.user.id}
+                  [Op.or]:
+                     [
+                        {targetId: req.user.id, senderId: userTarget.id},
+                        {targetId: userTarget.id, senderId: req.user.id}
                      ]
                }
             })
@@ -64,10 +66,11 @@ const call = async (req, res, next) => {
             // Check if user already sent an invitation
             const invitation = await Invitation.findOne({
                where: {
-                  [Op.or]: [
-                     {senderId: req.user.id, targetId: userTarget.id},
-                     {senderId: userTarget.id, targetId: req.user.id}
-                  ]
+                  [Op.or]:
+                     [
+                        {senderId: req.user.id, targetId: userTarget.id},
+                        {senderId: userTarget.id, targetId: req.user.id}
+                     ]
                }
             });
 

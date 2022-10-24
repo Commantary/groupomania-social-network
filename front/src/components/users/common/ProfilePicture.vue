@@ -1,5 +1,5 @@
 <template>
-  <div class="profil-picture-container">
+  <div class="profil-picture-container" :style="getSize">
     <router-link v-if="clickable ?? false" :to="`/user/${uuid}`" :class="{ linked: clickable }">
       <img :src="getUserIcon" :style="getSize" alt="user-icon">
     </router-link>

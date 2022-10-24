@@ -2,6 +2,7 @@ const getUserModule = require('./users/get/getUser');
 const getAllPostsModule = require('./users/get/getAllPosts');
 const getActivitiesModule = require('./users/get/getActivities');
 const getLikedPostsModule = require('./users/get/getPostsLiked');
+const getInvitationsModule = require('./users/get/getInvitations');
 
 const putInvitationModule = require('./users/put/putInvitation');
 const putIconModule = require('./users/put/putIcon');
@@ -46,6 +47,10 @@ const getLikedPosts = (req, res, next) => {
    getLikedPostsModule.call(req, res, next);
 }
 
+const getInvitations = (req, res, next) => {
+   getInvitationsModule.call(req, res, next);
+}
+
 module.exports = {
    getUser,
    putInvitation,
@@ -55,5 +60,6 @@ module.exports = {
    putPassword,
    putSocialview,
    getActivities,
-   getLikedPosts
+   getLikedPosts,
+   getInvitations
 };

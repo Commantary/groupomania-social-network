@@ -18,7 +18,7 @@ const call = async (req, res, next) => {
          }
       }
 
-      const post = await Post.findOne({ where: { uuid } });
+      const post = await Post.findOne({where: {uuid}});
 
       if (!post) {
          return res.status(404).json({
@@ -27,8 +27,8 @@ const call = async (req, res, next) => {
          });
       }
 
-      if(imagesRemoved)
-          imagesUrl.push(...post.images.filter(image => !imagesRemoved.includes(image)));
+      if (imagesRemoved)
+         imagesUrl.push(...post.images.filter(image => !imagesRemoved.includes(image)));
       else
          imagesUrl.push(...post.images);
 

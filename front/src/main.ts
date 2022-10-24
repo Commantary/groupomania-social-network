@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {
   faArrowLeft,
   faArrowRightFromBracket,
+  faCircleCheck,
   faEllipsis,
   faFileCirclePlus,
   faFireFlameCurved,
@@ -47,6 +48,7 @@ library.add(faFireFlameCurved)
 library.add(faUserGroup)
 library.add(faGear)
 library.add(faArrowRightFromBracket)
+library.add(faCircleCheck)
 app.component('FontAwesomeIcon', FontAwesomeIcon)
 
 const pinia = createPinia()
