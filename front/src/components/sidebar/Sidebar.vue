@@ -39,41 +39,15 @@
 </template>
 
 <script setup lang="ts">
+import { sidebarService } from '../../_services/sidebar.service'
 import { useAuthStore } from '../../store'
 import SidebarItem from './SidebarItem.vue'
 
-const items = [
-  {
-    icon: 'fa-solid fa-house',
-    text: 'Accueil',
-    to: '/',
-    exact: true,
-  },
-  {
-    icon: 'fa-solid fa-user',
-    text: 'Mon profil',
-    to: `/user/${useAuthStore().user.uuid}`,
-    exact: false,
-  },
-  {
-    icon: 'fa-solid fa-scroll',
-    text: 'Mes posts',
-    to: '/my-posts',
-    exact: false,
-  },
-  {
-    icon: 'fa-solid fa-fire-flame-curved',
-    text: 'Mes favoris',
-    to: '/favorites',
-    exact: false,
-  },
-  {
-    icon: 'fa-solid fa-user-group',
-    text: 'Invitations',
-    to: '/invitations',
-    exact: false,
-  },
-]
+const items = sidebarService.items
+
+items.forEach((item) => {
+  item.to = item.to.replace(':id', useAuthStore().user.uuid)
+})
 
 const settingsItem = {
   icon: 'fa-solid fa-gear',

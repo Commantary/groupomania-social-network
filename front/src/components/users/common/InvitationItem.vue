@@ -1,6 +1,6 @@
 <template>
   <div class="invitation-item">
-    <ProfilePicture :src="invitation.icon_url" size="42" />
+    <ProfilePicture :src="invitation.icon_url" :size="42" />
 
     <h3 class="username">
       {{ invitation.username }}
@@ -50,8 +50,8 @@ const getFriendsCount = computed(() => {
   height: 60px;
   width: 350px;
 
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 4px;
+  margin-right: 4px;
   padding: 6px 14px;
 
   background-color: $bg-120;
@@ -72,9 +72,6 @@ const getFriendsCount = computed(() => {
     flex-direction: row;
     justify-content: space-between;
     width: 22%;
-  }
-
-  button {
   }
 
   .icon {

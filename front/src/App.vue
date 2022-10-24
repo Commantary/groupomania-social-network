@@ -4,7 +4,7 @@
 
     <Sidebar v-if="logged" />
 
-    <router-view v-slot="{ Component }" :class="{ 'router-view--sidebar': logged }" class="router-view">
+    <router-view v-slot="{ Component }" :class="{ 'router-view--sidebar': logged, 'router-view--no-sidebar': !logged }">
       <transition name="fade" mode="out-in">
         <component :is="Component" />
       </transition>
@@ -40,7 +40,7 @@ html {
   margin-left: calc($sidebar-width + $sidebar-padding * 2)!important;
 }
 
-.router-view {
+.router-view--no-sidebar {
   width: 100%;
   margin-left: 0;
 }

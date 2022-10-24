@@ -28,9 +28,9 @@ for (let i = 0; i < 10; i++) {
 .invitation-list {
   display: flex;
   flex-direction: row;
-  align-content: space-between;
+  justify-content: space-around;
   flex-wrap: wrap;
   margin-left: 2rem;
-  margin-right: 2rem;
+  margin-right: auto;
 }
 </style>
