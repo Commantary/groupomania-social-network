@@ -16,6 +16,8 @@ const routes_api = {
   activities: `${BASE_API}/users/:uuid/activities`,
   user_posts: `${BASE_API}/users/:uuid/posts`,
   user_liked_posts: `${BASE_API}/users/:uuid/like-posts`,
+  invitations: `${BASE_API}/users/:uuid/invitations`,
+
 }
 
 export const routesService = {

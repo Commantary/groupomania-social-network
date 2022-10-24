@@ -66,6 +66,13 @@ const routes: RouteRecordRaw[] = [
     meta: { requiresAuth: true },
   },
   {
+    path: '/logout',
+    name: 'logout',
+    component: () => import(/* webpackChunkName: "Logout" */ '@/views/Logout.vue'),
+    props: true,
+    meta: { requiresAuth: true },
+  },
+  {
     path: '/:pathMatch(.*)*',
     name: 'not-found',
     component: () => import(/* webpackChunkName: "NotFound" */ '@/views/NotFoundView.vue'),

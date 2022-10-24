@@ -47,6 +47,7 @@ html {
 
 .page-title {
   margin-left: $page-title-margin-left;
+  margin-top: 26px;
 }
 
 .page-container {

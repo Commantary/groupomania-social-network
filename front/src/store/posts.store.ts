@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import type { Post } from '../models/Post.model'
 import { postService } from '../_services'
 import type { Commentary } from '../models/Commentary.model'
+import type { Invitation } from '../models/Invitation.model'
 import { useErrorStore } from './error.store'
 import { useAuthStore } from './auth.store'
 
