@@ -73,7 +73,7 @@ const getPosts = computed(() => {
     border-top: 1px solid $border-color-1;
 
     &--height {
-      height: 300px;
+      height: 60vh;
       border: none;
     }
   }

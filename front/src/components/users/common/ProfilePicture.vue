@@ -36,11 +36,13 @@ const getSize = {
 
   .linked {
     img {
-      transition: filter 0.2s ease-in-out;
+      transition: filter 0.2s ease-in-out, border 0.2s ease-in-out;
+      border: 2px solid transparent;
     }
 
     &:hover img {
       filter: opacity(80%);
+      border-color: $primary-color;
     }
   }
 }
