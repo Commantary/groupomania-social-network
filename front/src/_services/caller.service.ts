@@ -34,7 +34,8 @@ Axios.interceptors.response.use((res) => {
     if (error.response.status === 401) {
       if (router.currentRoute.value.name !== 'login') {
         accountService.logout()
-        router.push({ name: 'login' })
+        // router.push({ name: 'login' })
+        window.location.href = '/login'
       } else {
         useErrorStore().setNotif(true, true, error.response.data.error)
       }

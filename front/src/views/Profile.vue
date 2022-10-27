@@ -23,9 +23,10 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { reactive, watch } from 'vue'
 import { userService } from '../_services'
 import type { User } from '../models/User.model'
+import { useUsersStore } from '../store/users.store'
 import ProfileHeader from '@/components/users/common/ProfileHeader.vue'
 import ActivitiesList from '@/components/users/lists/ActivitiesList.vue'
 
@@ -45,7 +46,11 @@ function getUser() {
   userService.getUserByUuid(props.uuid)
     .then((res: any) => {
       data.user = res.data.user
-      data.loading = false
+
+      useUsersStore().fetchUserInvitations()
+        .then(() => {
+          data.loading = false
+        })
     })
     .catch((err: Error) => {
       console.error(err)
@@ -53,6 +58,13 @@ function getUser() {
       data.error = true
     })
 }
+
+// Watch for changes in the uuid prop
+watch(() => props.uuid, () => {
+  data.loading = true
+  data.error = false
+  getUser()
+})
 </script>
 
 <style scoped lang="scss">

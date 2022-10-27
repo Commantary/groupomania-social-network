@@ -25,12 +25,29 @@ const call = async (req, res, next) => {
          }]
       })
 
+      const userInvitationsSent = await Invitation.findAll({
+         where: { senderId: user.id },
+         include: [{
+            model: User,
+            as: 'target',
+            attributes: [
+               'icon_url',
+               'first_name',
+               'last_name',
+               'uuid',
+               'bio',
+               'friends',
+            ]
+         }]
+      })
+
       userInvitations.sort(function(a, b) {
          return a['createdAt'] - b['createdAt'];
       })
 
       return res.status(200).json({
          invitations: userInvitations,
+         invitationsSent: userInvitationsSent,
          code: 200
       });
    } catch (error) {

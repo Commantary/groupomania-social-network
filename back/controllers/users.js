@@ -10,6 +10,7 @@ const putPasswordModule = require('./users/put/putPassword');
 const putSocialviewModule = require('./users/put/putSocialview');
 
 const deleteIconModule = require('./users/delete/deleteIcon');
+const deleteFriendModule = require('./users/delete/deleteFriend');
 
 const getUser = (req, res, next) => {
    getUserModule.call(req, res, next);
@@ -51,6 +52,10 @@ const getInvitations = (req, res, next) => {
    getInvitationsModule.call(req, res, next);
 }
 
+const deleteFriend = (req, res, next) => {
+   deleteFriendModule.call(req, res, next);
+}
+
 module.exports = {
    getUser,
    putInvitation,
@@ -61,5 +66,6 @@ module.exports = {
    putSocialview,
    getActivities,
    getLikedPosts,
-   getInvitations
+   getInvitations,
+   deleteFriend
 };

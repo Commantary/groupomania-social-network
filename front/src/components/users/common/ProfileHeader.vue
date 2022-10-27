@@ -6,22 +6,35 @@
         <p><span>{{ getFriendsCount }}</span>{{ getFriendText }}</p>
       </div>
       <div class="right-header">
-        <h2>{{ getUserName }}</h2>
-        <p>{{ getBio }}</p>
+        <div class="right-header__top">
+          <h2>{{ getUserName }}</h2>
+          <p>{{ getBio }}</p>
+        </div>
+        <div class="right-header__bottom">
+          <button :style="{ display: getFriendStatus === 'self' ? 'none' : 'block' }" @click="friendAction">
+            {{ getFriendButtonText }}
+          </button>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, reactive } from 'vue'
 import type { User } from '../../../models/User.model'
-import router from '../../../router/router'
+import { useUsersStore } from '../../../store/users.store'
+import { useAuthStore } from '../../../store'
+import type { Invitation } from '../../../models/Invitation.model'
 import ProfilePicture from '@/components/users/common/ProfilePicture.vue'
 
 const props = defineProps<{
   user: User
 }>()
+
+const data = reactive({
+  user: props.user,
+})
 
 const getUserName = computed(() => `${props.user.first_name} ${props.user.last_name}`)
 
@@ -45,11 +58,41 @@ const getFriendText = computed(() => {
     return ' amis'
 })
 
-function goBack() {
-  if (history.length > 1)
-    history.back()
+const getFriendStatus = computed(() => {
+  if (data.user.uuid === useAuthStore().user.uuid) {
+    return 'self'
+  } else if (data.user.friends.some(friend => friend.friend.uuid === useAuthStore().user.uuid)) {
+    return 'friend'
+  } else {
+    if (useUsersStore().getInvitationsSent.some((invitation: Invitation) => invitation.target.uuid === data.user.uuid))
+      return 'pending'
+    else if (useUsersStore().getInvitations.some((invitation: Invitation) => invitation.sender.uuid
+        === data.user.uuid))
+      return 'pending'
+    else
+      return 'none'
+  }
+})
+
+const getFriendButtonText = computed(() => {
+  if (getFriendStatus.value === 'friend')
+    return 'Supprimer des amis'
+  else if (getFriendStatus.value === 'pending')
+    return 'Demande envoyée'
+  else if (getFriendStatus.value === 'self')
+    return 'Vous'
   else
-    router.push('/')
+    return 'Ajouter en ami'
+})
+
+const friendAction = () => {
+  if (getFriendStatus.value === 'friend') {
+    useUsersStore().removeFriend(props.user.uuid)
+
+    data.user.friends = props.user.friends.filter(friend => friend.friend.uuid !== useAuthStore().user.uuid)
+  } else if (getFriendStatus.value === 'none') {
+    useUsersStore().sendInvitation(props.user.uuid)
+  }
 }
 </script>
 
@@ -110,8 +153,42 @@ function goBack() {
     .right-header {
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      justify-content: space-between;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+
+      &__top {
+        height: 152px;
+      }
+
+      &__bottom {
+        margin-top: 8px;
+        margin-bottom: 16px;
+
+        button {
+          width: 100%;
+          height: 40px;
+          border-radius: 50px;
+          padding: 8px 16px;
+          background-color: $neutral-3;
+          font-weight: 500;
+          font-size: 16px;
+          transition: all 0.2s ease-in-out;
+          border: 2px solid transparent;
+          cursor: pointer;
+
+          &:hover {
+            background-color: $primary-color-dark;
+            color: $neutral-3;
+            border: 2px solid $primary-color-light;
+          }
+
+          &:active {
+            background-color: $primary-color;
+            border: 2px solid $primary-color-light;
+          }
+        }
+      }
 
       h2 {
         font-size: 32px;

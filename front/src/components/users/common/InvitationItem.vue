@@ -1,9 +1,9 @@
 <template>
   <div class="invitation-item">
-    <ProfilePicture :src="invitation.icon_url" :size="42" />
+    <ProfilePicture :src="invitation.sender.icon_url" :size="42" />
 
     <h3 class="username">
-      {{ invitation.username }}
+      {{ getUsername }}
     </h3>
 
     <p class="friends-count">
@@ -11,10 +11,10 @@
     </p>
 
     <div class="buttons-validation">
-      <button class="icon check">
+      <button class="icon check" @click="acceptInvitation">
         <Icon icon="fa-solid fa-circle-check" />
       </button>
-      <button class="icon xmark">
+      <button class="icon xmark" @click="refuseInvitation">
         <Icon icon="fa-solid fa-circle-xmark" />
       </button>
     </div>
@@ -24,6 +24,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { Invitation } from '../../../models/Invitation.model'
+import { useUsersStore } from '../../../store/users.store'
 import ProfilePicture from '@/components/users/common/ProfilePicture.vue'
 import Icon from '@/components/common/Icon.vue'
 
@@ -31,14 +32,26 @@ const props = defineProps<{
   invitation: Invitation
 }>()
 
+const getUsername = computed(() => {
+  return `${props.invitation.sender.first_name.charAt(0).toUpperCase()}${props.invitation.sender.first_name.slice(1)}`
+})
+
 const getFriendsCount = computed(() => {
-  if (props.invitation.friends_count === 1)
+  if (props.invitation.sender.friends.length === 1)
     return '(1 ami)'
-  else if (props.invitation.friends_count === 0)
+  else if (props.invitation.sender.friends.length === 0)
     return '(0 amis)'
   else
-    return `(${props.invitation.friends_count} amis)`
+    return `(${props.invitation.sender.friends.length} amis)`
 })
+
+const acceptInvitation = () => {
+  useUsersStore().acceptInvitation(props.invitation)
+}
+
+const refuseInvitation = () => {
+  useUsersStore().rejectInvitation(props.invitation)
+}
 </script>
 
 <style lang="scss">

@@ -4,4 +4,5 @@ export interface Invitation {
   uuid: string
   created_at: string
   sender: User
+  target: User
 }

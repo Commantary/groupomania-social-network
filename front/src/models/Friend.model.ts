@@ -1,4 +1,6 @@
+import type { ViewUser } from './ViewUser.model'
+
 export interface Friend {
-  created_at: string
   friendId: number
+  friend: ViewUser
 }

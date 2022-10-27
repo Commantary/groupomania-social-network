@@ -14,7 +14,6 @@
 
 <script setup lang="ts">
 import { computed, reactive } from 'vue'
-import type { Invitation } from '../../../models/Invitation.model'
 import { useUsersStore } from '../../../store/users.store'
 import InvitationItem from '@/components/users/common/InvitationItem.vue'
 
@@ -29,16 +28,6 @@ useUsersStore().fetchUserInvitations().then(() => {
 const getInvitations = computed(() => {
   return useUsersStore().getInvitations
 })
-
-/* for (let i = 0; i < 10; i++) {
-  data.invitations.push({
-    uuid: 'uuid',
-    username: 'username',
-    icon_url: 'default.png',
-    friends_count: 15,
-    created_at: 'created_at',
-  })
-} */
 </script>
 
 <style lang="scss">

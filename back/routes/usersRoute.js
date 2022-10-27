@@ -11,11 +11,12 @@ const {
    putSocialview,
    getActivities,
    getLikedPosts,
-   getInvitations
+   getInvitations,
+   deleteFriend
 } = require('../controllers/users');
 
 router.route('/:uuid').get(getUser);
-router.route('/:uuid/invitation').put(putInvitation);
+router.route('/:uuid/invitations').put(putInvitation);
 router.route('/:uuid/posts').get(getAllPosts);
 router.route('/:uuid/icon').delete(deleteIcon);
 router.route('/:uuid/icon').put(putIcon);
@@ -24,5 +25,6 @@ router.route('/:uuid/socialview').put(putSocialview);
 router.route('/:uuid/activities').get(getActivities);
 router.route('/:uuid/like-posts').get(getLikedPosts);
 router.route('/:uuid/invitations').get(getInvitations);
+router.route('/:uuid/friend').delete(deleteFriend);
 
 module.exports = router;

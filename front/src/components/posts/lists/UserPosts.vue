@@ -14,7 +14,7 @@
       v-for="post in getPosts"
       :key="post.uuid"
       aria-label="Aller au poste"
-      :to="`post/${post.uuid}`"
+      :to="`/post/${post.uuid}`"
       class="basic-post"
     >
       <Post class="post-item" :post="post" />

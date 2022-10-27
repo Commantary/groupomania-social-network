@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="!data.loading" class="post_list">
-      <p v-if="!data.activities.length">
+      <p v-if="!data.activities.length" class="page-title">
         Il n'y a aucune activité pour le moment
       </p>
 
@@ -9,7 +9,7 @@
         v-for="activity in data.activities"
         :key="activity.post.uuid"
         aria-label="Aller au poste"
-        :to="`post/${activity.post.uuid}`"
+        :to="`/post/${activity.post.uuid}`"
         class="basic-post"
       >
         <Post
