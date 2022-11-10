@@ -147,8 +147,6 @@ function changePassword(event: Event) {
   event.preventDefault()
   event.stopPropagation()
 
-  console.log('Change password')
-
   if (disabled.value)
     return
 

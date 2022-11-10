@@ -11,6 +11,21 @@ const settings_page = {
   },
 }
 
+const signup_page = {
+  firstName: 'Prénom',
+  lastName: 'Nom',
+  email: 'Email',
+  password: 'Mot de passe',
+
+  error: {
+    firstName: 'Veuillez entrer un prénom valide.',
+    lastName: 'Veuillez entrer un nom valide.',
+    email: 'Veuillez entrer une adresse email valide.',
+    password: 'Le mot de passe doit contenir au moins 8 caractères.',
+  },
+}
+
 export const textService = {
   settings_page,
+  signup_page,
 }

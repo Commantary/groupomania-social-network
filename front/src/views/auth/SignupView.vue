@@ -5,36 +5,36 @@
     <form action="">
       <BaseInput
         v-model="data.firstName"
-        :name="firstNameName"
+        :name="getText.firstName"
         type="text"
-        :error="focus.includes('firstName') ? errorFirstName : ''"
+        :error="focus.includes('firstName') ? getText.error.firstName : ''"
         @focusout="focusOut('firstName')"
         @focusin="focus = focus.filter((item) => item !== 'firstName')"
       />
 
       <BaseInput
         v-model="data.lastName"
-        :name="lastNameName"
+        :name="getText.lastName"
         type="text"
-        :error="focus.includes('lastName') ? errorLastName : ''"
+        :error="focus.includes('lastName') ? getText.error.lastName : ''"
         @focusout="focusOut('lastName')"
         @focusin="focus = focus.filter((item) => item !== 'lastName')"
       />
 
       <BaseInput
         v-model="data.email"
-        :name="emailName"
+        :name="getText.email"
         type="email"
-        :error="focus.includes('email') ? errorEmail : ''"
+        :error="focus.includes('email') ? getText.error.email : ''"
         @focusout="focusOut('email')"
         @focusin="focus = focus.filter((item) => item !== 'email')"
       />
 
       <BaseInput
         v-model="data.password"
-        :name="passwordName"
+        :name="getText.password"
         type="password"
-        :error="focus.includes('password') ? errorPassword : ''"
+        :error="focus.includes('password') ? getText.error.password : ''"
         @focusout="focusOut('password')"
         @focusin="focus = focus.filter((item) => item !== 'password')"
       />
@@ -53,6 +53,7 @@ import BaseButton from '../../components/common/BaseButton.vue'
 import { useAuthStore } from '../../store'
 import router from '../../router/router'
 import { accountService } from '../../_services'
+import { textService } from '../../_services/text.service'
 
 const data = reactive({
   firstName: '',
@@ -70,17 +71,7 @@ const rules = computed(() => ({
 
 const $v = useValidate(rules, data)
 
-// Set name input
-const firstNameName = 'Prénom'
-const lastNameName = 'Nom'
-const emailName = 'Adresse email'
-const passwordName = 'Mot de passe'
-
-// Set error messages
-const errorFirstName = 'Veuillez entrer un prénom valide.'
-const errorLastName = 'Veuillez entrer un nom valide.'
-const errorEmail = 'Veuillez entrer une adresse email valide.'
-const errorPassword = 'Votre mot de passe doit contenir au moins 8 caractères.'
+const getText = textService.signup_page
 
 const focus = ref([''])
 const disabled = ref(true)
