@@ -41,6 +41,18 @@ const deleteFriend = (uuid: string) => {
   return Axios.delete(routesService.routes_api.friend.replace(':uuid', uuid))
 }
 
+const updateIcon = (uuid: string, file: File) => {
+  const data = new FormData()
+
+  data.append('icon', file)
+
+  return Axios.put(routesService.routes_api.icon.replace(':uuid', uuid), data)
+}
+
+const deleteIcon = (uuid: string) => {
+  return Axios.delete(routesService.routes_api.icon.replace(':uuid', uuid))
+}
+
 export const userService = {
   getUserByUuid,
   getUserActivities,
@@ -49,4 +61,6 @@ export const userService = {
   rejectInvitation,
   sendInvitation,
   deleteFriend,
+  updateIcon,
+  deleteIcon,
 }

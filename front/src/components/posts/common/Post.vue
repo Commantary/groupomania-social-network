@@ -26,7 +26,10 @@
       :comments-count="getPost.commentsCount"
     />
 
-    <LimitedComments v-if="!hideComments && getPost.comments.length" class="limited-comments" :comments="getPost.comments" />
+    <LimitedComments
+      v-if="!hideComments && getPost.comments.length" class="limited-comments"
+      :comments="getPost.comments"
+    />
 
     <SimpleComment v-if="activity && activity.type === 'comment'" :comment="activity.comment" />
   </div>

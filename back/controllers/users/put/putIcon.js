@@ -24,6 +24,7 @@ const call = async (req, res, next) => {
 
       return res.status(200).json({
          message: 'User icon edited',
+         icon_name: icon_url,
          code: 200
       });
    } catch (error) {

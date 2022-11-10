@@ -5,7 +5,7 @@ const call = async (req, res, next) => {
    try {
       // Replace the icon_url of user
       const {uuid} = req.params;
-      const icon_url = `${req.protocol}://${req.get('host')}/images/default.png`;
+      const icon_url = `default.png`;
 
       // Get user from id
       const user = await User.findOne({

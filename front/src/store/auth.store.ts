@@ -50,6 +50,9 @@ export const useAuthStore = defineStore({
           })
       }
     },
+    setDefaultIcon() {
+      this.user.icon_url = 'default.png'
+    },
   },
   persist: {
     storage: localStorage,

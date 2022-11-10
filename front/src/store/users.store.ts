@@ -70,6 +70,26 @@ export const useUsersStore = defineStore({
           console.error(err)
         })
     },
+    async updateIcon(uuid: string, file: File) {
+      await userService.updateIcon(uuid, file)
+        .then((res) => {
+          // Update user icon
+          useAuthStore().user.icon_url = res.data.icon_name
+        })
+        .catch((err) => {
+          console.error(err)
+        })
+    },
+    async deleteIcon(uuid: string) {
+      await userService.deleteIcon(uuid)
+        .then(() => {
+          // Update user icon
+          useAuthStore().setDefaultIcon()
+        })
+        .catch((err) => {
+          console.error(err)
+        })
+    },
   },
   /* persist: {
     storage: sessionStorage,

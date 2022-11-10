@@ -18,6 +18,7 @@ const routes_api = {
   user_liked_posts: `${BASE_API}/users/:uuid/like-posts`,
   invitations: `${BASE_API}/users/:uuid/invitations`,
   friend: `${BASE_API}/users/:uuid/friend`,
+  icon: `${BASE_API}/users/:uuid/icon`,
 
 }
 

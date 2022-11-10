@@ -55,9 +55,10 @@ export const usePostsStore = defineStore({
 
               post_.comments = post.comments
             }
-            /*
-            // Check if the post have some comments
-            if (post_.comments.length !== post.comments.length) */
+
+            // Check if author has changed
+            if (post_.user !== post.user)
+              post_.user = post.user
           })
         })
         .catch((err) => {
