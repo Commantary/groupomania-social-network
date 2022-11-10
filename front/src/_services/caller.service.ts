@@ -32,7 +32,7 @@ Axios.interceptors.response.use((res) => {
   } else {
     // If token is invalid logout and redirect to log in
     if (error.response.status === 401) {
-      if (router.currentRoute.value.name !== 'login') {
+      if (router.currentRoute.value.name !== 'login' && router.currentRoute.value.name !== 'settings') {
         accountService.logout()
         // router.push({ name: 'login' })
         window.location.href = '/login'
@@ -47,7 +47,7 @@ Axios.interceptors.response.use((res) => {
   }
 
   // If token is invalid logout and redirect to log in
-  if (error.response.status === 401)
+  if (error.response.status === 401 && router.currentRoute.value.name !== 'settings')
     accountService.logout()
     // router.push('/login').then(r => console.log(r)).catch(e => console.log(e))
   // window.location.pathname = '/login'

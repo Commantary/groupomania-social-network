@@ -90,6 +90,17 @@ export const useUsersStore = defineStore({
           console.error(err)
         })
     },
+    async updatePassword(uuid: string, actual: string, newPassword: string, confirm: string) {
+      await userService.updatePassword(uuid, actual, newPassword, confirm)
+        .then((data) => {
+          return data
+        })
+        .catch((err) => {
+          console.error(err)
+
+          return err
+        })
+    },
   },
   /* persist: {
     storage: sessionStorage,

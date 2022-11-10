@@ -53,6 +53,16 @@ const deleteIcon = (uuid: string) => {
   return Axios.delete(routesService.routes_api.icon.replace(':uuid', uuid))
 }
 
+const updatePassword = (uuid: string, actual: string, newPassword: string, confirm: string) => {
+  const data = {
+    actual,
+    newPassword,
+    confirm,
+  }
+
+  return Axios.put(routesService.routes_api.password.replace(':uuid', uuid), data)
+}
+
 export const userService = {
   getUserByUuid,
   getUserActivities,
@@ -63,4 +73,5 @@ export const userService = {
   deleteFriend,
   updateIcon,
   deleteIcon,
+  updatePassword,
 }

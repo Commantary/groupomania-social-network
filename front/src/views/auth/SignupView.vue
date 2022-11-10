@@ -68,7 +68,7 @@ const rules = computed(() => ({
   password: { required, minLength: minLength(8) },
 }))
 
-const v$ = useValidate(rules, data)
+const $v = useValidate(rules, data)
 
 // Set name input
 const firstNameName = 'Prénom'
@@ -88,7 +88,7 @@ const disabled = ref(true)
 // Set computed
 const isFormValid = computed(() => {
   // Check if all elements are valid
-  return v$.value.$valid
+  return !$v.value.$invalid
 })
 
 // Set watch
@@ -131,13 +131,13 @@ const signup = async (event: any) => {
 }
 
 const focusOut = (type: string) => {
-  if (type === 'email' && v$.value.email.$invalid)
+  if (type === 'email' && $v.value.email.$invalid)
     focus.value.push(type)
-  else if (type === 'password' && v$.value.password.$invalid)
+  else if (type === 'password' && $v.value.password.$invalid)
     focus.value.push(type)
-  else if (type === 'firstName' && v$.value.firstName.$invalid)
+  else if (type === 'firstName' && $v.value.firstName.$invalid)
     focus.value.push(type)
-  else if (type === 'lastName' && v$.value.lastName.$invalid)
+  else if (type === 'lastName' && $v.value.lastName.$invalid)
     focus.value.push(type)
 }
 </script>

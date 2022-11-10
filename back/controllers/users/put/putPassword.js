@@ -1,11 +1,11 @@
 const bcrypt = require('bcrypt');
-const {Post, User} = require('../../../models');
+const {User} = require('../../../models');
 const utils = require("../../utils/utils");
 
 const call = async (req, res, next) => {
    try {
       const { uuid } = req.params;
-      const { password } = req.body;
+      const { actual, newPassword, confirm } = req.body;
 
       const user = await User.findOne({
          where: { uuid }
@@ -18,8 +18,29 @@ const call = async (req, res, next) => {
          });
       }
 
+      if (!bcrypt.compareSync(actual, user.password)) {
+         return res.status(401).json({
+            error: 'Password incorrect',
+            code: 401
+         });
+      }
+
+      if (newPassword !== confirm) {
+         return res.status(400).json({
+            error: 'Passwords do not match',
+            code: 400
+         });
+      }
+
+      if (newPassword.length < 8) {
+         return res.status(400).json({
+            error: 'Password must be at least 8 characters',
+            code: 400
+         });
+      }
+
       // Hash the new password
-      bcrypt.hash(password, 10, async (err, hash) => {
+      bcrypt.hash(newPassword, 10, async (err, hash) => {
          if (err) {
             utils.handleError(err, res);
          }
