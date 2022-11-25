@@ -9,8 +9,7 @@
         <ProfilePicture :editable="true" :clickable="true" :size="120" :src="getUserIcon" @edit="edited" />
         <div class="change-icon--description">
           <h2>Changer d'image de profil</h2>
-          <p>La taille recommandée est de 512x512 et ne doit pas dépasser 5mo</p>
-          <p />
+          <p>La taille recommandée est de 512x512 et ne doit pas dépasser 5 mo.</p>
         </div>
       </div>
 

@@ -2,8 +2,25 @@
   <div class="header-container">
     <div class="main-header">
       <div class="left-header">
-        <ProfilePicture :size="152" :src="getSrc" />
+        <ProfilePicture
+          v-if="!data.editMode || !isAuthorProfile"
+          :size="152"
+          :src="getSrc"
+        />
+        <ProfilePicture
+          v-if="data.editMode && isAuthorProfile"
+          :size="152"
+          :editable="true"
+          :clickable="true"
+          :src="getSrc"
+          @edit="edited"
+        />
+
         <p><span>{{ getFriendsCount }}</span>{{ getFriendText }}</p>
+
+        <button v-if="data.editMode && isAuthorProfile && canDelete" class="edit-button" @click="deleteIcon">
+          Supprimer
+        </button>
       </div>
       <div class="right-header">
         <div class="right-header__top">
@@ -16,7 +33,7 @@
           <button v-if="!data.editMode && isAuthorProfile" @click="edit">
             Éditer
           </button>
-          <button v-if="data.editMode && isAuthorProfile" @click="saveEdit">
+          <button v-if="data.editMode && isAuthorProfile" class="edit-button" @click="saveEdit">
             Sauvegarder
           </button>
         </div>
@@ -46,6 +63,8 @@ const data = reactive({
   user: props.user,
   editMode: false,
   bio: props.user.bio,
+  canUpdate: false,
+  newIcon: null as File | null,
 })
 
 const getUserName = computed(() => `${props.user.first_name} ${props.user.last_name}`)
@@ -63,6 +82,20 @@ const getFriendsCount = computed(() => {
     return '1'
   else
     return props.user.friends.length
+})
+
+function edited(file: File) {
+  data.canUpdate = true
+  data.newIcon = file
+}
+
+async function deleteIcon() {
+  await useUsersStore().deleteIcon(useAuthStore().getUuid)
+  // Refresh the page
+}
+
+const canDelete = computed(() => {
+  return useAuthStore().getUser.icon_url !== 'default.png' && !data.canUpdate
 })
 
 const getFriendText = computed(() => {
@@ -117,6 +150,7 @@ function edit() {
 function saveEdit() {
   if (isAuthorProfile.value) {
     data.editMode = false
+
     useUsersStore().editBio(props.user.uuid, data.bio)
       .then((data: any) => {
         if (!data)
@@ -129,6 +163,12 @@ function saveEdit() {
       .catch(() => {
         data.bio = data.user.bio
       })
+
+    if (data.canUpdate) {
+      useUsersStore().updateIcon(useAuthStore().getUuid, data.newIcon)
+      data.canUpdate = false
+      data.newIcon = null
+    }
   }
 }
 </script>
@@ -140,6 +180,30 @@ function saveEdit() {
   width: 100%;
   background-color: $bg-95;
   padding-top: 20px;
+
+  .edit-button {
+    margin-top: 16px;
+    width: 100%;
+    height: 40px;
+    border-radius: 25px;
+    background-color: $neutral-3;
+    color: $bg-void;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $primary-color-dark;
+      color: $neutral-3;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    &:active {
+      background-color: $primary-color;
+    }
+  }
 
   .back-icon {
     margin-right: 24px;
@@ -186,6 +250,10 @@ function saveEdit() {
           color: $neutral-3;
         }
       }
+
+      button {
+        margin-top: -3px;
+      }
     }
 
     .right-header {
@@ -229,30 +297,6 @@ function saveEdit() {
 
           &:focus {
             border: 3px solid $primary-color;
-          }
-        }
-
-        button {
-          margin-top: 16px;
-          width: 100%;
-          height: 40px;
-          border-radius: 25px;
-          background-color: $neutral-3;
-          color: $bg-void;
-          font-size: 16px;
-          font-weight: 500;
-          transition: all 0.2s ease-in-out;
-          border: none;
-          cursor: pointer;
-
-          &:hover {
-            background-color: $primary-color-dark;
-            color: $neutral-3;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-          }
-
-          &:active {
-            background-color: $primary-color;
           }
         }
       }
