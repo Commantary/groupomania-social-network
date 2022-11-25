@@ -3,11 +3,13 @@ const getAllPostsModule = require('./users/get/getAllPosts');
 const getActivitiesModule = require('./users/get/getActivities');
 const getLikedPostsModule = require('./users/get/getPostsLiked');
 const getInvitationsModule = require('./users/get/getInvitations');
+const getFriendsModule = require('./users/get/getFriendsList');
 
 const putInvitationModule = require('./users/put/putInvitation');
 const putIconModule = require('./users/put/putIcon');
 const putPasswordModule = require('./users/put/putPassword');
 const putSocialviewModule = require('./users/put/putSocialview');
+const putBioModule = require('./users/put/putBio');
 
 const deleteIconModule = require('./users/delete/deleteIcon');
 const deleteFriendModule = require('./users/delete/deleteFriend');
@@ -56,6 +58,14 @@ const deleteFriend = (req, res, next) => {
    deleteFriendModule.call(req, res, next);
 }
 
+const getFriends = (req, res, next) => {
+   getFriendsModule.call(req, res, next);
+}
+
+const putBio = (req, res, next) => {
+   putBioModule.call(req, res, next);
+}
+
 module.exports = {
    getUser,
    putInvitation,
@@ -67,5 +77,7 @@ module.exports = {
    getActivities,
    getLikedPosts,
    getInvitations,
-   deleteFriend
+   deleteFriend,
+   getFriends,
+   putBio
 };

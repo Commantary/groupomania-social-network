@@ -20,6 +20,7 @@ const routes_api = {
   friend: `${BASE_API}/users/:uuid/friend`,
   icon: `${BASE_API}/users/:uuid/icon`,
   password: `${BASE_API}/users/:uuid/password`,
+  bio: `${BASE_API}/users/:uuid/bio`,
 }
 
 export const routesService = {

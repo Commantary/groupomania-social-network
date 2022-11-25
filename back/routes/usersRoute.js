@@ -12,7 +12,9 @@ const {
    getActivities,
    getLikedPosts,
    getInvitations,
-   deleteFriend
+   deleteFriend,
+   getFriends,
+   putBio
 } = require('../controllers/users');
 
 router.route('/:uuid').get(getUser);
@@ -26,5 +28,7 @@ router.route('/:uuid/activities').get(getActivities);
 router.route('/:uuid/like-posts').get(getLikedPosts);
 router.route('/:uuid/invitations').get(getInvitations);
 router.route('/:uuid/friend').delete(deleteFriend);
+router.route('/:uuid/friend').get(getFriends);
+router.route('/:uuid/bio').put(putBio);
 
 module.exports = router;

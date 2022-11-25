@@ -8,7 +8,17 @@
       <div class="right-header">
         <div class="right-header__top">
           <h2>{{ getUserName }}</h2>
-          <p>{{ getBio }}</p>
+          <p v-if="!data.editMode" class="right-header__bio">
+            {{ getBio }}
+          </p>
+          <textarea v-if="data.editMode && isAuthorProfile" v-model="data.bio" />
+
+          <button v-if="!data.editMode && isAuthorProfile" @click="edit">
+            Éditer
+          </button>
+          <button v-if="data.editMode && isAuthorProfile" @click="saveEdit">
+            Sauvegarder
+          </button>
         </div>
         <div class="right-header__bottom">
           <button :style="{ display: getFriendStatus === 'self' ? 'none' : 'block' }" @click="friendAction">
@@ -34,13 +44,17 @@ const props = defineProps<{
 
 const data = reactive({
   user: props.user,
+  editMode: false,
+  bio: props.user.bio,
 })
 
 const getUserName = computed(() => `${props.user.first_name} ${props.user.last_name}`)
 
 const getSrc = computed(() => props.user.icon_url)
 
-const getBio = computed(() => props.user.bio ?? 'Aucune bio')
+const getBio = computed(() => (props.user.bio === '' || !props.user.bio) ? 'Aucune bio' : props.user.bio)
+
+const isAuthorProfile = computed(() => props.user.uuid === useAuthStore().user.uuid)
 
 const getFriendsCount = computed(() => {
   if (props.user.friends.length === 0)
@@ -94,6 +108,29 @@ const friendAction = () => {
     useUsersStore().sendInvitation(props.user.uuid)
   }
 }
+
+function edit() {
+  if (isAuthorProfile.value)
+    data.editMode = true
+}
+
+function saveEdit() {
+  if (isAuthorProfile.value) {
+    data.editMode = false
+    useUsersStore().editBio(props.user.uuid, data.bio)
+      .then((data: any) => {
+        if (!data)
+          data.bio = data.user.bio
+        else if (data.bio === '')
+          data.bio = null
+        else
+          data.user.bio = data.bio
+      })
+      .catch(() => {
+        data.bio = data.user.bio
+      })
+  }
+}
 </script>
 
 <style lang="scss">
@@ -127,6 +164,7 @@ const friendAction = () => {
     justify-content: center;
     align-items: flex-start;
     border-bottom: 3px solid $border-color-2;
+    min-height: 210px;
 
     .left-header {
       display: flex;
@@ -155,10 +193,68 @@ const friendAction = () => {
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100%;
+
+      &__bio {
+        font-size: 16px;
+        color: $neutral-2;
+        text-align: left;
+        max-width: 222px;
+        max-height: 180px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 6;
+        -webkit-box-orient: vertical;
+
+      }
 
       &__top {
-        height: 152px;
+        min-height: 152px;
+        max-height: 300px;
+
+        textarea {
+          width: 90%;
+          height: 100px;
+          resize: none;
+          border-radius: 25px;
+          outline: none;
+          background-color: $tertiary-color-light;
+          color: $neutral-3;
+          font-size: 14px;
+          font-weight: 300;
+          padding: 14px 16px;
+          margin-top: 1rem;
+          border: 3px solid transparent;
+          transition: border 0.2s ease-in-out;
+
+          &:focus {
+            border: 3px solid $primary-color;
+          }
+        }
+
+        button {
+          margin-top: 16px;
+          width: 100%;
+          height: 40px;
+          border-radius: 25px;
+          background-color: $neutral-3;
+          color: $bg-void;
+          font-size: 16px;
+          font-weight: 500;
+          transition: all 0.2s ease-in-out;
+          border: none;
+          cursor: pointer;
+
+          &:hover {
+            background-color: $primary-color-dark;
+            color: $neutral-3;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+          }
+
+          &:active {
+            background-color: $primary-color;
+          }
+        }
       }
 
       &__bottom {
@@ -194,13 +290,6 @@ const friendAction = () => {
         font-size: 32px;
         margin-top: 8px;
         margin-bottom: 0;
-      }
-
-      p {
-        font-size: 16px;
-        color: $neutral-2;
-        text-align: left;
-        max-width: 222px;
       }
     }
   }

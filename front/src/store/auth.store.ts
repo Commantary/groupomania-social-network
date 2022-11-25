@@ -1,12 +1,14 @@
 import { defineStore } from 'pinia'
 import type { ViewUser } from '../models/ViewUser.model'
 import { userService } from '../_services'
+import type { User } from '../models/User.model'
 
 export const useAuthStore = defineStore({
   id: 'auth',
   state: () => ({
     // initialize state from local storage to enable user to stay logged in
     user: {} as ViewUser,
+    friends: [] as User[],
     token: '' as string,
     logged: false as boolean,
     role: 'unknown' as string,
@@ -30,6 +32,9 @@ export const useAuthStore = defineStore({
     },
     getUuid(state: any): string {
       return state.user.uuid
+    },
+    getFriends(state: any): User[] {
+      return state.friends
     },
     async getRole(state: any) {
       if (state.role === 'unknown')

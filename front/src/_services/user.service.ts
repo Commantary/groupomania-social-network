@@ -63,6 +63,18 @@ const updatePassword = (uuid: string, actual: string, newPassword: string, confi
   return Axios.put(routesService.routes_api.password.replace(':uuid', uuid), data)
 }
 
+const updateBio = (uuid: string, bio: string) => {
+  const data = {
+    bio,
+  }
+
+  return Axios.put(routesService.routes_api.bio.replace(':uuid', uuid), data)
+}
+
+const getFriends = (uuid: string) => {
+  return Axios.get(routesService.routes_api.friend.replace(':uuid', uuid))
+}
+
 export const userService = {
   getUserByUuid,
   getUserActivities,
@@ -74,4 +86,6 @@ export const userService = {
   updateIcon,
   deleteIcon,
   updatePassword,
+  getFriends,
+  updateBio,
 }

@@ -83,8 +83,6 @@ function edit() {
   align-items: center;
 
   .back-icon {
-    margin-right: 24px;
-    margin-left: 8px;
     font-size: 28px;
     cursor: pointer;
     padding: 8px;
@@ -92,6 +90,7 @@ function edit() {
     height: 30px;
     border-radius: 50%;
     transition: all 0.2s ease-in-out;
+    margin: auto 24px auto 8px;
 
     &:hover {
       color: $primary-color;

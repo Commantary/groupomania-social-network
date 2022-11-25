@@ -34,6 +34,15 @@ export const useUsersStore = defineStore({
           console.error(err)
         })
     },
+    async fetchFriendsList() {
+      await userService.getFriends(useAuthStore().getUser.uuid)
+        .then((res) => {
+          useAuthStore().friends.push(...res.data.friends)
+        })
+        .catch((err) => {
+          console.error(err)
+        })
+    },
     async acceptInvitation(invitation: Invitation) {
       await userService.acceptInvitation(invitation.sender.uuid)
         .then(() => {
@@ -44,9 +53,9 @@ export const useUsersStore = defineStore({
         })
     },
     async rejectInvitation(invitation: Invitation) {
-      await userService.rejectInvitation(invitation.uuid)
+      await userService.rejectInvitation(invitation.sender.uuid)
         .then(() => {
-          this.invitations = this.invitations.filter((i: Invitation) => i.uuid !== invitation.uuid)
+          this.invitations = this.invitations.filter((i: Invitation) => i.sender.uuid !== invitation.sender.uuid)
         })
         .catch((err) => {
           console.error(err)
@@ -70,6 +79,18 @@ export const useUsersStore = defineStore({
           console.error(err)
         })
     },
+    async editBio(uuid: string, bio: string) {
+      await userService.updateBio(uuid, bio)
+        .then((data) => {
+          console.log('res ', data)
+
+          return data
+        })
+        .catch((err) => {
+          console.error(err)
+          return err
+        })
+    },
     async updateIcon(uuid: string, file: File) {
       await userService.updateIcon(uuid, file)
         .then((res) => {
@@ -90,8 +111,8 @@ export const useUsersStore = defineStore({
           console.error(err)
         })
     },
-    async updatePassword(uuid: string, actual: string, newPassword: string, confirm: string) {
-      await userService.updatePassword(uuid, actual, newPassword, confirm)
+    async updatePassword(uuid: string, password: { actual: string; newPassword: string; confirm: string }) {
+      await userService.updatePassword(uuid, password.actual, password.newPassword, password.confirm)
         .then((data) => {
           return data
         })

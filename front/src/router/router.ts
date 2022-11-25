@@ -73,6 +73,13 @@ const routes: RouteRecordRaw[] = [
     meta: { requiresAuth: true },
   },
   {
+    path: '/friends-list',
+    name: 'friends-list',
+    component: () => import(/* webpackChunkName: "FriendsList" */ '@/views/FriendsList.vue'),
+    props: true,
+    meta: { requiresAuth: true },
+  },
+  {
     path: '/logout',
     name: 'logout',
     component: () => import(/* webpackChunkName: "Logout" */ '@/views/Logout.vue'),

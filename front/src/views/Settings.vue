@@ -92,12 +92,12 @@ const rules = computed(() => ({
   confirm: { required, sameAs: sameAs(data.password.new) },
 }))
 
-const $v = useValidate(rules, data.password)
+const validator = useValidate(rules, data.password)
 
 // Set computed
 const isFormValid = computed(() => {
   // Check if all elements are valid
-  return !$v.value.$invalid
+  return !validator.value.$invalid
 })
 
 // Set watch
@@ -106,11 +106,11 @@ watch(isFormValid, (value) => {
 })
 
 const focusOut = (type: string) => {
-  if (type === 'new' && $v.value.new.$invalid)
+  if (type === 'new' && validator.value.new.$invalid)
     focus.value.push(type)
-  else if (type === 'confirm' && $v.value.confirm.$invalid)
+  else if (type === 'confirm' && validator.value.confirm.$invalid)
     focus.value.push(type)
-  else if (type === 'actual' && $v.value.actual.$invalid)
+  else if (type === 'actual' && validator.value.actual.$invalid)
     focus.value.push(type)
 }
 
@@ -150,7 +150,7 @@ function changePassword(event: Event) {
   if (disabled.value)
     return
 
-  const request = useUsersStore().updatePassword(useAuthStore().getUuid, data.password.actual, data.password.new, data.password.confirm)
+  const request = useUsersStore().updatePassword(useAuthStore().getUuid, data.password)
 
   if (request) {
     data.password.actual = ''

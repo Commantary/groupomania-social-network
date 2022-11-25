@@ -24,6 +24,12 @@ const items = [
     exact: false,
   },
   {
+    icon: 'fa-solid fa-mail-bulk',
+    text: 'Liste d\'amis',
+    to: '/friends-list',
+    exact: false,
+  },
+  {
     icon: 'fa-solid fa-user-group',
     text: 'Invitations',
     to: '/invitations',

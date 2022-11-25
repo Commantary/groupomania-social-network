@@ -14,6 +14,7 @@ import {
   faFireFlameCurved,
   faGear,
   faHouse,
+  faMailBulk,
   faPaperPlane,
   faScroll,
   faCircleXmark as faSolidCross,
@@ -49,6 +50,7 @@ library.add(faUserGroup)
 library.add(faGear)
 library.add(faArrowRightFromBracket)
 library.add(faCircleCheck)
+library.add(faMailBulk)
 app.component('FontAwesomeIcon', FontAwesomeIcon)
 
 const pinia = createPinia()
