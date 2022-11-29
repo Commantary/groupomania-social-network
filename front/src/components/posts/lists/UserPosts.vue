@@ -19,9 +19,6 @@
     >
       <Post class="post-item" :post="post" />
     </router-link>
-
-    <div class="fake-post" />
-    <div v-if="getPosts.length < 3" class="fake-post fake-post--height" />
   </div>
 </template>
 
@@ -66,18 +63,6 @@ const getPosts = computed(() => {
 }
 
 .post-list {
-  .fake-post {
-    width: 100%;
-    height: 100px;
-    background-color: $bg-void;
-    border-top: 1px solid $border-color-1;
-
-    &--height {
-      height: 60vh;
-      border: none;
-    }
-  }
-
   .basic-post {
     // Hide the 'a' tag
     color: white;

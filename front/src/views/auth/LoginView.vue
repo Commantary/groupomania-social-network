@@ -65,6 +65,7 @@ const login = async (event: any) => {
       first_name: dataLogin.user.first_name,
       last_name: dataLogin.user.last_name,
       uuid: dataLogin.user.uuid,
+      bio: dataLogin.user.bio,
     },
   })
 

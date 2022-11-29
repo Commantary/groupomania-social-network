@@ -24,7 +24,7 @@ const call = async (req, res, next) => {
          });
       }
 
-      if (!bio || bio.length < 1) {
+      if (!bio || bio.trim().length <= 1) {
          await User.update({
             bio: null
          }, {where: {uuid}});
@@ -39,6 +39,7 @@ const call = async (req, res, next) => {
 
       return res.status(200).json({
          message: 'User bio edited',
+         bio: bio,
          code: 200
       });
    } catch (error) {

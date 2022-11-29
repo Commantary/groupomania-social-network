@@ -57,7 +57,7 @@ const removeFriend = (friend: User) => {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .user-list {
   &__container {
     display: flex;

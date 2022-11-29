@@ -82,13 +82,14 @@ export const useUsersStore = defineStore({
     async editBio(uuid: string, bio: string) {
       await userService.updateBio(uuid, bio)
         .then((data) => {
-          console.log('res ', data)
-
-          return data
+          useAuthStore().$patch({
+            user: {
+              bio: data.data.bio,
+            },
+          })
         })
         .catch((err) => {
           console.error(err)
-          return err
         })
     },
     async updateIcon(uuid: string, file: File) {

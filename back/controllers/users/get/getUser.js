@@ -5,13 +5,6 @@ const call = async (req, res, next) => {
    try {
       const { uuid } = req.params;
 
-      // Get user from id
-      const user = await User.findOne({
-         where: { uuid },
-         include: ['friends'],
-         exclude: ['email', 'uuid', 'createdAt', 'updatedAt']
-      })
-
       const user2 = await User.findOne({
          where: { uuid },
          include: [{
@@ -20,7 +13,7 @@ const call = async (req, res, next) => {
             include: [{
                model: User,
                as: 'friend',
-               attributes: ['uuid', 'first_name', 'last_name', 'icon_url']
+               attributes: ['uuid', 'first_name', 'last_name', 'icon_url', 'bio']
             }],
             attributes: ['friendId']
          }],

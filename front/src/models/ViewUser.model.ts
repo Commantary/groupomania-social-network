@@ -3,4 +3,5 @@ export interface ViewUser {
   first_name: string
   last_name: string
   uuid: string
+  bio: string
 }

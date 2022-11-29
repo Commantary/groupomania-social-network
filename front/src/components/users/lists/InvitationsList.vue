@@ -1,10 +1,10 @@
 <template>
   <div class="invitation-list">
-    <div v-if="data.loading" class="information-text--margin">
+    <div v-if="data.loading">
       <h1>Chargement en cours...</h1>
     </div>
 
-    <p v-if="getInvitations.length === 0" class="information-text--margin">
+    <p v-if="getInvitations.length === 0">
       Il n'y a pas d'invitations
     </p>
 
@@ -36,7 +36,7 @@ const getInvitations = computed(() => {
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
-  margin-left: 2rem;
+  margin-left: 24px;
   margin-right: auto;
 }
 </style>

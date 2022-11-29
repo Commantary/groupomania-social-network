@@ -37,7 +37,7 @@ useUsersStore().fetchFriendsList()
   })
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .information-text--margin {
   margin-left: $page-title-margin-left;
 }

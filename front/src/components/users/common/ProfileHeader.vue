@@ -30,7 +30,7 @@
           </p>
           <textarea v-if="data.editMode && isAuthorProfile" v-model="data.bio" />
 
-          <button v-if="!data.editMode && isAuthorProfile" @click="edit">
+          <button v-if="!data.editMode && isAuthorProfile" class="edit-button" @click="edit">
             Éditer
           </button>
           <button v-if="data.editMode && isAuthorProfile" class="edit-button" @click="saveEdit">
@@ -69,9 +69,14 @@ const data = reactive({
 
 const getUserName = computed(() => `${props.user.first_name} ${props.user.last_name}`)
 
-const getSrc = computed(() => props.user.icon_url)
+const getSrc = computed(() => data.user.icon_url)
 
-const getBio = computed(() => (props.user.bio === '' || !props.user.bio) ? 'Aucune bio' : props.user.bio)
+const getBio = computed(() => {
+  if (props.user.bio !== data.user.bio)
+    return data.user.bio
+  else
+    return (props.user.bio === '' || !props.user.bio) ? 'Aucune bio' : props.user.bio
+})
 
 const isAuthorProfile = computed(() => props.user.uuid === useAuthStore().user.uuid)
 
@@ -91,7 +96,11 @@ function edited(file: File) {
 
 async function deleteIcon() {
   await useUsersStore().deleteIcon(useAuthStore().getUuid)
-  // Refresh the page
+
+  // Refresh the page after 0.5s
+  setTimeout(() => {
+    window.location.reload()
+  }, 500)
 }
 
 const canDelete = computed(() => {
@@ -147,27 +156,24 @@ function edit() {
     data.editMode = true
 }
 
-function saveEdit() {
+async function saveEdit() {
   if (isAuthorProfile.value) {
     data.editMode = false
 
-    useUsersStore().editBio(props.user.uuid, data.bio)
-      .then((data: any) => {
-        if (!data)
-          data.bio = data.user.bio
-        else if (data.bio === '')
-          data.bio = null
-        else
-          data.user.bio = data.bio
-      })
-      .catch(() => {
-        data.bio = data.user.bio
-      })
+    await useUsersStore().editBio(props.user.uuid, data.bio)
 
+    data.user.bio = useAuthStore().user.bio
+
+    // If user icon has been updated
     if (data.canUpdate) {
-      useUsersStore().updateIcon(useAuthStore().getUuid, data.newIcon)
+      await useUsersStore().updateIcon(useAuthStore().getUuid, data.newIcon)
       data.canUpdate = false
       data.newIcon = null
+
+      // Refresh the page after 0.5s
+      setTimeout(() => {
+        window.location.reload()
+      }, 500)
     }
   }
 }
