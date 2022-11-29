@@ -36,13 +36,9 @@ module.exports = {
             type: DataTypes.STRING,
             allowNull: false,
          },
-         socialview: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-         },
          role: {
             type: DataTypes.ENUM('admin', 'user'),
-            allowNull: false,
+            defaultValue: 'user',
          },
          friends: {
             type: DataTypes.ARRAY(DataTypes.INTEGER),

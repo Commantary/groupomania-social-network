@@ -39,4 +39,13 @@ const getInvitations = computed(() => {
   margin-left: 24px;
   margin-right: auto;
 }
+
+// Make responsive for mobile
+@media screen and (max-width: 768px) {
+  .invitation-list {
+    // Center all items
+    justify-content: center;
+
+  }
+}
 </style>

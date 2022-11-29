@@ -1,5 +1,7 @@
 <template>
-  <div class="sidebar">
+  <div class="sidebar" :class="getSidebarState">
+    <div v-if="isSidebarOpen" class="sidebar--back-color" @click="closeSidebar" />
+
     <div class="sidebar-content">
       <div class="sidebar-content__logo">
         <img src="@/assets/icon-left-font-monochrome-white.svg" alt="logo">
@@ -39,8 +41,10 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { sidebarService } from '../../_services/sidebar.service'
 import { useAuthStore } from '../../store'
+import { useUsersStore } from '../../store/users.store'
 import SidebarItem from './SidebarItem.vue'
 
 const items = sidebarService.items
@@ -61,6 +65,17 @@ const logoutItem = {
   text: 'Se déconnecter',
   to: '/logout',
   exact: false,
+}
+
+const getSidebarState = computed(() => {
+  return useUsersStore().getSidebar ? 'sidebar--open' : 'sidebar--close'
+})
+
+const isSidebarOpen = computed(() => useUsersStore().getSidebar)
+
+function closeSidebar() {
+  if (isSidebarOpen.value)
+    useUsersStore().setSidebar(false)
 }
 </script>
 
@@ -85,6 +100,10 @@ const logoutItem = {
   width: $sidebar-width;
 
   border-right: 1px solid $sidebar-border-color;
+
+  &--back-color {
+    display: none;
+  }
 
   &-content {
     display: flex;
@@ -134,6 +153,111 @@ const logoutItem = {
         width: 1.5rem;
         height: 1.5rem;
         margin-right: 0.5rem;
+      }
+    }
+  }
+}
+
+// Make sidebar responsive on mobile
+@media only screen and (max-width: 768px) {
+  .sidebar {
+    width: 80%;
+    background-color: $bg-void;
+
+    &--back-color {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    &--open {
+      width: 70%;
+
+      .sidebar--back-color {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 100%;
+        right: -40%;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 10;
+      }
+    }
+
+    &--close {
+      width: 0;
+      padding: 0;
+      border: none;
+
+      .sidebar-content {
+        display: none;
+
+        &__logo {
+          display: none;
+        }
+
+        &__items-list {
+          display: none;
+        }
+
+        &__items-top {
+          display: none;
+        }
+
+        &__separator {
+          display: none;
+        }
+
+        &__item {
+          display: none;
+        }
+
+        &__item--active {
+          display: none;
+        }
+      }
+    }
+
+    &-content {
+      z-index: 20;
+
+      &__item {
+        margin-bottom: 14px;
+      }
+
+      &__logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img {
+          width: 100%;
+          max-width: 80%;
+        }
+      }
+
+      &__items-top {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+      }
+
+      &__items-list {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        justify-content: space-between;
+        margin-left: 1rem;
+
+        .icon {
+          width: 2rem;
+          height: 2rem;
+          margin-right: 0.5rem;
+        }
       }
     }
   }

@@ -101,7 +101,7 @@ function editIcon() {
     }
 
     &:hover img {
-      filter: opacity(80%);
+      filter: brightness(0.7);
       border-color: $primary-color;
     }
   }

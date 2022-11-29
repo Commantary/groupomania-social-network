@@ -221,4 +221,17 @@ function checkClassIcon() {
     }
   }
 }
+
+// Make responsive for mobile
+@media screen and (max-width: 768px) {
+  #creator-post-container {
+    padding: 20px;
+    width: 100%;
+
+    #creator-post {
+      padding: 10px 30px;
+      width: 80%;
+    }
+  }
+}
 </style>

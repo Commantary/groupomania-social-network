@@ -2,6 +2,8 @@
   <div id="root">
     <NotifBar id="notifbar" />
 
+    <SidebarIcon v-if="logged" class="sidebar-icon" />
+
     <Sidebar v-if="logged" />
 
     <router-view v-slot="{ Component }" :class="{ 'router-view--sidebar': logged, 'router-view--no-sidebar': !logged }">
@@ -16,6 +18,7 @@
 import { computed } from 'vue'
 import NotifBar from './components/snackbars/NotifBar.vue'
 import Sidebar from './components/sidebar/Sidebar.vue'
+import SidebarIcon from './components/sidebar/SidebarIcon.vue'
 import { useAuthStore } from './store'
 
 const logged = computed(() => useAuthStore().isLogged)
@@ -33,6 +36,18 @@ html {
   width: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+@media (max-width: 768px) {
+  .sidebar-icon {
+    display: block;
+  }
+}
+
+@media (min-width: 768px) {
+  .sidebar-icon {
+    display: none;
+  }
 }
 
 #notifbar {
@@ -79,6 +94,11 @@ html {
 .router-view--sidebar {
   width: calc(100% - $sidebar-width - $sidebar-padding * 2)!important;
   margin-left: calc($sidebar-width + $sidebar-padding * 2)!important;
+
+  @media (max-width: 768px) {
+    width: 100%!important;
+    margin-left: 0!important;
+  }
 }
 
 .router-view--no-sidebar {
@@ -89,6 +109,12 @@ html {
 .page-title {
   margin-left: $page-title-margin-left;
   margin-top: 26px;
+
+  @media (max-width: 768px) {
+    // Center the title on mobile
+    margin-left: 0;
+    text-align: center;
+  }
 }
 
 .page-container {

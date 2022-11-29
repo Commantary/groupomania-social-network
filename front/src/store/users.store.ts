@@ -9,6 +9,7 @@ export const useUsersStore = defineStore({
     socialView: true as boolean,
     invitations: [] as Invitation[],
     invitationsSent: [] as Invitation[],
+    sidebar: false as boolean,
   }),
   getters: {
     getSocialView(state: any): boolean {
@@ -19,6 +20,9 @@ export const useUsersStore = defineStore({
     },
     getInvitationsSent(state: any): Invitation[] {
       return state.invitationsSent
+    },
+    getSidebar(state: any): boolean {
+      return state.sidebar
     },
   },
   actions: {
@@ -122,6 +126,9 @@ export const useUsersStore = defineStore({
 
           return err
         })
+    },
+    setSidebar(value: boolean) {
+      this.sidebar = value
     },
   },
   /* persist: {

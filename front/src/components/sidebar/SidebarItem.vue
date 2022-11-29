@@ -14,6 +14,7 @@
 <script setup lang="ts">
 import Icon from '../common/Icon.vue'
 import router from '../../router/router'
+import { useUsersStore } from '../../store/users.store'
 
 const props = defineProps<{
   icon: string
@@ -24,6 +25,13 @@ const props = defineProps<{
 
 function click() {
   router.push({ path: props.to })
+
+  if (useUsersStore().getSidebar) {
+    // Set timeout to wait for the router to change the page
+    setTimeout(() => {
+      useUsersStore().setSidebar(false)
+    }, 500)
+  }
 }
 </script>
 
@@ -57,6 +65,20 @@ function click() {
     p {
       margin: 0;
       padding: 12px 0;
+    }
+  }
+}
+
+// Make items responsive on mobile
+@media screen and (max-width: 768px) {
+  .sidebar-item {
+
+    &__text {
+      font-size: 1.8rem;
+
+      p {
+        padding: 16px 0;
+      }
     }
   }
 }

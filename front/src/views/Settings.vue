@@ -4,24 +4,6 @@
       Paramètres
     </h1>
 
-    <div class="change-icon">
-      <div class="change-icon--top">
-        <ProfilePicture :editable="true" :clickable="true" :size="120" :src="getUserIcon" @edit="edited" />
-        <div class="change-icon--description">
-          <h2>Changer d'image de profil</h2>
-          <p>La taille recommandée est de 512x512 et ne doit pas dépasser 5 mo.</p>
-        </div>
-      </div>
-
-      <button v-if="data.canUpdate" class="update-icon" @click="editIcon">
-        Sauvegarder
-      </button>
-
-      <button v-if="canDelete" class="delete-icon" @click="deleteIcon">
-        Supprimer
-      </button>
-    </div>
-
     <hr>
 
     <div class="password-container">

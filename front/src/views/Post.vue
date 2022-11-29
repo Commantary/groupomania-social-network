@@ -98,4 +98,16 @@ function edit() {
     }
   }
 }
+
+// Make responsive for mobile
+@media screen and (max-width: 768px) {
+  .post-page-title {
+    // Center the title
+    justify-content: center;
+
+    .back-icon {
+      display: none;
+    }
+  }
+}
 </style>
