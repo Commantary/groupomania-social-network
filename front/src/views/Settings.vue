@@ -50,9 +50,8 @@ import useValidate from '@vuelidate/core'
 import { useAuthStore } from '../store'
 import { useUsersStore } from '../store/users.store'
 import { textService } from '../_services/text.service'
-import ProfilePicture from '@/components/users/common/ProfilePicture.vue'
-import BaseInput from '@/components/common/BaseInput.vue'
-import BaseButton from '@/components/common/BaseButton.vue'
+import BaseInput from '../components/common/BaseInput.vue'
+import BaseButton from '../components/common/BaseButton.vue'
 
 const data = reactive({
   canUpdate: false,

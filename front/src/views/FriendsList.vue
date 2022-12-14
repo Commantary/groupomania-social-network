@@ -23,7 +23,7 @@ import { reactive } from 'vue'
 import type { User } from '../models/User.model'
 import { useUsersStore } from '../store/users.store'
 import { useAuthStore } from '../store'
-import UserList from '@/components/users/lists/UserList.vue'
+import UserList from '../components/users/lists/UserList.vue'
 
 const data = reactive({
   loading: true,

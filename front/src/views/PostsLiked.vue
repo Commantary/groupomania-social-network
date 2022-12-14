@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import UserPosts from '@/components/posts/lists/UserPosts.vue'
+import UserPosts from '../components/posts/lists/UserPosts.vue'
 </script>
 
 <style scoped lang="scss">

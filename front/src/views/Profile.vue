@@ -27,8 +27,8 @@ import { reactive, watch } from 'vue'
 import { userService } from '../_services'
 import type { User } from '../models/User.model'
 import { useUsersStore } from '../store/users.store'
-import ProfileHeader from '@/components/users/common/ProfileHeader.vue'
-import ActivitiesList from '@/components/users/lists/ActivitiesList.vue'
+import ProfileHeader from '../components/users/common/ProfileHeader.vue'
+import ActivitiesList from '../components/users/lists/ActivitiesList.vue'
 
 const props = defineProps<{
   uuid: string

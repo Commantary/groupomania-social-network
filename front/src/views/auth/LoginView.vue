@@ -1,6 +1,6 @@
 <template>
   <div id="login-page">
-    <img src="@/assets/icon-left-font-monochrome-white.svg" alt="Logo groupomania">
+    <img src="../../assets/icon-left-font-monochrome-white.svg" alt="Logo groupomania">
 
     <form action="">
       <BaseInput

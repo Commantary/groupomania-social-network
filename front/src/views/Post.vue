@@ -26,16 +26,16 @@ import { reactive } from 'vue'
 import SinglePost from '../components/posts/common/SinglePost.vue'
 import PostEditor from '../components/posts/addedit/PostEditor.vue'
 import router from '../router/router'
-import { postService } from '@/_services'
-import type { Post } from '@/models/'
+import { postService } from '../_services'
+import type { Post } from '../models/Post.model'
 
 const props = defineProps<{
   uuid: string
 }>()
 
 const data = reactive({
-  post: null as Post,
-  originalPost: null as Post,
+  post: null as Post | null,
+  originalPost: null as Post | null,
   loading: true,
   error: false,
   editable: false,
