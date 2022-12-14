@@ -7,7 +7,7 @@ module.exports = {
          first_name: 'Tommy',
          last_name: 'Moreau',
          email: 'admin@email.com',
-         password: '$2b$10$5jg8SXoUJ2MJ/eYhbk5nqeJZLqtbOy12fAyjjgvN6mF8JJmFpHmeC',
+         password: '$2b$10$HyNxsIAF/EJnRSXxd9MTneFMpWUJkc5BR6GgOwtknKXjoESKOLtH.',
          icon_url: 'default.png',
          role: 'admin',
          createdAt: '2022-08-30 02:18:22.849+02',

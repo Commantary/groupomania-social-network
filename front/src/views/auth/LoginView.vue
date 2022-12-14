@@ -102,4 +102,12 @@ const login = async (event: any) => {
     }
   }
 }
+
+@media (max-width: 768px) {
+  #login-page {
+    img {
+      width: 300px;
+    }
+  }
+}
 </style>

@@ -79,4 +79,24 @@ const updateValue = (event: any) => {
     text-align: center;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .base-input {
+    height: 100px;
+
+    input {
+      height: 40px;
+      width: 300px;
+      font-size: 14px;
+    }
+
+    label {
+      font-size: 12px;
+    }
+
+    p {
+      font-size: 12px;
+    }
+  }
+}
 </style>

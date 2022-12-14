@@ -161,4 +161,12 @@ const focusOut = (type: string) => {
     }
   }
 }
+
+@media (max-width: 768px) {
+  #signup-page {
+    img {
+      width: 300px;
+    }
+  }
+}
 </style>
