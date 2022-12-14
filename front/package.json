@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "vite",
+    "start": "vite preview",
     "build": "vite build",
     "build-error": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
