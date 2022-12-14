@@ -7,7 +7,7 @@
 /front/.yarn
 /front/.vscode
 /front/readme.md
-/front/yarn.lock
+#/front/yarn.lock
 /front/package-lock.json
 /front/.yarnrc.yml
 

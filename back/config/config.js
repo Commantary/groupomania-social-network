@@ -1,3 +1,4 @@
+const fs = require("fs");
 require('dotenv').config();
 
 module.exports = {
@@ -6,7 +7,14 @@ module.exports = {
       "password": process.env.DB_PASSWORD,
       "database": process.env.DB_DATABASE,
       "host": process.env.DB_HOST,
-      "dialect": "postgres"
+      "port": process.env.DB_PORT,
+      "dialect": "postgres",
+      "dialectOptions": {
+         "bigNumberStrings": true,
+         "ssl": {
+            "ca": fs.readFileSync(__dirname + '/ca-certificate.crt').toString()
+         }
+      }
    },
    "test": {
       "username": "root",
@@ -20,6 +28,13 @@ module.exports = {
       "password": process.env.DB_PASSWORD_PROD,
       "database": process.env.DB_DATABASE_PROD,
       "host": process.env.DB_HOST_PROD,
-      "dialect": "postgres"
+      "port": process.env.DB_PORT_PROD,
+      "dialect": "postgres",
+      "dialectOptions": {
+         "bigNumberStrings": true,
+         "ssl": {
+            "ca": fs.readFileSync(__dirname + '/ca-certificate.crt').toString()
+         }
+      }
    }
 };
