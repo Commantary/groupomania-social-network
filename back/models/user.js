@@ -85,10 +85,6 @@ module.exports = (sequelize, DataTypes) => {
          type: DataTypes.STRING,
          defaultValue: 'default.png',
       },
-      socialview: {
-         type: DataTypes.BOOLEAN,
-         defaultValue: true,
-      },
       role: {
          type: DataTypes.ENUM('admin', 'user'),
          defaultValue: 'user',

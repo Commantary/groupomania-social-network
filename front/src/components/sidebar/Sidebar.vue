@@ -196,26 +196,11 @@ function closeSidebar() {
       .sidebar-content {
         display: none;
 
-        &__logo {
-          display: none;
-        }
-
-        &__items-list {
-          display: none;
-        }
-
-        &__items-top {
-          display: none;
-        }
-
-        &__separator {
-          display: none;
-        }
-
-        &__item {
-          display: none;
-        }
-
+        &__items-list,
+        &__logo,
+        &__items-top,
+        &__separator,
+        &__item,
         &__item--active {
           display: none;
         }

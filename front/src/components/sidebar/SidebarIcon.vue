@@ -9,8 +9,6 @@ import { useUsersStore } from '../../store/users.store'
 import Icon from '@/components/common/Icon.vue'
 
 function OpenSidebar() {
-  console.log('OpenSidebar')
-
   useUsersStore().setSidebar(!useUsersStore().getSidebar)
 }
 </script>
