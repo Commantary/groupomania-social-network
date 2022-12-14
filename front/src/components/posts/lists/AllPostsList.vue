@@ -25,8 +25,7 @@
 <script setup lang="ts">
 import { computed, reactive } from 'vue'
 import { usePostsStore } from '../../../store'
-import Post from '@/components/posts/common/Post.vue'
-import LimitedComments from '@/components/posts/lists/LimitedComments.vue'
+import Post from '../../../components/posts/common/Post.vue'
 
 const data = reactive({
   posts: [],

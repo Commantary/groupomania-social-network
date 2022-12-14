@@ -15,7 +15,7 @@
 <script setup lang="ts">
 import { computed, reactive } from 'vue'
 import { useUsersStore } from '../../../store/users.store'
-import InvitationItem from '@/components/users/common/InvitationItem.vue'
+import InvitationItem from '../../../components/users/common/InvitationItem.vue'
 
 const data = reactive({
   loading: true,

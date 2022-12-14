@@ -26,10 +26,10 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { useAuthStore } from '@/store'
-import { commonService } from '@/_services/common.service'
-import Menu from '@/components/posts/common/Menu.vue'
-import ProfilePicture from '@/components/users/common/ProfilePicture.vue'
+import { useAuthStore } from '../../../store'
+import { commonService } from '../../../_services'
+import Menu from '../../../components/posts/common/Menu.vue'
+import ProfilePicture from '../../../components/users/common/ProfilePicture.vue'
 
 const props = defineProps<{
   iconUrl?: string

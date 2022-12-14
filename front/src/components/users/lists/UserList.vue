@@ -22,8 +22,8 @@
 import { reactive } from 'vue'
 import type { User } from '../../../models/User.model'
 import { useUsersStore } from '../../../store/users.store'
-import ProfilePicture from '@/components/users/common/ProfilePicture.vue'
-import Icon from '@/components/common/Icon.vue'
+import ProfilePicture from '../../../components/users/common/ProfilePicture.vue'
+import Icon from '../../../components/common/Icon.vue'
 
 const props = defineProps<{
   friends: User[]

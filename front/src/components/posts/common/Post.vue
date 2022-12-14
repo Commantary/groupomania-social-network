@@ -42,10 +42,10 @@ import { useAuthStore } from '../../../store'
 import { commonService } from '../../../_services'
 import LimitedComments from '../lists/LimitedComments.vue'
 import type { Activity } from '../../../models/Activity.model'
+import SimpleComment from '../../../components/posts/common/SimpleComment.vue'
 import TitlePost from './TitlePost.vue'
 import BasicFooterPost from './FooterPost.vue'
 import BasicImagesPost from './ImagesPost.vue'
-import SimpleComment from '@/components/posts/common/SimpleComment.vue'
 
 const props = defineProps<{
   post: Post

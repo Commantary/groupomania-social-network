@@ -60,10 +60,10 @@ import { commonService } from '../../../_services'
 import Comments from '../lists/Comments.vue'
 import AddComment from '../addedit/AddComment.vue'
 import type { Commentary } from '../../../models/Commentary.model'
-import TitlePost from '@/components/posts/common/TitlePost.vue'
-import EditableImagesPost from '@/components/posts/addedit/common/EditableImagesPost.vue'
-import EditableFooterPost from '@/components/posts/addedit/common/EditableFooterPost.vue'
-import PreviewImageAdded from '@/components/posts/common/PreviewImageAdded.vue'
+import TitlePost from '../../../components/posts/common/TitlePost.vue'
+import EditableImagesPost from '../../../components/posts/addedit/common/EditableImagesPost.vue'
+import EditableFooterPost from '../../../components/posts/addedit/common/EditableFooterPost.vue'
+import PreviewImageAdded from '../../../components/posts/common/PreviewImageAdded.vue'
 
 const props = defineProps<{
   post: Post

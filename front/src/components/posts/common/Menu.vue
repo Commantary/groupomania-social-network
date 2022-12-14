@@ -7,7 +7,7 @@
 <script setup lang="ts">
 import { usePostsStore } from '../../../store'
 import router from '../../../router/router'
-import Menu from '@/components/common/BaseMenu.vue'
+import Menu from '../../../components/common/BaseMenu.vue'
 
 const props = defineProps<{
   isAuth: boolean

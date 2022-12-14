@@ -25,8 +25,8 @@
 <script setup lang="ts">
 import { computed, reactive } from 'vue'
 import { usePostsStore } from '../../../store'
-import Post from '@/components/posts/common/Post.vue'
-import { type Post as PostType } from '@/models/index'
+import Post from '../../../components/posts/common/Post.vue'
+import { type Post as PostType } from '../../../models/Post.model'
 
 const props = defineProps<{
   type: string

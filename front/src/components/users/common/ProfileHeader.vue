@@ -53,7 +53,7 @@ import type { User } from '../../../models/User.model'
 import { useUsersStore } from '../../../store/users.store'
 import { useAuthStore } from '../../../store'
 import type { Invitation } from '../../../models/Invitation.model'
-import ProfilePicture from '@/components/users/common/ProfilePicture.vue'
+import ProfilePicture from '../../../components/users/common/ProfilePicture.vue'
 
 const props = defineProps<{
   user: User

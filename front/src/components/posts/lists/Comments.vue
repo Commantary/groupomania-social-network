@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 import type { Commentary } from '../../../models/Commentary.model'
-import Comment from '@/components/posts/common/Comment.vue'
+import Comment from '../../../components/posts/common/Comment.vue'
 
 const props = defineProps<{
   comments: Commentary[]

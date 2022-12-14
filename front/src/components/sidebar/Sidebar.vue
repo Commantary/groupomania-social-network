@@ -4,7 +4,7 @@
 
     <div class="sidebar-content">
       <div class="sidebar-content__logo">
-        <img src="@/assets/icon-left-font-monochrome-white.svg" alt="logo">
+        <img src="../../assets/icon-left-font-monochrome-white.svg" alt="logo">
       </div>
       <div class="sidebar-content__items-list">
         <div class="sidebar-content__items-top">

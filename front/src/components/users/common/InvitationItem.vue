@@ -25,8 +25,8 @@
 import { computed } from 'vue'
 import type { Invitation } from '../../../models/Invitation.model'
 import { useUsersStore } from '../../../store/users.store'
-import ProfilePicture from '@/components/users/common/ProfilePicture.vue'
-import Icon from '@/components/common/Icon.vue'
+import ProfilePicture from '../../../components/users/common/ProfilePicture.vue'
+import Icon from '../../../components/common/Icon.vue'
 
 const props = defineProps<{
   invitation: Invitation

@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 import { useUsersStore } from '../../store/users.store'
-import Icon from '@/components/common/Icon.vue'
+import Icon from '../../components/common/Icon.vue'
 
 function OpenSidebar() {
   useUsersStore().setSidebar(!useUsersStore().getSidebar)

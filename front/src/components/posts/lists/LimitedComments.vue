@@ -11,8 +11,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { Commentary } from '../../../models/Commentary.model'
-import Comment from '@/components/posts/common/Comment.vue'
-import SimpleComment from '@/components/posts/common/SimpleComment.vue'
+import SimpleComment from '../../../components/posts/common/SimpleComment.vue'
 
 const props = defineProps<{
   comments: Commentary[]

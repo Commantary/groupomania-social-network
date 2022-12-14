@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import EditableImage from '@/components/posts/addedit/common/EditableImage.vue'
+import EditableImage from '../../../components/posts/addedit/common/EditableImage.vue'
 
 const props = defineProps<{
   images?: string[]
