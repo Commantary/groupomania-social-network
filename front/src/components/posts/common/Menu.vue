@@ -8,6 +8,7 @@
 import { usePostsStore } from '../../../store'
 import router from '../../../router/router'
 import Menu from '../../../components/common/BaseMenu.vue'
+import type { MenuItem } from '../../../models/MenuItem.model'
 
 const props = defineProps<{
   isAuth: boolean
@@ -20,7 +21,7 @@ const emit = defineEmits<{
   (event: 'edit'): void
 }>()
 
-const items = []
+const items: MenuItem[] = []
 
 items.push({
   text: 'Partager',
@@ -29,6 +30,7 @@ items.push({
 
     sharePost()
   },
+  id: items.length,
 })
 
 if (props.isAuth) {
@@ -39,6 +41,7 @@ if (props.isAuth) {
 
       deletePost()
     },
+    id: items.length,
   })
 }
 
@@ -50,6 +53,7 @@ if (props.editable) {
 
       emit('edit')
     },
+    id: items.length,
   })
 }
 

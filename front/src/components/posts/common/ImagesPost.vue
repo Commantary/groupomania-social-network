@@ -1,6 +1,6 @@
 <template>
   <div class="images-post" :class="getClassType">
-    <div v-for="image in images" :key="images[image]" class="image-item">
+    <div v-for="image in images" :key="image" class="image-item">
       <!--      <img :src="image" alt="Post image"> -->
       <Image class="image" :src="image" alt="Post image" :viewable="viewable" />
     </div>

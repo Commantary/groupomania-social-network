@@ -1,7 +1,7 @@
 <template>
   <div class="title_post">
     <div class="title_info">
-      <ProfilePicture :size="40" :clickable="true" :uuid="authorUuid" :src="iconUrl" />
+      <ProfilePicture :size="40" :clickable="true" :uuid="authorUuid" :src="iconUrl ?? 'null'" />
       <h2>{{ userName }}</h2>
       <p>{{ getDate }}</p>
       <p>⬤</p>

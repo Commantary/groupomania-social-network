@@ -30,10 +30,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, reactive, ref } from 'vue'
 import type { Post } from '../../../models/Post.model'
 import { useAuthStore, usePostsStore } from '../../../store'
-import router from '../../../router/router'
 import { commonService } from '../../../_services'
 import Comments from '../lists/Comments.vue'
 import AddComment from '../addedit/AddComment.vue'
@@ -50,25 +49,29 @@ const emit = defineEmits<{
   (event: 'edit'): void
 }>()
 
+const data = reactive({
+  post: props.post,
+})
+
 const postComments = ref({
-  comments: props.post.comments as Commentary[],
-  commentsCount: props.post.commentsCount as number,
+  comments: props.post!.comments as Commentary[],
+  commentsCount: props.post!.commentsCount as number,
 })
 
 const getUsername = computed(() => {
-  return commonService.getUsername(props.post.user)
+  return commonService.getUsername(props.post!.user)
 })
 
 const hasLiked = computed(() => {
-  return props.post.likes.some(like => like.user.uuid === useAuthStore().getUser.uuid)
+  return props.post!.likes.some(like => like.user.uuid === useAuthStore().getUser.uuid)
 })
 
 const getUserIcon = computed(() => {
-  return props.post.user.icon_url
+  return props.post!.user.icon_url
 })
 
 function sendComment(value: string) {
-  usePostsStore().sendComment(props.post.uuid, value)
+  usePostsStore().sendComment(props.post!.uuid, value)
     .then((comment: Commentary) => {
       postComments.value.comments.unshift(comment)
       postComments.value.commentsCount++

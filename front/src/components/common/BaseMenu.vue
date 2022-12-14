@@ -11,12 +11,10 @@
 </template>
 
 <script setup lang="ts">
+import type { MenuItem } from '../../models/MenuItem.model'
+
 const props = defineProps<{
-  items: {
-    id: number
-    text: string
-    onClick: (event: Event) => void
-  }[]
+  items: MenuItem[]
 }>()
 </script>
 

@@ -46,12 +46,6 @@ const routes: RouteRecordRaw[] = [
     meta: { requiresAuth: true },
   },
   {
-    path: '/user',
-    name: 'user',
-    component: () => import(/* webpackChunkName: "User" */ '@/views/UserView.vue'),
-    meta: { requiresAuth: true },
-  },
-  {
     path: '/post/:uuid',
     name: 'post',
     component: () => import(/* webpackChunkName: "Post" */ '@/views/Post.vue'),

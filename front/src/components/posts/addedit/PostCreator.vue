@@ -57,7 +57,7 @@ const data = reactive({
   body: '' as string,
 })
 
-const getIconUrl: ViewUser = computed(() => useAuthStore().getUser.icon_url)
+const getIconUrl = computed(() => useAuthStore().getUser.icon_url)
 
 const getUseUuid = computed(() => useAuthStore().getUser.uuid)
 

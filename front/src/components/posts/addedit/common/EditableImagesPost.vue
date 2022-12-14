@@ -1,6 +1,6 @@
 <template>
   <div class="images-post" :class="getClassType">
-    <div v-for="image in images" :key="images[image]" class="image-item">
+    <div v-for="image in images" :key="image" class="image-item">
       <EditableImage class="image" :src="image" alt="Post image" @delete="deleteImage" />
     </div>
   </div>
@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import EditableImage from '../../../components/posts/addedit/common/EditableImage.vue'
+import EditableImage from '../../../../components/posts/addedit/common/EditableImage.vue'
 
 const props = defineProps<{
   images?: string[]
