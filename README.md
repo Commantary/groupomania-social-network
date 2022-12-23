@@ -118,7 +118,7 @@ Email: joe@email.com
 Password: Password123
 ```
 
-For the other users, you can create your own account.
+For the other users, you can create your own account on **URL/signup**
 
 Feel free to test the application and give me your feedback. I will be happy to read it.
 
