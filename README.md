@@ -28,6 +28,9 @@ The project is for the last project of the web developer training at OpenClassro
 
 We have to respect the following criteria in the PDF file: [PDF here](https://course.oc-static.com/projects/DWJ_FR_P7/DW+P7+28-09-2022+Sce%CC%81nario.pdf)
 
+## Live demo
+You can use the live demo here: [Groupomania](https://tommy-moreau.com/)
+
 ## Installation
 
 ### Back-end
