@@ -93,7 +93,7 @@ const getUsername = computed(() => {
 })
 
 const getUserIcon = computed(() => {
-  return import.meta.env.VITE_IMAGE_URL + props.post.user.icon_url
+  return props.post.user.icon_url
 })
 
 function sendComment(value: string) {
