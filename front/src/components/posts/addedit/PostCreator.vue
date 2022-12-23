@@ -47,7 +47,6 @@
 import { computed, reactive } from 'vue'
 import { useAuthStore, useErrorStore, usePostsStore } from '../../../store'
 import PreviewImageAdded from '../common/PreviewImageAdded.vue'
-import type { ViewUser } from '../../../models/ViewUser.model'
 import { postService } from '../../../_services'
 import ProfilePicture from '../../../components/users/common/ProfilePicture.vue'
 

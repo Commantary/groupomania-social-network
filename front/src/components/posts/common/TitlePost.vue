@@ -56,7 +56,7 @@ const getDate = computed(() => {
 })
 
 const isAuthor = computed(() => {
-  return props.authorUuid === useAuthStore().getUser.uuid || useAuthStore.isAdmin
+  return props.authorUuid === useAuthStore().getUser.uuid || useAuthStore().isAdmin
 })
 
 const isOpenMenu = computed(() => {
