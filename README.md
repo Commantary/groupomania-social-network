@@ -95,11 +95,11 @@ yarn dev
 ### Back-end
 A database in postgresql is required. A free example is host on [Digital Ocean](https://www.digitalocean.com/) with the following credentials:
 ```bash
-Host:db-groupomania-prod-do-user-10564772-0.b.db.ondigitalocean.com
-Port:25060
-Username:tommy
-Password:AVNS_XVrAfQE5VpcP7IDl1As
-Database:db-groupomania-dev
+Host:XX
+Port:XX
+Username:XX
+Password:XX
+Database:XX
 ```
 
 You can know use the front end to test the application.
@@ -108,14 +108,14 @@ Or you can use [Postman](https://www.postman.com/) to test the API.
 ### Front-end
 You can login in admin with the following credentials:
 ```bash
-Email: admin@email.com
-Password: $2b$10$5jg8SXoUJ2MJ/eYhbk5nqeJZLqtbOy12fAyjjgvN6mF8JJmFpHmeC
+Email: XX@XX.XX
+Password: XX
 ```
 
 or demo user :
 ```bash
-Email: joe@email.com
-Password: Password123
+Email: XX
+Password: XX
 ```
 
 For the other users, you can create your own account on **URL/signup**
